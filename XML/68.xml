@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<unit xmlns="http://www.srcML.org/srcML/src" xmlns:cpp="http://www.srcML.org/srcML/cpp" revision="1.0.0" language="C++" filename="C:\Users\spaes\Desktop\min\dynamic\68.txt"><cpp:include>#<cpp:directive>include</cpp:directive> <cpp:file>&lt;bits/stdc++.h&gt;</cpp:file></cpp:include>
+
+<cpp:define>#<cpp:directive>define</cpp:directive> <cpp:macro><name>sloop</name><parameter_list>(<parameter><type><name>i</name></type></parameter>, <parameter><type><name>s</name></type></parameter>, <parameter><type><name>x</name></type></parameter>)</parameter_list></cpp:macro> <cpp:value>for (int i = (s); i &lt; (x); i++)</cpp:value></cpp:define>
+<cpp:define>#<cpp:directive>define</cpp:directive> <cpp:macro><name>loop</name><parameter_list>(<parameter><type><name>i</name></type></parameter>, <parameter><type><name>x</name></type></parameter>)</parameter_list></cpp:macro> <cpp:value>sloop(i, 0, x)</cpp:value></cpp:define>
+<cpp:define>#<cpp:directive>define</cpp:directive> <cpp:macro><name>rep</name><parameter_list>(<parameter><type><name>x</name></type></parameter>)</parameter_list></cpp:macro> <cpp:value>loop(COUNTER, x)</cpp:value></cpp:define>
+<cpp:define>#<cpp:directive>define</cpp:directive> <cpp:macro><name>mp</name></cpp:macro> <cpp:value>make_pair</cpp:value></cpp:define>
+<cpp:define>#<cpp:directive>define</cpp:directive> <cpp:macro><name>pb</name></cpp:macro> <cpp:value>push_back</cpp:value></cpp:define>
+<cpp:define>#<cpp:directive>define</cpp:directive> <cpp:macro><name>INF</name></cpp:macro> <cpp:value>((int) 1e9)</cpp:value></cpp:define>
+<cpp:define>#<cpp:directive>define</cpp:directive> <cpp:macro><name>rint</name><parameter_list>(<parameter><type><name>x</name></type></parameter>)</parameter_list></cpp:macro> <cpp:value>scanf("%d", &amp;(x))</cpp:value></cpp:define>
+
+<using>using <namespace>namespace <name>std</name>;</namespace></using>
+<typedef>typedef <type><name>long</name> <name>long</name></type> <name>ll</name>;</typedef>
+<typedef>typedef <type><name><name>pair</name><argument_list type="generic">&lt;<argument><expr><name>int</name></expr></argument>, <argument><expr><name>int</name></expr></argument>&gt;</argument_list></name></type> <name>pi</name>;</typedef>
+
+<decl_stmt><decl><type><name>int</name></type> <name>N</name></decl>, <decl><type ref="prev"/><name>M</name></decl>;</decl_stmt>
+
+<decl_stmt><decl><type><name>ll</name></type> <name><name>freq</name><index>[<expr><literal type="number">100000</literal></expr>]</index></name></decl>;</decl_stmt>
+
+<function><type><name>int</name></type> <name>main</name><parameter_list>()</parameter_list>
+<block>{<block_content>
+	<expr_stmt><expr><name>M</name> <operator>=</operator> <literal type="number">100000</literal></expr>;</expr_stmt>
+
+	<expr_stmt><expr><call><name>rint</name><argument_list>(<argument><expr><name>N</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+	<macro><name>rep</name><argument_list>(<argument>N</argument>)</argument_list></macro>
+	<block>{<block_content>
+		<decl_stmt><decl><type><name>int</name></type> <name>x</name></decl>;</decl_stmt>
+		<expr_stmt><expr><call><name>rint</name><argument_list>(<argument><expr><name>x</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+		<expr_stmt><expr><name><name>freq</name><index>[<expr><name>x</name><operator>-</operator><literal type="number">1</literal></expr>]</index></name><operator>++</operator></expr>;</expr_stmt>
+	</block_content>}</block>
+
+	<decl_stmt><decl><type><name>ll</name></type> <name><name>dp</name><index>[<expr><name>M</name><operator>+</operator><literal type="number">2</literal></expr>]</index><index>[<expr><literal type="number">2</literal></expr>]</index></name></decl>;</decl_stmt>
+	<expr_stmt><expr><name><name>dp</name><index>[<expr><name>M</name></expr>]</index><index>[<expr><literal type="number">0</literal></expr>]</index></name> <operator>=</operator> <name><name>dp</name><index>[<expr><name>M</name><operator>+</operator><literal type="number">1</literal></expr>]</index><index>[<expr><literal type="number">0</literal></expr>]</index></name> <operator>=</operator> <literal type="number">0</literal></expr>;</expr_stmt>
+	<expr_stmt><expr><name><name>dp</name><index>[<expr><name>M</name></expr>]</index><index>[<expr><literal type="number">1</literal></expr>]</index></name> <operator>=</operator> <name><name>dp</name><index>[<expr><name>M</name><operator>+</operator><literal type="number">1</literal></expr>]</index><index>[<expr><literal type="number">1</literal></expr>]</index></name> <operator>=</operator> <literal type="number">0</literal></expr>;</expr_stmt>
+
+	<for>for <control>(<init><decl><type><name>int</name></type> <name>i</name> <init>= <expr><name>M</name><operator>-</operator><literal type="number">1</literal></expr></init></decl>;</init> <condition><expr><name>i</name> <operator>&gt;=</operator> <literal type="number">0</literal></expr>;</condition> <incr><expr><name>i</name><operator>--</operator></expr></incr>)</control>
+	<block>{<block_content>
+		<expr_stmt><expr><name><name>dp</name><index>[<expr><name>i</name></expr>]</index><index>[<expr><literal type="number">0</literal></expr>]</index></name> <operator>=</operator> <call><name>max</name><argument_list>(<argument><expr><name><name>dp</name><index>[<expr><name>i</name><operator>+</operator><literal type="number">1</literal></expr>]</index><index>[<expr><literal type="number">0</literal></expr>]</index></name></expr></argument>, <argument><expr><name><name>dp</name><index>[<expr><name>i</name><operator>+</operator><literal type="number">1</literal></expr>]</index><index>[<expr><literal type="number">1</literal></expr>]</index></name> <operator>+</operator> <name><name>freq</name><index>[<expr><name>i</name></expr>]</index></name> <operator>*</operator> <operator>(</operator><name>i</name><operator>+</operator><literal type="number">1</literal><operator>)</operator></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+		<expr_stmt><expr><name><name>dp</name><index>[<expr><name>i</name></expr>]</index><index>[<expr><literal type="number">1</literal></expr>]</index></name> <operator>=</operator> <name><name>dp</name><index>[<expr><name>i</name><operator>+</operator><literal type="number">1</literal></expr>]</index><index>[<expr><literal type="number">0</literal></expr>]</index></name></expr>;</expr_stmt>
+	</block_content>}</block></for>
+
+	<expr_stmt><expr><call><name>printf</name><argument_list>(<argument><expr><literal type="string">"%I64d\n"</literal></expr></argument>, <argument><expr><name><name>dp</name><index>[<expr><literal type="number">0</literal></expr>]</index><index>[<expr><literal type="number">0</literal></expr>]</index></name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+</block_content>}</block></function></unit>

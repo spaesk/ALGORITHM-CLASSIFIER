@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<unit xmlns="http://www.srcML.org/srcML/src" xmlns:cpp="http://www.srcML.org/srcML/cpp" revision="1.0.0" language="C++" filename="C:\Users\spaes\Desktop\min\dynamic\27.txt"><comment type="line">// Authored by dolphinigle</comment>
+
+<cpp:include>#<cpp:directive>include</cpp:directive> <cpp:file>&lt;vector&gt;</cpp:file></cpp:include>
+<cpp:include>#<cpp:directive>include</cpp:directive> <cpp:file>&lt;list&gt;</cpp:file></cpp:include>
+<cpp:include>#<cpp:directive>include</cpp:directive> <cpp:file>&lt;map&gt;</cpp:file></cpp:include>
+<cpp:include>#<cpp:directive>include</cpp:directive> <cpp:file>&lt;set&gt;</cpp:file></cpp:include>
+
+<cpp:include>#<cpp:directive>include</cpp:directive> <cpp:file>&lt;queue&gt;</cpp:file></cpp:include>
+<cpp:include>#<cpp:directive>include</cpp:directive> <cpp:file>&lt;deque&gt;</cpp:file></cpp:include>
+<cpp:include>#<cpp:directive>include</cpp:directive> <cpp:file>&lt;stack&gt;</cpp:file></cpp:include>
+<cpp:include>#<cpp:directive>include</cpp:directive> <cpp:file>&lt;bitset&gt;</cpp:file></cpp:include>
+<cpp:include>#<cpp:directive>include</cpp:directive> <cpp:file>&lt;algorithm&gt;</cpp:file></cpp:include>
+<cpp:include>#<cpp:directive>include</cpp:directive> <cpp:file>&lt;functional&gt;</cpp:file></cpp:include>
+<cpp:include>#<cpp:directive>include</cpp:directive> <cpp:file>&lt;numeric&gt;</cpp:file></cpp:include>
+<cpp:include>#<cpp:directive>include</cpp:directive> <cpp:file>&lt;utility&gt;</cpp:file></cpp:include>
+<cpp:include>#<cpp:directive>include</cpp:directive> <cpp:file>&lt;sstream&gt;</cpp:file></cpp:include>
+<cpp:include>#<cpp:directive>include</cpp:directive> <cpp:file>&lt;iostream&gt;</cpp:file></cpp:include>
+<cpp:include>#<cpp:directive>include</cpp:directive> <cpp:file>&lt;iomanip&gt;</cpp:file></cpp:include>
+<cpp:include>#<cpp:directive>include</cpp:directive> <cpp:file>&lt;cstdio&gt;</cpp:file></cpp:include>
+<cpp:include>#<cpp:directive>include</cpp:directive> <cpp:file>&lt;cmath&gt;</cpp:file></cpp:include>
+<cpp:include>#<cpp:directive>include</cpp:directive> <cpp:file>&lt;cstdlib&gt;</cpp:file></cpp:include>
+<cpp:include>#<cpp:directive>include</cpp:directive> <cpp:file>&lt;ctime&gt;</cpp:file></cpp:include>
+<cpp:include>#<cpp:directive>include</cpp:directive> <cpp:file>&lt;cstring&gt;</cpp:file></cpp:include>
+<cpp:include>#<cpp:directive>include</cpp:directive> <cpp:file>&lt;cassert&gt;</cpp:file></cpp:include>
+
+<cpp:define>#<cpp:directive>define</cpp:directive> <cpp:macro><name>FORN</name><parameter_list>(<parameter><type><name>X</name></type></parameter>,<parameter><type><name>Y</name></type></parameter>)</parameter_list></cpp:macro> <cpp:value>for (int (X) = 0;(X) &lt; (Y);++(X))</cpp:value></cpp:define>
+<cpp:define>#<cpp:directive>define</cpp:directive> <cpp:macro><name>REP</name><parameter_list>(<parameter><type><name>X</name></type></parameter>,<parameter><type><name>Y</name></type></parameter>,<parameter><type><name>Z</name></type></parameter>)</parameter_list></cpp:macro> <cpp:value>for (int (X) = (Y);(X) &lt; (Z);++(X))</cpp:value></cpp:define>
+
+<cpp:define>#<cpp:directive>define</cpp:directive> <cpp:macro><name>SZ</name><parameter_list>(<parameter><type><name>Z</name></type></parameter>)</parameter_list></cpp:macro> <cpp:value>((int)(Z).size())</cpp:value></cpp:define>
+<cpp:define>#<cpp:directive>define</cpp:directive> <cpp:macro><name>ALL</name><parameter_list>(<parameter><type><name>W</name></type></parameter>)</parameter_list></cpp:macro> <cpp:value>(W).begin(), (W).end()</cpp:value></cpp:define>
+<cpp:define>#<cpp:directive>define</cpp:directive> <cpp:macro><name>PB</name></cpp:macro> <cpp:value>push_back</cpp:value></cpp:define>
+
+<cpp:define>#<cpp:directive>define</cpp:directive> <cpp:macro><name>MP</name></cpp:macro> <cpp:value>make_pair</cpp:value></cpp:define>
+<cpp:define>#<cpp:directive>define</cpp:directive> <cpp:macro><name>A</name></cpp:macro> <cpp:value>first</cpp:value></cpp:define>
+<cpp:define>#<cpp:directive>define</cpp:directive> <cpp:macro><name>B</name></cpp:macro> <cpp:value>second</cpp:value></cpp:define>
+
+<cpp:define>#<cpp:directive>define</cpp:directive> <cpp:macro><name>INF</name></cpp:macro> <cpp:value>1023123123</cpp:value></cpp:define>
+<cpp:define>#<cpp:directive>define</cpp:directive> <cpp:macro><name>EPS</name></cpp:macro> <cpp:value>1e-11</cpp:value></cpp:define>
+
+<cpp:define>#<cpp:directive>define</cpp:directive> <cpp:macro><name>MX</name><parameter_list>(<parameter><type><name>Z</name></type></parameter>,<parameter><type><name>Y</name></type></parameter>)</parameter_list></cpp:macro> <cpp:value>Z = max((Z),(Y))</cpp:value></cpp:define>
+<cpp:define>#<cpp:directive>define</cpp:directive> <cpp:macro><name>MN</name><parameter_list>(<parameter><type><name>X</name></type></parameter>,<parameter><type><name>Y</name></type></parameter>)</parameter_list></cpp:macro> <cpp:value>X = min((X),(Y))</cpp:value></cpp:define>
+
+<using>using <namespace>namespace <name>std</name>;</namespace></using>
+
+<typedef>typedef <type><name>long</name> <name>long</name></type> <name>ll</name>;</typedef>
+<typedef>typedef <type><name>double</name></type> <name>db</name>;</typedef>
+<typedef>typedef <type><name><name>vector</name><argument_list type="generic">&lt;<argument><expr><name>int</name></expr></argument>&gt;</argument_list></name></type> <name>vint</name>;</typedef>
+
+<decl_stmt><decl><type><name>ll</name></type> <name><name>dp</name><index>[<expr><literal type="number">102040</literal></expr>]</index></name></decl>;</decl_stmt>
+<decl_stmt><decl><type><name>ll</name></type> <name><name>cnt</name><index>[<expr><literal type="number">102040</literal></expr>]</index></name></decl>;</decl_stmt>
+
+<function><type><name>ll</name></type> <name>Solve</name><parameter_list>(<parameter><decl><type><name>int</name></type> <name>a</name></decl></parameter>)</parameter_list> <block>{<block_content>
+  <if_stmt><if>if <condition>(<expr><name><name>dp</name><index>[<expr><name>a</name></expr>]</index></name> <operator>!=</operator> <operator>-</operator><literal type="number">1LL</literal></expr>)</condition><block type="pseudo"><block_content> <return>return <expr><name><name>dp</name><index>[<expr><name>a</name></expr>]</index></name></expr>;</return></block_content></block></if></if_stmt>
+  <if_stmt><if>if <condition>(<expr><name>a</name> <operator>&gt;</operator> <literal type="number">100000</literal></expr>)</condition><block type="pseudo"><block_content> <return>return <expr><literal type="number">0LL</literal></expr>;</return></block_content></block></if></if_stmt>
+  <return>return <expr><name><name>dp</name><index>[<expr><name>a</name></expr>]</index></name> <operator>=</operator> <call><name>max</name><argument_list>(<argument><expr><call><name>Solve</name><argument_list>(<argument><expr><name>a</name><operator>+</operator><literal type="number">1</literal></expr></argument>)</argument_list></call></expr></argument>, <argument><expr><call><name>Solve</name><argument_list>(<argument><expr><name>a</name><operator>+</operator><literal type="number">2</literal></expr></argument>)</argument_list></call> <operator>+</operator> <operator>(</operator><name>ll</name><operator>)</operator><name>a</name> <operator>*</operator> <name><name>cnt</name><index>[<expr><name>a</name></expr>]</index></name></expr></argument>)</argument_list></call></expr>;</return>
+</block_content>}</block></function>
+
+<function><type><name>int</name></type> <name>main</name><parameter_list>()</parameter_list> <block>{<block_content>
+  <macro><name>FORN</name><argument_list>(<argument>i</argument>, <argument><literal type="number">102040</literal></argument>)</argument_list></macro> <expr_stmt><expr><name><name>dp</name><index>[<expr><name>i</name></expr>]</index></name> <operator>=</operator> <operator>-</operator><literal type="number">1LL</literal></expr>;</expr_stmt>
+  <decl_stmt><decl><type><name>int</name></type> <name>n</name></decl>;</decl_stmt>
+  <expr_stmt><expr><name>cin</name> <operator>&gt;&gt;</operator> <name>n</name></expr>;</expr_stmt>
+  <macro><name>FORN</name><argument_list>(<argument>i</argument>, <argument>n</argument>)</argument_list></macro> <block>{<block_content>
+    <decl_stmt><decl><type><name>int</name></type> <name>x</name></decl>;</decl_stmt>
+    <expr_stmt><expr><name>cin</name> <operator>&gt;&gt;</operator> <name>x</name></expr>;</expr_stmt>
+    <expr_stmt><expr><name><name>cnt</name><index>[<expr><name>x</name></expr>]</index></name> <operator>+=</operator> <literal type="number">1</literal></expr>;</expr_stmt>
+  </block_content>}</block>
+  <expr_stmt><expr><name>cout</name> <operator>&lt;&lt;</operator> <call><name>Solve</name><argument_list>(<argument><expr><literal type="number">0</literal></expr></argument>)</argument_list></call> <operator>&lt;&lt;</operator> <name>endl</name></expr>;</expr_stmt>
+</block_content>}</block></function>
+
+</unit>

@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<unit xmlns="http://www.srcML.org/srcML/src" xmlns:cpp="http://www.srcML.org/srcML/cpp" revision="1.0.0" language="C++" filename="C:\Users\spaes\Desktop\min\dynamic\79.txt"><cpp:include>#<cpp:directive>include</cpp:directive> <cpp:file>&lt;bits/stdc++.h&gt;</cpp:file></cpp:include>
+<using>using <namespace>namespace <name>std</name>;</namespace></using>
+<cpp:define>#<cpp:directive>define</cpp:directive> <cpp:macro><name>INF</name></cpp:macro> <cpp:value>int(1e9+1)</cpp:value></cpp:define>
+<cpp:define>#<cpp:directive>define</cpp:directive> <cpp:macro><name>INFL</name></cpp:macro> <cpp:value>ll(2e18+INF)</cpp:value></cpp:define>
+<cpp:define>#<cpp:directive>define</cpp:directive> <cpp:macro><name>sz</name><parameter_list>(<parameter><type><name>x</name></type></parameter>)</parameter_list></cpp:macro> <cpp:value>((int) (x).size())</cpp:value></cpp:define>
+<typedef>typedef <type><name>long</name> <name>long</name></type> <name>ll</name>;</typedef>
+<typedef>typedef <type><name>long</name> <name>double</name></type> <name>ld</name>;</typedef>
+<typedef>typedef <type><name><name>complex</name> <argument_list type="generic">&lt;<argument><expr><name>ld</name></expr></argument>&gt;</argument_list></name></type> <name>point</name>;</typedef>
+<function_decl><type><name>void</name></type> <name>solve</name><parameter_list>()</parameter_list>;</function_decl>
+
+<cpp:define>#<cpp:directive>define</cpp:directive> <cpp:macro><name>NAME</name></cpp:macro> <cpp:value>"a"</cpp:value></cpp:define>
+<cpp:define>#<cpp:directive>define</cpp:directive> <cpp:macro><name>LOCAL_INPUT</name></cpp:macro> <cpp:value>NAME ".in"</cpp:value></cpp:define>
+<comment type="line">//~ #define LOCAL_OUTPUT NAME ".out"</comment>
+<comment type="line">//~ #define INPUT NAME ".in"</comment>
+<comment type="line">//~ #define OUTPUT NAME ".out"</comment>
+
+<function><type><name>int</name></type> <name>main</name><parameter_list>()</parameter_list> <block>{<block_content>
+	<expr_stmt><expr><call><name>srand</name><argument_list>(<argument><expr><call><name>time</name><argument_list>(<argument><expr><literal type="number">0</literal></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+	<expr_stmt><expr><call><name><name>cout</name><operator>.</operator><name>setf</name></name><argument_list>(<argument><expr><name><name>ios</name><operator>::</operator><name>fixed</name></name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+	<expr_stmt><expr><call><name><name>cout</name><operator>.</operator><name>precision</name></name><argument_list>(<argument><expr><literal type="number">10</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+	<cpp:ifdef>#<cpp:directive>ifdef</cpp:directive> <name>_GEANY</name></cpp:ifdef>
+		<decl_stmt><decl><type><name>clock_t</name></type> <name>start</name> <init>= <expr><call><name>clock</name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+		<cpp:ifdef>#<cpp:directive>ifdef</cpp:directive> <name>LOCAL_INPUT</name></cpp:ifdef>
+			<expr_stmt><expr><call><name>assert</name><argument_list>(<argument><expr><call><name>freopen</name><argument_list>(<argument><expr><name>LOCAL_INPUT</name></expr></argument>, <argument><expr><literal type="string">"r"</literal></expr></argument>, <argument><expr><name>stdin</name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+		<cpp:endif>#<cpp:directive>endif</cpp:directive></cpp:endif>
+		<cpp:ifdef>#<cpp:directive>ifdef</cpp:directive> <name>LOCAL_OUTPUT</name></cpp:ifdef>
+			<expr_stmt><expr><call><name>assert</name><argument_list>(<argument><expr><call><name>freopen</name><argument_list>(<argument><expr><name>LOCAL_OUTPUT</name></expr></argument>, <argument><expr><literal type="string">"w"</literal></expr></argument>, <argument><expr><name>stdout</name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+		<cpp:endif>#<cpp:directive>endif</cpp:directive></cpp:endif>
+	<cpp:else>#<cpp:directive>else</cpp:directive></cpp:else>
+		<cpp:ifdef>#<cpp:directive>ifdef</cpp:directive> <name>INPUT</name></cpp:ifdef>
+			<expr_stmt><expr><call><name>assert</name><argument_list>(<argument><expr><call><name>freopen</name><argument_list>(<argument><expr><name>INPUT</name></expr></argument>, <argument><expr><literal type="string">"r"</literal></expr></argument>, <argument><expr><name>stdin</name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+		<cpp:endif>#<cpp:directive>endif</cpp:directive></cpp:endif>
+		<cpp:ifdef>#<cpp:directive>ifdef</cpp:directive> <name>OUTPUT</name></cpp:ifdef>
+			<expr_stmt><expr><call><name>assert</name><argument_list>(<argument><expr><call><name>freopen</name><argument_list>(<argument><expr><name>OUTPUT</name></expr></argument>, <argument><expr><literal type="string">"w"</literal></expr></argument>, <argument><expr><name>stdout</name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+		<cpp:endif>#<cpp:directive>endif</cpp:directive></cpp:endif>
+	<cpp:endif>#<cpp:directive>endif</cpp:directive></cpp:endif>
+	<decl_stmt><decl><type><name>int</name></type> <name>tn</name> <init>= <expr><literal type="number">1</literal></expr></init></decl>;</decl_stmt>
+	<for>for <control>(<init><decl><type><name>int</name></type> <name>i</name> <init>= <expr><literal type="number">0</literal></expr></init></decl>;</init> <condition><expr><name>i</name> <operator>&lt;</operator> <name>tn</name></expr>;</condition> <incr><expr><operator>++</operator><name>i</name></expr></incr>)</control><block type="pseudo"><block_content>
+		<expr_stmt><expr><call><name>solve</name><argument_list>()</argument_list></call></expr>;</expr_stmt></block_content></block></for>
+	<cpp:ifdef>#<cpp:directive>ifdef</cpp:directive> <name>_GEANY</name></cpp:ifdef>
+		<expr_stmt><expr><call><name>fprintf</name><argument_list>(<argument><expr><name>stderr</name></expr></argument>, <argument><expr><literal type="string">"Time: %.3fs\n"</literal></expr></argument>, <argument><expr><call><name>double</name><argument_list>(<argument><expr><call><name>clock</name><argument_list>()</argument_list></call> <operator>-</operator> <name>start</name></expr></argument>)</argument_list></call> <operator>/</operator> <name>CLOCKS_PER_SEC</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+	<cpp:endif>#<cpp:directive>endif</cpp:directive></cpp:endif>
+</block_content>}</block></function>
+
+<decl_stmt><decl><type><name>ll</name></type> <name><name>d</name><index>[<expr><literal type="number">100005</literal></expr>]</index><index>[<expr><literal type="number">2</literal></expr>]</index></name></decl>;</decl_stmt>
+<decl_stmt><decl><type><name>ll</name></type> <name><name>cnt</name><index>[<expr><literal type="number">100005</literal></expr>]</index></name></decl>;</decl_stmt>
+
+<function><type><name>void</name></type> <name>solve</name><parameter_list>()</parameter_list> <block>{<block_content>
+	<decl_stmt><decl><type><name>int</name></type> <name>n</name></decl>;</decl_stmt>
+	<expr_stmt><expr><name>cin</name> <operator>&gt;&gt;</operator> <name>n</name></expr>;</expr_stmt>
+	<for>for <control>(<init><decl><type><name>int</name></type> <name>i</name> <init>= <expr><literal type="number">0</literal></expr></init></decl>;</init> <condition><expr><name>i</name> <operator>&lt;</operator> <name>n</name></expr>;</condition> <incr><expr><operator>++</operator><name>i</name></expr></incr>)</control> <block>{<block_content>
+		<decl_stmt><decl><type><name>int</name></type> <name>t</name></decl>;</decl_stmt>
+		<expr_stmt><expr><name>cin</name> <operator>&gt;&gt;</operator> <name>t</name></expr>;</expr_stmt>
+		<expr_stmt><expr><name><name>cnt</name><index>[<expr><name>t</name></expr>]</index></name><operator>++</operator></expr>;</expr_stmt>
+	</block_content>}</block></for>
+	<for>for <control>(<init><decl><type><name>int</name></type> <name>i</name> <init>= <expr><literal type="number">1</literal></expr></init></decl>;</init> <condition><expr><name>i</name> <operator>&lt;=</operator> <literal type="number">100001</literal></expr>;</condition> <incr><expr><operator>++</operator><name>i</name></expr></incr>)</control> <block>{<block_content>
+		<expr_stmt><expr><name><name>d</name><index>[<expr><name>i</name></expr>]</index><index>[<expr><literal type="number">1</literal></expr>]</index></name> <operator>=</operator> <name><name>d</name><index>[<expr><name>i</name> <operator>-</operator> <literal type="number">1</literal></expr>]</index><index>[<expr><literal type="number">0</literal></expr>]</index></name> <operator>+</operator> <name><name>cnt</name><index>[<expr><name>i</name></expr>]</index></name> <operator>*</operator> <name>i</name></expr>;</expr_stmt>
+		<expr_stmt><expr><name><name>d</name><index>[<expr><name>i</name></expr>]</index><index>[<expr><literal type="number">0</literal></expr>]</index></name> <operator>=</operator> <call><name>max</name><argument_list>(<argument><expr><name><name>d</name><index>[<expr><name>i</name> <operator>-</operator> <literal type="number">1</literal></expr>]</index><index>[<expr><literal type="number">0</literal></expr>]</index></name></expr></argument>, <argument><expr><name><name>d</name><index>[<expr><name>i</name> <operator>-</operator> <literal type="number">1</literal></expr>]</index><index>[<expr><literal type="number">1</literal></expr>]</index></name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+	</block_content>}</block></for>
+	<expr_stmt><expr><name>cout</name> <operator>&lt;&lt;</operator> <name><name>d</name><index>[<expr><literal type="number">100001</literal></expr>]</index><index>[<expr><literal type="number">0</literal></expr>]</index></name> <operator>&lt;&lt;</operator> <literal type="char">'\n'</literal></expr>;</expr_stmt>
+</block_content>}</block></function>
+</unit>

@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<unit xmlns="http://www.srcML.org/srcML/src" xmlns:cpp="http://www.srcML.org/srcML/cpp" revision="1.0.0" language="C++" filename="C:\Users\spaes\Desktop\min\dynamic\91.txt"><cpp:include>#<cpp:directive>include</cpp:directive> <cpp:file>&lt;cstdio&gt;</cpp:file></cpp:include>
+<cpp:include>#<cpp:directive>include</cpp:directive> <cpp:file>&lt;iostream&gt;</cpp:file></cpp:include>
+<cpp:include>#<cpp:directive>include</cpp:directive> <cpp:file>&lt;algorithm&gt;</cpp:file></cpp:include>
+<cpp:include>#<cpp:directive>include</cpp:directive> <cpp:file>&lt;set&gt;</cpp:file></cpp:include>
+<cpp:include>#<cpp:directive>include</cpp:directive> <cpp:file>&lt;map&gt;</cpp:file></cpp:include>
+<cpp:include>#<cpp:directive>include</cpp:directive> <cpp:file>&lt;stack&gt;</cpp:file></cpp:include>
+<cpp:include>#<cpp:directive>include</cpp:directive> <cpp:file>&lt;list&gt;</cpp:file></cpp:include>
+<cpp:include>#<cpp:directive>include</cpp:directive> <cpp:file>&lt;queue&gt;</cpp:file></cpp:include>
+<cpp:include>#<cpp:directive>include</cpp:directive> <cpp:file>&lt;deque&gt;</cpp:file></cpp:include>
+<cpp:include>#<cpp:directive>include</cpp:directive> <cpp:file>&lt;cctype&gt;</cpp:file></cpp:include>
+<cpp:include>#<cpp:directive>include</cpp:directive> <cpp:file>&lt;string&gt;</cpp:file></cpp:include>
+<cpp:include>#<cpp:directive>include</cpp:directive> <cpp:file>&lt;vector&gt;</cpp:file></cpp:include>
+<cpp:include>#<cpp:directive>include</cpp:directive> <cpp:file>&lt;sstream&gt;</cpp:file></cpp:include>
+<cpp:include>#<cpp:directive>include</cpp:directive> <cpp:file>&lt;iterator&gt;</cpp:file></cpp:include>
+<cpp:include>#<cpp:directive>include</cpp:directive> <cpp:file>&lt;numeric&gt;</cpp:file></cpp:include>
+<cpp:include>#<cpp:directive>include</cpp:directive> <cpp:file>&lt;cmath&gt;</cpp:file></cpp:include>
+<using>using <namespace>namespace <name>std</name>;</namespace></using>
+
+<typedef>typedef <type><name><name>vector</name> <argument_list type="generic">&lt;<argument><expr><name>int</name></expr></argument> &gt;</argument_list></name></type> <name>VI</name>;</typedef>
+<typedef>typedef <type><name><name>vector</name> <argument_list type="generic">&lt; <argument><expr><name>VI</name></expr></argument> &gt;</argument_list></name></type> <name>VVI</name>;</typedef>
+<typedef>typedef <type><name>long</name> <name>long</name></type> <name>LL</name>;</typedef>
+<typedef>typedef <type><name><name>vector</name> <argument_list type="generic">&lt; <argument><expr><name>LL</name></expr></argument> &gt;</argument_list></name></type> <name>VLL</name>;</typedef>
+<typedef>typedef <type><name><name>vector</name> <argument_list type="generic">&lt; <argument><expr><name>double</name></expr></argument> &gt;</argument_list></name></type> <name>VD</name>;</typedef>
+<typedef>typedef <type><name><name>vector</name> <argument_list type="generic">&lt; <argument><expr><name>string</name></expr></argument> &gt;</argument_list></name></type> <name>VS</name>;</typedef>
+<typedef>typedef <type><name><name>pair</name><argument_list type="generic">&lt;<argument><expr><name>int</name></expr></argument>,<argument><expr><name>int</name></expr></argument>&gt;</argument_list></name></type> <name>PII</name>;</typedef>
+<typedef>typedef <type><name><name>vector</name> <argument_list type="generic">&lt;<argument><expr><name>PII</name></expr></argument>&gt;</argument_list></name></type> <name>VPII</name>;</typedef>
+<typedef>typedef <type><name>istringstream</name></type> <name>ISS</name>;</typedef>
+
+<cpp:define>#<cpp:directive>define</cpp:directive> <cpp:macro><name>ALL</name><parameter_list>(<parameter><type><name>x</name></type></parameter>)</parameter_list></cpp:macro> <cpp:value>x.begin(),x.end()</cpp:value></cpp:define>
+<cpp:define>#<cpp:directive>define</cpp:directive> <cpp:macro><name>REP</name><parameter_list>(<parameter><type><name>i</name></type></parameter>,<parameter><type><name>n</name></type></parameter>)</parameter_list></cpp:macro> <cpp:value>for (int i=0; i&lt;(n); ++i)</cpp:value></cpp:define>
+<cpp:define>#<cpp:directive>define</cpp:directive> <cpp:macro><name>FOR</name><parameter_list>(<parameter><type><name>var</name></type></parameter>,<parameter><type><name>pocz</name></type></parameter>,<parameter><type><name>koniec</name></type></parameter>)</parameter_list></cpp:macro> <cpp:value>for (int var=(pocz); var&lt;=(koniec); ++var)</cpp:value></cpp:define>
+<cpp:define>#<cpp:directive>define</cpp:directive> <cpp:macro><name>FORD</name><parameter_list>(<parameter><type><name>var</name></type></parameter>,<parameter><type><name>pocz</name></type></parameter>,<parameter><type><name>koniec</name></type></parameter>)</parameter_list></cpp:macro> <cpp:value>for (int var=(pocz); var&gt;=(koniec); --var)</cpp:value></cpp:define>
+<cpp:define>#<cpp:directive>define</cpp:directive> <cpp:macro><name>FOREACH</name><parameter_list>(<parameter><type><name>it</name></type></parameter>, <parameter><type><name>X</name></type></parameter>)</parameter_list></cpp:macro> <cpp:value>for(__typeof((X).begin()) it = (X).begin(); it != (X).end(); ++it)</cpp:value></cpp:define>
+<cpp:define>#<cpp:directive>define</cpp:directive> <cpp:macro><name>PB</name></cpp:macro> <cpp:value>push_back</cpp:value></cpp:define>
+<cpp:define>#<cpp:directive>define</cpp:directive> <cpp:macro><name>PF</name></cpp:macro> <cpp:value>push_front</cpp:value></cpp:define>
+<cpp:define>#<cpp:directive>define</cpp:directive> <cpp:macro><name>MP</name><parameter_list>(<parameter><type><name>a</name></type></parameter>,<parameter><type><name>b</name></type></parameter>)</parameter_list></cpp:macro> <cpp:value>make_pair(a,b)</cpp:value></cpp:define>
+<cpp:define>#<cpp:directive>define</cpp:directive> <cpp:macro><name>ST</name></cpp:macro> <cpp:value>first</cpp:value></cpp:define>
+<cpp:define>#<cpp:directive>define</cpp:directive> <cpp:macro><name>ND</name></cpp:macro> <cpp:value>second</cpp:value></cpp:define>
+<cpp:define>#<cpp:directive>define</cpp:directive> <cpp:macro><name>SIZE</name><parameter_list>(<parameter><type><name>x</name></type></parameter>)</parameter_list></cpp:macro> <cpp:value>(int)x.size()</cpp:value></cpp:define>
+
+<decl_stmt><decl><type><specifier>const</specifier> <name>int</name></type> <name>N</name> <init>= <expr><literal type="number">110</literal> <operator>*</operator> <literal type="number">1010</literal></expr></init></decl>;</decl_stmt>
+<decl_stmt><decl><type><name>int</name></type> <name><name>t</name><index>[<expr><name>N</name></expr>]</index></name></decl>;</decl_stmt>
+
+<decl_stmt><decl><type><name>LL</name></type> <name><name>z</name><index>[<expr><name>N</name></expr>]</index></name></decl>;</decl_stmt>
+<decl_stmt><decl><type><name>LL</name></type> <name><name>bez</name><index>[<expr><name>N</name></expr>]</index></name></decl>;</decl_stmt>
+
+<function><type><name>int</name></type> <name>main</name><parameter_list>()</parameter_list><block>{<block_content>
+  <decl_stmt><decl><type><name>int</name></type> <name>n</name></decl>;</decl_stmt>
+  <expr_stmt><expr><call><name>scanf</name><argument_list>(<argument><expr><literal type="string">"%d"</literal></expr></argument>,<argument><expr><operator>&amp;</operator><name>n</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+  <macro><name>REP</name><argument_list>(<argument>i</argument>,<argument>n</argument>)</argument_list></macro> <block>{<block_content>
+    <decl_stmt><decl><type><name>int</name></type> <name>x</name></decl>;</decl_stmt>
+    <expr_stmt><expr><call><name>scanf</name><argument_list>(<argument><expr><literal type="string">"%d"</literal></expr></argument>,<argument><expr><operator>&amp;</operator><name>x</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    <expr_stmt><expr><name><name>t</name><index>[<expr><name>x</name></expr>]</index></name><operator>++</operator></expr>;</expr_stmt>
+  </block_content>}</block>
+  <macro><name>FOR</name><argument_list>(<argument>i</argument>,<argument><literal type="number">1</literal></argument>,<argument>N-<literal type="number">1</literal></argument>)</argument_list></macro> <block>{<block_content>
+    <expr_stmt><expr><name><name>z</name><index>[<expr><name>i</name></expr>]</index></name> <operator>=</operator> <name><name>bez</name><index>[<expr><name>i</name><operator>-</operator><literal type="number">1</literal></expr>]</index></name> <operator>+</operator> <operator>(</operator><name>LL</name><operator>)</operator><name>i</name> <operator>*</operator> <operator>(</operator><name>LL</name><operator>)</operator><name><name>t</name><index>[<expr><name>i</name></expr>]</index></name></expr>;</expr_stmt>
+    <expr_stmt><expr><name><name>bez</name><index>[<expr><name>i</name></expr>]</index></name> <operator>=</operator> <call><name>max</name><argument_list>(<argument><expr><name><name>bez</name><index>[<expr><name>i</name><operator>-</operator><literal type="number">1</literal></expr>]</index></name></expr></argument>, <argument><expr><name><name>z</name><index>[<expr><name>i</name><operator>-</operator><literal type="number">1</literal></expr>]</index></name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+  </block_content>}</block>
+  <decl_stmt><decl><type><name>LL</name></type> <name>res</name> <init>= <expr><literal type="number">0</literal></expr></init></decl>;</decl_stmt>
+  <expr_stmt><expr><name>res</name> <operator>=</operator> <call><name>max</name><argument_list>(<argument><expr><name><name>z</name><index>[<expr><name>N</name><operator>-</operator><literal type="number">1</literal></expr>]</index></name></expr></argument>,<argument><expr><name><name>bez</name><index>[<expr><name>N</name><operator>-</operator><literal type="number">1</literal></expr>]</index></name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+  <expr_stmt><expr><name>cout</name> <operator>&lt;&lt;</operator> <name>res</name> <operator>&lt;&lt;</operator> <name>endl</name></expr>;</expr_stmt>
+  <return>return <expr><literal type="number">0</literal></expr>;</return>
+</block_content>}</block></function>
+</unit>

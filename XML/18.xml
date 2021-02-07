@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<unit xmlns="http://www.srcML.org/srcML/src" xmlns:cpp="http://www.srcML.org/srcML/cpp" revision="1.0.0" language="C++" filename="C:\Users\spaes\Desktop\min\dynamic\18.txt"><cpp:include>#<cpp:directive>include</cpp:directive> <cpp:file>&lt;stdio.h&gt;</cpp:file></cpp:include>
+<cpp:include>#<cpp:directive>include</cpp:directive> <cpp:file>&lt;algorithm&gt;</cpp:file></cpp:include>
+<cpp:include>#<cpp:directive>include</cpp:directive> <cpp:file>&lt;vector&gt;</cpp:file></cpp:include>
+<cpp:include>#<cpp:directive>include</cpp:directive> <cpp:file>&lt;stack&gt;</cpp:file></cpp:include>
+<cpp:include>#<cpp:directive>include</cpp:directive> <cpp:file>&lt;queue&gt;</cpp:file></cpp:include>
+<cpp:include>#<cpp:directive>include</cpp:directive> <cpp:file>&lt;string.h&gt;</cpp:file></cpp:include>
+<cpp:include>#<cpp:directive>include</cpp:directive> <cpp:file>&lt;set&gt;</cpp:file></cpp:include>
+<cpp:include>#<cpp:directive>include</cpp:directive> <cpp:file>&lt;map&gt;</cpp:file></cpp:include>
+<cpp:define>#<cpp:directive>define</cpp:directive> <cpp:macro><name>MP</name></cpp:macro> <cpp:value>make_pair</cpp:value></cpp:define>
+<cpp:define>#<cpp:directive>define</cpp:directive> <cpp:macro><name>FF</name></cpp:macro> <cpp:value>first.first</cpp:value></cpp:define>
+<cpp:define>#<cpp:directive>define</cpp:directive> <cpp:macro><name>FS</name></cpp:macro> <cpp:value>first.second</cpp:value></cpp:define>
+<cpp:define>#<cpp:directive>define</cpp:directive> <cpp:macro><name>SF</name></cpp:macro> <cpp:value>second.first</cpp:value></cpp:define>
+<cpp:define>#<cpp:directive>define</cpp:directive> <cpp:macro><name>SS</name></cpp:macro> <cpp:value>second.second</cpp:value></cpp:define>
+<cpp:define>#<cpp:directive>define</cpp:directive> <cpp:macro><name>ALL</name><parameter_list>(<parameter><type><name>container</name></type></parameter>)</parameter_list></cpp:macro> <cpp:value>(container).begin(), (container).end()</cpp:value></cpp:define>
+<cpp:define>#<cpp:directive>define</cpp:directive> <cpp:macro><name>FORI</name><parameter_list>(<parameter><type><name>i</name></type></parameter>,<parameter><type><name>from</name></type></parameter>,<parameter><type><name>to</name></type></parameter>)</parameter_list></cpp:macro> <cpp:value>for(int i = (from); i &lt;= (to); i++)</cpp:value></cpp:define>
+<cpp:define>#<cpp:directive>define</cpp:directive> <cpp:macro><name>FORD</name><parameter_list>(<parameter><type><name>i</name></type></parameter>,<parameter><type><name>from</name></type></parameter>,<parameter><type><name>to</name></type></parameter>)</parameter_list></cpp:macro> <cpp:value>for(int i = (from); i &gt;= (to); i--)</cpp:value></cpp:define>
+<cpp:define>#<cpp:directive>define</cpp:directive> <cpp:macro><name>REP</name><parameter_list>(<parameter><type><name>i</name></type></parameter>,<parameter><type><name>num</name></type></parameter>)</parameter_list></cpp:macro> <cpp:value>for(int i = 0; i &lt; (num); i++)</cpp:value></cpp:define>
+
+
+<using>using <namespace>namespace <name>std</name>;</namespace></using>
+
+<typedef>typedef <type><name>long</name> <name>long</name></type> <name>LL</name>;</typedef>
+<typedef>typedef <type><name>long</name> <name>double</name></type> <name>LD</name>;</typedef>
+<typedef>typedef <type><name><name>vector</name><argument_list type="generic">&lt;<argument><expr><name>int</name></expr></argument>&gt;</argument_list></name></type> <name>VI</name>;</typedef>
+<typedef>typedef <type><name><name>pair</name><argument_list type="generic">&lt;<argument><expr><name>int</name></expr></argument>,<argument><expr><name>int</name></expr></argument>&gt;</argument_list></name></type> <name>PII</name>;</typedef>
+<decl_stmt><decl><type><specifier>const</specifier> <name>LD</name></type> <name>Eps</name> <init>= <expr><literal type="number">1e-8</literal></expr></init></decl>;</decl_stmt>
+<function><type><specifier>inline</specifier> <name>bool</name></type> <name>is_zero</name><parameter_list>(<parameter><decl><type><name>LD</name></type> <name>x</name></decl></parameter>)</parameter_list><block>{<block_content> <return>return <expr><operator>(</operator><name>x</name> <operator>&gt;=</operator> <operator>-</operator><name>Eps</name><operator>)</operator> <operator>&amp;&amp;</operator> <operator>(</operator><name>x</name> <operator>&lt;=</operator> <name>Eps</name><operator>)</operator></expr>;</return> </block_content>}</block></function>
+
+
+<decl_stmt><decl><type><specifier>const</specifier> <name>int</name></type> <name>MaxVal</name> <init>= <expr><literal type="number">100005</literal></expr></init></decl>;</decl_stmt>
+
+<decl_stmt><decl><type><name>int</name></type> <name><name>countNum</name><index>[<expr><name>MaxVal</name></expr>]</index></name></decl>;</decl_stmt>
+<decl_stmt><decl><type><name>LL</name></type> <name><name>dpRes</name><index>[<expr><name>MaxVal</name></expr>]</index></name></decl>;</decl_stmt>
+<decl_stmt><decl><type><name>int</name></type> <name>N</name></decl>;</decl_stmt>
+
+<function><type><name>void</name></type> <name>input</name><parameter_list>()</parameter_list><block>{<block_content>
+	<expr_stmt><expr><call><name>scanf</name><argument_list>(<argument><expr><literal type="string">"%d"</literal></expr></argument>, <argument><expr><operator>&amp;</operator><name>N</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+	<macro><name>REP</name><argument_list>(<argument>i</argument>, <argument>N</argument>)</argument_list></macro><block>{<block_content>
+		<decl_stmt><decl><type><name>int</name></type> <name>a</name></decl>;</decl_stmt>
+		<expr_stmt><expr><call><name>scanf</name><argument_list>(<argument><expr><literal type="string">"%d"</literal></expr></argument>, <argument><expr><operator>&amp;</operator><name>a</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+		<expr_stmt><expr><name><name>countNum</name><index>[<expr><name>a</name></expr>]</index></name><operator>++</operator></expr>;</expr_stmt>
+	</block_content>}</block>
+</block_content>}</block></function>
+
+
+
+<function><type><name>int</name></type> <name>main</name><parameter_list>()</parameter_list><block>{<block_content>
+	<expr_stmt><expr><call><name>input</name><argument_list>()</argument_list></call></expr>;</expr_stmt>
+	
+	<macro><name>REP</name><argument_list>(<argument>val</argument>, <argument>MaxVal</argument>)</argument_list></macro><block>{<block_content>
+		<if_stmt><if>if<condition>(<expr><name>val</name> <operator>&lt;</operator> <literal type="number">2</literal></expr>)</condition><block>{<block_content>
+			<expr_stmt><expr><name><name>dpRes</name><index>[<expr><name>val</name></expr>]</index></name> <operator>=</operator> <call><name>max</name><argument_list>(<argument><expr><name><name>dpRes</name><index>[<expr><literal type="number">0</literal></expr>]</index></name></expr></argument>, <argument><expr><operator>(</operator><name>LL</name><operator>)</operator><name><name>countNum</name><index>[<expr><name>val</name></expr>]</index></name><operator>*</operator><name>val</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+		</block_content>}</block></if> <else>else <block>{<block_content>
+			<expr_stmt><expr><name><name>dpRes</name><index>[<expr><name>val</name></expr>]</index></name> <operator>=</operator> <call><name>max</name><argument_list>(<argument><expr><name><name>dpRes</name><index>[<expr><name>val</name><operator>-</operator><literal type="number">2</literal></expr>]</index></name><operator>+</operator><operator>(</operator><name>LL</name><operator>)</operator><name><name>countNum</name><index>[<expr><name>val</name></expr>]</index></name><operator>*</operator><name>val</name></expr></argument>, <argument><expr><name><name>dpRes</name><index>[<expr><name>val</name><operator>-</operator><literal type="number">1</literal></expr>]</index></name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+		</block_content>}</block></else></if_stmt>
+	</block_content>}</block>
+	<expr_stmt><expr><call><name>printf</name><argument_list>(<argument><expr><literal type="string">"%I64d\n"</literal></expr></argument>, <argument><expr><name><name>dpRes</name><index>[<expr><name>MaxVal</name><operator>-</operator><literal type="number">1</literal></expr>]</index></name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+	
+	
+	<return>return <expr><literal type="number">0</literal></expr>;</return>
+</block_content>}</block></function>
+</unit>
