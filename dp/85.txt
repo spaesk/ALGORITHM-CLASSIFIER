@@ -1,0 +1,29 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+const int TAM = 100100;
+
+typedef long long ll;
+
+int cnt[TAM];
+ll dp[TAM];
+
+int main ( )
+{
+	cin.tie(0);
+	ios_base::sync_with_stdio(0);
+
+	int n;
+	cin >> n;
+	for ( int x; n--; ) {
+		cin >> x;
+		cnt[x+2]++;
+	}
+
+	for ( int i = 2; i < TAM; ++i )
+		dp[i] = max ( dp[i-1], ll(i-2)*ll(cnt[i]) + (i>=2?dp[i-2]:0) );
+
+	cout << dp[TAM-1] << endl;
+
+	return 0;
+}

@@ -1,0 +1,44 @@
+#include<iostream>
+#include<cstdio>
+#include<cstdlib>
+#include<algorithm>
+#include<cstring>
+#include<cmath>
+#include<ctime>
+#include<map>
+#include<string>
+#include<vector>
+#include<set>
+
+using namespace std;
+#define For(i,l,r) for (int i = l; i <= r; ++i)
+#define Cor(i,l,r) for (int i = l; i >= r; --i)
+#define Fill(a,b) memset(a,b,sizeof(a))
+#define FI first
+#define SE second
+#define MP make_pair
+#define PII pair<int,int>
+#define flt double
+#define INF (0x3f3f3f3f)
+#define MaxN 1020304
+#define MaxNode 1020304
+#define MD 1000000007
+
+int A[233333];
+long long f[MaxN];
+int n;
+int main() {
+    //freopen("input.txt","r",stdin);// freopen("output.txt","w",stdout);
+    cin >> n;
+    Fill(A,0);
+    For(i,1,n) {
+            int t;
+        scanf("%d", &t);
+        ++A[t];
+    }
+    Fill(f,0);
+    f[0] = 0;
+    For(i,1,100000) f[i] = max(f[i - 1], f[i - 2] + (long long)i * A[i]);
+    cout << max(f[100000], f[99999]) << endl;
+    return 0;
+}

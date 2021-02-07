@@ -1,0 +1,45 @@
+#include <string>
+#include <vector>
+#include <cstdio>
+#include <cstdlib>
+#include <cmath>
+#include <algorithm>
+#include <queue>
+#include <map>
+#include <set>
+#include <iostream>
+#include <sstream>
+#include <cstring>
+#include <numeric>
+using namespace std;
+typedef long long ll;
+#define F0(i,n) for (int i = 0; i < n; i++)
+#define F1(i,n) for (int i = 1; i <= n; i++)
+#define CL(a,x) memset(x, a, sizeof(x));
+#define SZ(x) ((int)x.size())
+typedef pair<int,int> pii;
+const double eps = 1e-10;
+const int inf = 1000000009;
+int i, j, k, m, n, l;
+int ans;
+ll a[100001], d[100001];
+
+int main() {
+    //freopen("x.in", "r", stdin);
+    cin >> n;
+    F0(i,n) {
+        cin >> j;
+        a[j]+=j;
+    }
+    ll ans = 0;
+
+    d[0] = 0; d[1] = a[1]; d[2] = a[2];
+    for (i = 3; i <= 100000; i++)
+    {
+        d[i] = max(d[i-2], d[i-3]) + a[i];
+        ans = max(ans, d[i]);
+    }
+    cout << ans << endl;
+    return 0;
+} 
+
