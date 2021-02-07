@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<unit xmlns="http://www.srcML.org/srcML/src" xmlns:cpp="http://www.srcML.org/srcML/cpp" revision="1.0.0" language="C++" filename="C:\Users\spaes\Desktop\min\bs\10.txt"><cpp:include>#<cpp:directive>include</cpp:directive> <cpp:file>"iostream"</cpp:file></cpp:include>
+<cpp:include>#<cpp:directive>include</cpp:directive> <cpp:file>"cstring"</cpp:file></cpp:include>
+<using>using <namespace>namespace <name>std</name>;</namespace></using>
+
+<cpp:define>#<cpp:directive>define</cpp:directive> <cpp:macro><name>N</name></cpp:macro> <cpp:value>200111</cpp:value></cpp:define>
+<typedef>typedef <type><name>long</name> <name>long</name></type> <name>LL</name>;</typedef>
+
+<decl_stmt><decl><type><name>LL</name></type> <name><name>health</name><index>[<expr><name>N</name></expr>]</index></name></decl>;</decl_stmt>
+<decl_stmt><decl><type><name>int</name></type> <name>n</name></decl>;</decl_stmt>
+
+<function><type><name><name>pair</name><argument_list type="generic">&lt;<argument><expr><name>LL</name></expr></argument>,<argument><expr><name>int</name></expr></argument>&gt;</argument_list></name></type> <name>search</name><parameter_list>(<parameter><decl><type><name>int</name></type> <name>start</name></decl></parameter>,<parameter><decl><type><name>int</name></type> <name>end</name></decl></parameter>,<parameter><decl><type><name>LL</name></type> <name>k</name></decl></parameter>)</parameter_list>
+<block>{<block_content>
+	<decl_stmt><decl><type><name>int</name></type> <name>mid</name></decl>;</decl_stmt>
+	<decl_stmt><decl><type><name>int</name></type> <name>ans</name><init>=<expr><name>start</name></expr></init></decl>;</decl_stmt>
+	<decl_stmt><decl><type><name>long</name> <name>long</name></type> <name>extra</name><init>=<expr><name>k</name><operator>-</operator><name><name>health</name><index>[<expr><name>start</name><operator>-</operator><literal type="number">1</literal></expr>]</index></name></expr></init></decl>;</decl_stmt>
+
+	<while>while<condition>(<expr><name>start</name><operator>&lt;=</operator><name>end</name></expr>)</condition>
+	<block>{<block_content>
+		<expr_stmt><expr><name>mid</name><operator>=</operator><operator>(</operator><name>start</name><operator>+</operator><name>end</name><operator>)</operator><operator>&gt;&gt;</operator><literal type="number">1</literal></expr>;</expr_stmt>
+
+		<if_stmt><if>if <condition>(<expr><name><name>health</name><index>[<expr><name>mid</name></expr>]</index></name><operator>==</operator><name>k</name></expr>)</condition>
+		<block>{<block_content>
+			<expr_stmt><expr><name>ans</name><operator>=</operator><name>mid</name><operator>+</operator><literal type="number">1</literal></expr>;</expr_stmt>
+			<expr_stmt><expr><name>extra</name><operator>=</operator><name>k</name><operator>-</operator><name><name>health</name><index>[<expr><name>mid</name></expr>]</index></name></expr>;</expr_stmt>
+			<break>break;</break>
+		</block_content>}</block></if>
+		<if type="elseif">else if<condition>(<expr><name><name>health</name><index>[<expr><name>mid</name></expr>]</index></name><operator>&lt;</operator><name>k</name></expr>)</condition>
+		<block>{<block_content>
+			<expr_stmt><expr><name>ans</name><operator>=</operator><name>mid</name><operator>+</operator><literal type="number">1</literal></expr>;</expr_stmt>
+
+			<expr_stmt><expr><name>extra</name><operator>=</operator><name>k</name><operator>-</operator><name><name>health</name><index>[<expr><name>mid</name></expr>]</index></name></expr>;</expr_stmt>
+			<expr_stmt><expr><name>start</name><operator>=</operator><name>mid</name><operator>+</operator><literal type="number">1</literal></expr>;</expr_stmt>
+		</block_content>}</block></if>
+		<else>else<block type="pseudo"><block_content> <expr_stmt><expr><name>end</name><operator>=</operator><name>mid</name><operator>-</operator><literal type="number">1</literal></expr>;</expr_stmt></block_content></block></else></if_stmt>
+	</block_content>}</block></while>
+
+	<decl_stmt><decl><type><name><name>pair</name><argument_list type="generic">&lt;<argument><expr><name>LL</name></expr></argument>,<argument><expr><name>int</name></expr></argument>&gt;</argument_list></name></type> <name>p</name></decl>;</decl_stmt>
+	<if_stmt><if>if <condition>(<expr><name>ans</name><operator>==</operator><name>n</name><operator>+</operator><literal type="number">1</literal></expr>)</condition>
+	<block>{<block_content>
+		<expr_stmt><expr><call><name>printf</name><argument_list>(<argument><expr><literal type="string">"%d\n"</literal></expr></argument>,<argument><expr><name>n</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+		<return>return <expr><name>p</name><operator>=</operator><call><name>make_pair</name><argument_list>(<argument><expr><literal type="number">0</literal></expr></argument>,<argument><expr><literal type="number">1</literal></expr></argument>)</argument_list></call></expr>;</return>
+	</block_content>}</block></if>
+	<else>else
+	<block>{<block_content>
+		<expr_stmt><expr><call><name>printf</name><argument_list>(<argument><expr><literal type="string">"%d\n"</literal></expr></argument>,<argument><expr><name>n</name><operator>-</operator><name>ans</name><operator>+</operator><literal type="number">1</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+		<return>return <expr><name>p</name><operator>=</operator><call><name>make_pair</name><argument_list>(<argument><expr><name>extra</name></expr></argument>,<argument><expr><name>ans</name></expr></argument>)</argument_list></call></expr>;</return>
+	</block_content>}</block></else></if_stmt>
+
+</block_content>}</block></function>
+
+<function><type><name>int</name></type> <name>main</name><parameter_list>(<parameter><decl><type><name>int</name></type> <name>argc</name></decl></parameter>, <parameter><decl><type><name>char</name> <specifier>const</specifier> <modifier>*</modifier></type><name><name>argv</name><index>[]</index></name></decl></parameter>)</parameter_list>
+<block>{<block_content>
+	<decl_stmt><decl><type><name>int</name></type> <name>q</name></decl>;</decl_stmt>
+	<expr_stmt><expr><call><name>scanf</name><argument_list>(<argument><expr><literal type="string">"%d%d"</literal></expr></argument>,<argument><expr><operator>&amp;</operator><name>n</name></expr></argument>,<argument><expr><operator>&amp;</operator><name>q</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+	<decl_stmt><decl><type><name>LL</name></type> <name>h</name></decl>;</decl_stmt>
+
+	<expr_stmt><expr><name><name>health</name><index>[<expr><literal type="number">0</literal></expr>]</index></name><operator>=</operator><literal type="number">0</literal></expr>;</expr_stmt>
+	<for>for <control>(<init><decl><type><name>int</name></type> <name>i</name> <init>= <expr><literal type="number">1</literal></expr></init></decl>;</init> <condition><expr><name>i</name> <operator>&lt;=</operator><name>n</name></expr>;</condition> <incr><expr><operator>++</operator><name>i</name></expr></incr>)</control>
+	<block>{<block_content>
+		<expr_stmt><expr><call><name>scanf</name><argument_list>(<argument><expr><literal type="string">"%lld"</literal></expr></argument>,<argument><expr><operator>&amp;</operator><name>h</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+		<expr_stmt><expr><name><name>health</name><index>[<expr><name>i</name></expr>]</index></name><operator>=</operator><name><name>health</name><index>[<expr><name>i</name><operator>-</operator><literal type="number">1</literal></expr>]</index></name><operator>+</operator><name>h</name></expr>;</expr_stmt>
+	</block_content>}</block></for>
+
+	<decl_stmt><decl><type><name><name>pair</name><argument_list type="generic">&lt;<argument><expr><name>LL</name></expr></argument>,<argument><expr><name>int</name></expr></argument>&gt;</argument_list></name></type> <name>p</name></decl>;</decl_stmt>
+	<expr_stmt><expr><name>p</name><operator>=</operator><call><name>make_pair</name><argument_list>(<argument><expr><literal type="number">0</literal></expr></argument>,<argument><expr><literal type="number">1</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+	<decl_stmt><decl><type><name>LL</name></type> <name>k</name></decl>;</decl_stmt>
+
+	<while>while<condition>(<expr><name>q</name><operator>--</operator></expr>)</condition>
+	<block>{<block_content>
+		<expr_stmt><expr><call><name>scanf</name><argument_list>(<argument><expr><literal type="string">"%lld"</literal></expr></argument>,<argument><expr><operator>&amp;</operator><name>k</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>	
+		<expr_stmt><expr><name>p</name><operator>=</operator><call><name>search</name><argument_list>(<argument><expr><name><name>p</name><operator>.</operator><name>second</name></name></expr></argument>,<argument><expr><name>n</name></expr></argument>,<argument><expr><name>k</name><operator>+</operator><name><name>health</name><index>[<expr><name><name>p</name><operator>.</operator><name>second</name></name><operator>-</operator><literal type="number">1</literal></expr>]</index></name><operator>+</operator><name><name>p</name><operator>.</operator><name>first</name></name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+	</block_content>}</block></while>
+	<return>return <expr><literal type="number">0</literal></expr>;</return>
+</block_content>}</block></function></unit>

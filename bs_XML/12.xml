@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<unit xmlns="http://www.srcML.org/srcML/src" xmlns:cpp="http://www.srcML.org/srcML/cpp" revision="1.0.0" language="C++" filename="C:\Users\spaes\Desktop\min\bs\12.txt"><cpp:include>#<cpp:directive>include</cpp:directive><cpp:file>&lt;bits/stdc++.h&gt;</cpp:file></cpp:include>
+<cpp:define>#<cpp:directive>define</cpp:directive> <cpp:macro><name>int</name></cpp:macro> <cpp:value>long long int</cpp:value></cpp:define>
+<using>using <namespace>namespace <name>std</name>;</namespace></using>
+<function><type><name>int32_t</name></type> <name>main</name><parameter_list>()</parameter_list>
+<block>{<block_content>
+<decl_stmt><decl><type><name>int</name></type> <name>n</name><init>=<expr><literal type="number">0</literal></expr></init></decl>;</decl_stmt>
+    <decl_stmt><decl><type><name>int</name></type> <name>t</name><init>=<expr><literal type="number">0</literal></expr></init></decl>;</decl_stmt>
+    <expr_stmt><expr><name>cin</name><operator>&gt;&gt;</operator><name>n</name><operator>&gt;&gt;</operator><name>t</name></expr>;</expr_stmt>
+    <decl_stmt><decl><type><name><name>vector</name><argument_list type="generic">&lt;<argument><expr><name>int</name></expr></argument>&gt;</argument_list></name></type><name>arr</name><argument_list>(<argument><expr><name>n</name></expr></argument>,<argument><expr><literal type="number">0</literal></expr></argument>)</argument_list></decl>;</decl_stmt>
+    <for>for<control>(<init><decl><type><name>int</name></type> <name>i</name><init>=<expr><literal type="number">0</literal></expr></init></decl>;</init><condition><expr><name>i</name><operator>&lt;</operator><name>n</name></expr>;</condition><incr><expr><name>i</name><operator>++</operator></expr></incr>)</control><block type="pseudo"><block_content>
+      <expr_stmt><expr><name>cin</name><operator>&gt;&gt;</operator><name><name>arr</name><index>[<expr><name>i</name></expr>]</index></name></expr>;</expr_stmt></block_content></block></for>
+    <decl_stmt><decl><type><name><name>vector</name><argument_list type="generic">&lt;<argument><expr><name>int</name></expr></argument>&gt;</argument_list></name></type><name>prefix</name><argument_list>(<argument><expr><name>n</name></expr></argument>,<argument><expr><literal type="number">0</literal></expr></argument>)</argument_list></decl>;</decl_stmt>
+    <decl_stmt><decl><type><name><name>vector</name><argument_list type="generic">&lt;<argument><expr><name>int</name></expr></argument>&gt;</argument_list></name></type><name>attack</name><argument_list>(<argument><expr><name>t</name></expr></argument>,<argument><expr><literal type="number">0</literal></expr></argument>)</argument_list></decl>;</decl_stmt>
+    <expr_stmt><expr><name><name>prefix</name><index>[<expr><literal type="number">0</literal></expr>]</index></name><operator>=</operator><name><name>arr</name><index>[<expr><literal type="number">0</literal></expr>]</index></name></expr>;</expr_stmt>
+    <for>for<control>(<init><decl><type><name>int</name></type> <name>i</name><init>=<expr><literal type="number">1</literal></expr></init></decl>;</init><condition><expr><name>i</name><operator>&lt;</operator><name>n</name></expr>;</condition><incr><expr><name>i</name><operator>++</operator></expr></incr>)</control><block type="pseudo"><block_content>
+        <expr_stmt><expr><name><name>prefix</name><index>[<expr><name>i</name></expr>]</index></name><operator>=</operator><name><name>prefix</name><index>[<expr><name>i</name><operator>-</operator><literal type="number">1</literal></expr>]</index></name><operator>+</operator><name><name>arr</name><index>[<expr><name>i</name></expr>]</index></name></expr>;</expr_stmt></block_content></block></for>
+    <decl_stmt><decl><type><name>int</name></type> <name>pos</name><init>=<expr><literal type="number">0</literal></expr></init></decl>;</decl_stmt>
+    <for>for<control>(<init><decl><type><name>int</name></type> <name>i</name><init>=<expr><literal type="number">0</literal></expr></init></decl>;</init><condition><expr><name>i</name><operator>&lt;</operator><name>t</name></expr>;</condition><incr><expr><name>i</name><operator>++</operator></expr></incr>)</control><block type="pseudo"><block_content>
+        <expr_stmt><expr><name>cin</name><operator>&gt;&gt;</operator><name><name>attack</name><index>[<expr><name>i</name></expr>]</index></name></expr>;</expr_stmt></block_content></block></for>
+    <decl_stmt><decl><type><name>int</name></type> <name>c</name><init>=<expr><literal type="number">0</literal></expr></init></decl>;</decl_stmt>
+    
+    <for>for<control>(<init><decl><type><name>int</name></type> <name>i</name><init>=<expr><literal type="number">0</literal></expr></init></decl>;</init><condition><expr><name>i</name><operator>&lt;</operator><name>t</name></expr>;</condition><incr><expr><name>i</name><operator>++</operator></expr></incr>)</control>
+    <block>{<block_content>
+        <expr_stmt><expr><name>c</name><operator>+=</operator><name><name>attack</name><index>[<expr><name>i</name></expr>]</index></name></expr>;</expr_stmt>
+      <expr_stmt><expr><name>pos</name><operator>=</operator><call><name>lower_bound</name><argument_list>(<argument><expr><call><name><name>prefix</name><operator>.</operator><name>begin</name></name><argument_list>()</argument_list></call></expr></argument>,<argument><expr><call><name><name>prefix</name><operator>.</operator><name>end</name></name><argument_list>()</argument_list></call></expr></argument>,<argument><expr><name>c</name></expr></argument>)</argument_list></call><operator>-</operator><operator>(</operator><call><name><name>prefix</name><operator>.</operator><name>begin</name></name><argument_list>()</argument_list></call><operator>)</operator></expr>;</expr_stmt>
+      <comment type="line">//cout&lt;&lt;c&lt;&lt;" "&lt;&lt;pos&lt;&lt;endl;</comment>
+            <if_stmt><if>if<condition>(<expr><name>pos</name><operator>&gt;=</operator><name>n</name></expr>)</condition>
+                <block>{<block_content>
+                <expr_stmt><expr><name>cout</name><operator>&lt;&lt;</operator><name>n</name><operator>&lt;&lt;</operator><name>endl</name></expr>;</expr_stmt>
+              <expr_stmt><expr><name>c</name><operator>=</operator><literal type="number">0</literal></expr>;</expr_stmt>
+             
+          <comment type="line">//   cout&lt;&lt;"in 1"&lt;&lt;endl;</comment>
+            </block_content>}</block></if>
+     <comment type="line">//   cout&lt;&lt;"pos"&lt;&lt;" "&lt;&lt;pos&lt;&lt;endl;</comment>
+      <if type="elseif">else  if<condition>(<expr><name>pos</name><operator>&gt;=</operator><literal type="number">0</literal> <operator>&amp;&amp;</operator><name>pos</name><operator>&lt;</operator><name>n</name></expr>)</condition>
+        <block>{<block_content>
+           <if_stmt><if>if<condition>(<expr><name>c</name><operator>==</operator><name><name>prefix</name><index>[<expr><name>pos</name></expr>]</index></name></expr>)</condition>
+                <block>{<block_content>
+                 <if_stmt><if>if<condition>(<expr><name>pos</name><operator>!=</operator><name>n</name><operator>-</operator><literal type="number">1</literal></expr>)</condition>
+              <block>{<block_content>
+                <comment type="line">// cout&lt;&lt;pos&lt;&lt;endl;</comment>
+              <expr_stmt><expr><name>cout</name><operator>&lt;&lt;</operator><name>n</name><operator>-</operator><name>pos</name><operator>-</operator><literal type="number">1</literal><operator>&lt;&lt;</operator><name>endl</name></expr>;</expr_stmt>
+          <comment type="line">//pos++;</comment>
+               <comment type="line">//cout&lt;&lt;"in2"&lt;&lt;endl;</comment>
+              </block_content>}</block></if>
+              <else>else 
+              <block>{<block_content>
+              <expr_stmt><expr><name>cout</name><operator>&lt;&lt;</operator><name>n</name><operator>&lt;&lt;</operator><name>endl</name></expr>;</expr_stmt><expr_stmt><expr><name>c</name><operator>=</operator><literal type="number">0</literal></expr>;</expr_stmt>
+                <comment type="line">//pos=0;</comment>
+              <comment type="line">//  cout&lt;&lt;"in3"&lt;&lt;endl;</comment>
+                  
+              </block_content>}</block></else></if_stmt>
+            </block_content>}</block></if>
+          <if type="elseif">else if<condition>(<expr><name><name>prefix</name><index>[<expr><name>pos</name></expr>]</index></name><operator>&gt;</operator><name>c</name></expr>)</condition>
+                     <block>{<block_content>
+              
+               <comment type="line">//prefix[pos]=prefix[pos]+prefix[pos-1]-c;</comment>
+           <expr_stmt><expr><name>cout</name><operator>&lt;&lt;</operator><name>n</name><operator>-</operator><name>pos</name><operator>&lt;&lt;</operator><name>endl</name></expr>;</expr_stmt>
+               
+        <comment type="line">//     cout&lt;&lt;"in4"&lt;&lt;endl;</comment>
+             </block_content>}</block></if></if_stmt>
+        </block_content>}</block></if></if_stmt>
+        
+   </block_content>}</block></for>
+<return>return <expr><literal type="number">0</literal></expr>;</return>
+</block_content>}</block></function></unit>

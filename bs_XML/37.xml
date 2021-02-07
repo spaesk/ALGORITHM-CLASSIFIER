@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<unit xmlns="http://www.srcML.org/srcML/src" xmlns:cpp="http://www.srcML.org/srcML/cpp" revision="1.0.0" language="C++" filename="C:\Users\spaes\Desktop\min\bs\37.txt"><cpp:include>#<cpp:directive>include</cpp:directive><cpp:file>&lt;iostream&gt;</cpp:file></cpp:include>
+<cpp:include>#<cpp:directive>include</cpp:directive><cpp:file>&lt;algorithm&gt;</cpp:file></cpp:include>
+<cpp:include>#<cpp:directive>include</cpp:directive><cpp:file>&lt;vector&gt;</cpp:file></cpp:include>
+
+<using>using <namespace>namespace <name>std</name>;</namespace></using>
+
+<function><type><name>int</name></type> <name>main</name><parameter_list>()</parameter_list> <block>{<block_content>
+    <decl_stmt><decl><type><name>int</name></type> <name>n</name></decl>;</decl_stmt>
+    <expr_stmt><expr><name>cin</name><operator>&gt;&gt;</operator><name>n</name></expr>;</expr_stmt>
+    <decl_stmt><decl><type><name><name>vector</name><argument_list type="generic">&lt;<argument><expr><name>int</name></expr></argument>&gt;</argument_list></name></type> <name>data</name><argument_list>(<argument><expr><name>n</name></expr></argument>)</argument_list></decl>;</decl_stmt>
+    <for>for<control>(<init><decl><type><name>int</name> <modifier>&amp;</modifier></type><name>x</name><range>:<expr><name>data</name></expr></range></decl></init>)</control><block type="pseudo"><block_content>
+        <expr_stmt><expr><name>cin</name><operator>&gt;&gt;</operator><name>x</name></expr>;</expr_stmt></block_content></block></for>
+    <decl_stmt><decl><type><name><name>vector</name><argument_list type="generic">&lt;<argument><expr><name>int</name></expr></argument>&gt;</argument_list></name></type> <name>sums</name><argument_list>(<argument><expr><name>n</name></expr></argument>)</argument_list></decl>;</decl_stmt>
+    <expr_stmt><expr><call><name>partial_sum</name><argument_list>(<argument><expr><call><name>begin</name><argument_list>(<argument><expr><name>data</name></expr></argument>)</argument_list></call></expr></argument>,<argument><expr><call><name>end</name><argument_list>(<argument><expr><name>data</name></expr></argument>)</argument_list></call></expr></argument>,<argument><expr><call><name>begin</name><argument_list>(<argument><expr><name>sums</name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    <decl_stmt><decl><type><name>int</name></type> <name>m</name></decl>;</decl_stmt>
+    <expr_stmt><expr><name>cin</name><operator>&gt;&gt;</operator><name>m</name></expr>;</expr_stmt>
+    <for>for<control>(<init><decl><type><name>int</name></type> <name>i</name><init>=<expr><literal type="number">0</literal></expr></init></decl>;</init> <condition><expr><name>i</name><operator>&lt;</operator><name>m</name></expr>;</condition> <incr><expr><name>i</name><operator>++</operator></expr></incr>)</control> <block>{<block_content>
+        <decl_stmt><decl><type><name>int</name></type> <name>x</name></decl>;</decl_stmt>
+        <expr_stmt><expr><name>cin</name><operator>&gt;&gt;</operator><name>x</name></expr>;</expr_stmt>
+        <decl_stmt><decl><type><name>int</name></type> <name>pos</name> <init>= <expr><call><name>lower_bound</name><argument_list>(<argument><expr><call><name>begin</name><argument_list>(<argument><expr><name>sums</name></expr></argument>)</argument_list></call></expr></argument>,<argument><expr><call><name>end</name><argument_list>(<argument><expr><name>sums</name></expr></argument>)</argument_list></call></expr></argument>,<argument><expr><name>x</name></expr></argument>)</argument_list></call> <operator>-</operator> <call><name>begin</name><argument_list>(<argument><expr><name>sums</name></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><name>cout</name><operator>&lt;&lt;</operator><name>pos</name><operator>+</operator><literal type="number">1</literal><operator>&lt;&lt;</operator><literal type="char">'\n'</literal></expr>;</expr_stmt>
+    </block_content>}</block></for>
+    <return>return <expr><literal type="number">0</literal></expr>;</return>
+</block_content>}</block></function>
+</unit>

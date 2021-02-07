@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<unit xmlns="http://www.srcML.org/srcML/src" xmlns:cpp="http://www.srcML.org/srcML/cpp" revision="1.0.0" language="C++" filename="C:\Users\spaes\Desktop\min\bs\21.txt"><cpp:include>#<cpp:directive>include</cpp:directive><cpp:file>&lt;bits/stdc++.h&gt;</cpp:file></cpp:include>
+
+<using>using <namespace>namespace <name>std</name>;</namespace></using>
+<cpp:define>#<cpp:directive>define</cpp:directive> <cpp:macro><name>ll</name></cpp:macro> <cpp:value>long long int</cpp:value></cpp:define>
+
+<function><type><name>int</name></type> <name>main</name><parameter_list>()</parameter_list>
+<block>{<block_content>
+    <decl_stmt><decl><type><name>ll</name></type> <name>n</name></decl>;</decl_stmt>
+    <expr_stmt><expr><name>cin</name> <operator>&gt;&gt;</operator> <name>n</name></expr>;</expr_stmt>
+    <decl_stmt><decl><type><name>ll</name></type> <name><name>pre</name><index>[<expr><name>n</name></expr>]</index></name></decl>;</decl_stmt>
+    <for>for<control>(<init><decl><type><name>int</name></type> <name>i</name> <init>=<expr><literal type="number">0</literal></expr></init></decl> ;</init> <condition><expr><name>i</name>  <operator>&lt;</operator> <name>n</name></expr> ;</condition> <incr><expr><name>i</name><operator>++</operator></expr></incr>)</control>
+    <block>{<block_content>
+        <decl_stmt><decl><type><name>ll</name></type> <name>x</name></decl>;</decl_stmt>
+        <expr_stmt><expr><name>cin</name> <operator>&gt;&gt;</operator> <name>x</name></expr>;</expr_stmt>
+        <if_stmt><if>if<condition>( <expr><name>i</name> <operator>==</operator> <literal type="number">0</literal></expr>)</condition><block type="pseudo"><block_content>
+        <expr_stmt><expr><name><name>pre</name><index>[<expr><name>i</name></expr>]</index></name> <operator>=</operator> <name>x</name></expr>;</expr_stmt></block_content></block></if>
+        <else>else<block type="pseudo"><block_content>
+        <expr_stmt><expr><name><name>pre</name><index>[<expr><name>i</name></expr>]</index></name> <operator>=</operator> <name><name>pre</name><index>[<expr><name>i</name> <operator>-</operator> <literal type="number">1</literal></expr>]</index></name> <operator>+</operator> <name>x</name></expr>;</expr_stmt></block_content></block></else></if_stmt>
+    </block_content>}</block></for>
+    <comment type="line">// for(int i = 0 ; i &lt; n ; i++)</comment>
+    <comment type="line">// cout &lt;&lt; pre[i] &lt;&lt; " ";</comment>
+    <comment type="line">// cout &lt;&lt; endl;</comment>
+    <decl_stmt><decl><type><name>ll</name></type> <name>q</name></decl>;</decl_stmt>
+    <expr_stmt><expr><name>cin</name> <operator>&gt;&gt;</operator> <name>q</name></expr>;</expr_stmt>
+    <while>while<condition>( <expr><name>q</name><operator>--</operator></expr> )</condition>
+    <block>{<block_content>
+        <decl_stmt><decl><type><name>ll</name></type> <name>x</name></decl>;</decl_stmt>
+        <expr_stmt><expr><name>cin</name> <operator>&gt;&gt;</operator> <name>x</name></expr>;</expr_stmt>
+        <decl_stmt><decl><type><name>long</name> <name>long</name> <name>int</name></type> <name>pos</name> <init>= <expr><call><name>lower_bound</name><argument_list>(<argument><expr><name>pre</name></expr></argument>,  <argument><expr><name>pre</name> <operator>+</operator> <name>n</name></expr></argument> , <argument><expr><name>x</name></expr></argument>)</argument_list></call> <operator>-</operator> <name>pre</name></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><name>cout</name> <operator>&lt;&lt;</operator> <name>pos</name> <operator>+</operator> <literal type="number">1</literal> <operator>&lt;&lt;</operator> <name>endl</name></expr>;</expr_stmt>
+    </block_content>}</block></while>
+</block_content>}</block></function></unit>

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<unit xmlns="http://www.srcML.org/srcML/src" xmlns:cpp="http://www.srcML.org/srcML/cpp" revision="1.0.0" language="C++" filename="C:\Users\spaes\Desktop\min\bs\40.txt"><cpp:include>#<cpp:directive>include</cpp:directive> <cpp:file>&lt;bits/stdc++.h&gt;</cpp:file></cpp:include>
+<using>using <namespace>namespace <name>std</name>;</namespace></using>
+<cpp:define>#<cpp:directive>define</cpp:directive> <cpp:macro><name>REP</name><parameter_list>(<parameter><type><name>a</name></type></parameter>,<parameter><type><name>b</name></type></parameter>,<parameter><type><name>c</name></type></parameter>)</parameter_list></cpp:macro> <cpp:value>for(int a=b;a&lt;c;a++)</cpp:value></cpp:define>
+<cpp:define>#<cpp:directive>define</cpp:directive> <cpp:macro><name>asd</name><parameter_list>(<parameter><type><name>x</name></type></parameter>)</parameter_list></cpp:macro>              <cpp:value>cout&lt;&lt;__LINE__&lt;&lt;" :: "&lt;&lt;#x&lt;&lt; ": "&lt;&lt;x&lt;&lt;endl;</cpp:value></cpp:define>
+<cpp:define>#<cpp:directive>define</cpp:directive> <cpp:macro><name>asdf</name><parameter_list>(<parameter><type><name>x</name></type></parameter>, <parameter><type><name>y</name></type></parameter>)</parameter_list></cpp:macro>          <cpp:value>cout&lt;&lt;__LINE__&lt;&lt;" :: "&lt;&lt;#x&lt;&lt; ": "&lt;&lt;x&lt;&lt;" | "&lt;&lt;#y&lt;&lt; ": "&lt;&lt;y&lt;&lt;endl;</cpp:value></cpp:define>
+<cpp:define>#<cpp:directive>define</cpp:directive> <cpp:macro><name>lb</name><parameter_list>()</parameter_list></cpp:macro> <cpp:value>cout &lt;&lt; string(15, =) &lt;&lt; endl</cpp:value></cpp:define>
+<typedef>typedef <type><name><name>pair</name><argument_list type="generic">&lt;<argument><expr><name>int</name></expr></argument>,<argument><expr><name>int</name></expr></argument>&gt;</argument_list></name></type> <name>ii</name>;</typedef>
+<typedef>typedef <type><name>long</name> <name>long</name></type> <name>LL</name>;</typedef>
+<decl_stmt><decl><type><name>int</name></type> <name><name>a</name><index>[<expr><literal type="number">100007</literal></expr>]</index></name></decl>;</decl_stmt>
+<function><type><name>int</name></type> <name>main</name><parameter_list>()</parameter_list> <block>{<block_content>
+    <decl_stmt><decl><type><name>int</name></type> <name>n</name></decl>;</decl_stmt>
+    <expr_stmt><expr><name>cin</name> <operator>&gt;&gt;</operator> <name>n</name></expr>;</expr_stmt>
+    <for>for<control>(<init><decl><type><name>int</name></type> <name>i</name><init>=<expr><literal type="number">0</literal></expr></init></decl>;</init><condition><expr><name>i</name><operator>&lt;</operator><name>n</name></expr>;</condition><incr><expr><name>i</name><operator>++</operator></expr></incr>)</control> <block>{<block_content>
+        <expr_stmt><expr><name>cin</name> <operator>&gt;&gt;</operator> <name><name>a</name><index>[<expr><name>i</name></expr>]</index></name></expr>;</expr_stmt>
+        <expr_stmt><expr><name><name>a</name><index>[<expr><name>i</name></expr>]</index></name><operator>+=</operator><operator>(</operator><ternary><condition><expr><operator>(</operator><name>i</name><operator>==</operator><literal type="number">0</literal><operator>)</operator></expr>?</condition><then><expr><literal type="number">0</literal></expr></then><else>:<expr><operator>(</operator><name><name>a</name><index>[<expr><name>i</name><operator>-</operator><literal type="number">1</literal></expr>]</index></name><operator>)</operator></expr></else></ternary><operator>)</operator></expr>;</expr_stmt>
+    </block_content>}</block></for>
+    <decl_stmt><decl><type><name>int</name></type> <name>q</name></decl>;</decl_stmt>
+    <expr_stmt><expr><name>cin</name> <operator>&gt;&gt;</operator> <name>q</name></expr>;</expr_stmt>
+    <while>while<condition>(<expr><name>q</name><operator>--</operator></expr>)</condition> <block>{<block_content>
+        <decl_stmt><decl><type><name>int</name></type> <name>k</name></decl>;</decl_stmt>
+        <expr_stmt><expr><name>cin</name> <operator>&gt;&gt;</operator> <name>k</name></expr>;</expr_stmt>
+        <expr_stmt><expr><name>cout</name> <operator>&lt;&lt;</operator> <call><name>lower_bound</name><argument_list>(<argument><expr><name>a</name></expr></argument>,<argument><expr><name>a</name><operator>+</operator><name>n</name></expr></argument>,<argument><expr><name>k</name></expr></argument>)</argument_list></call><operator>-</operator><name>a</name> <operator>+</operator><literal type="number">1</literal><operator>&lt;&lt;</operator> <name>endl</name></expr>;</expr_stmt>
+    </block_content>}</block></while>
+    <return>return <expr><literal type="number">0</literal></expr>;</return>
+</block_content>}</block></function>
+</unit>

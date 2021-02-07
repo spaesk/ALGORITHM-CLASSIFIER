@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<unit xmlns="http://www.srcML.org/srcML/src" xmlns:cpp="http://www.srcML.org/srcML/cpp" revision="1.0.0" language="C++" filename="C:\Users\spaes\Desktop\min\bs\42.txt"><cpp:include>#<cpp:directive>include</cpp:directive> <cpp:file>&lt;stdio.h&gt;</cpp:file></cpp:include>
+<cpp:include>#<cpp:directive>include</cpp:directive> <cpp:file>&lt;algorithm&gt;</cpp:file></cpp:include>
+<cpp:include>#<cpp:directive>include</cpp:directive> <cpp:file>&lt;vector&gt;</cpp:file></cpp:include>
+<cpp:include>#<cpp:directive>include</cpp:directive> <cpp:file>&lt;string&gt;</cpp:file></cpp:include>
+<cpp:include>#<cpp:directive>include</cpp:directive> <cpp:file>&lt;map&gt;</cpp:file></cpp:include>
+<cpp:include>#<cpp:directive>include</cpp:directive> <cpp:file>&lt;math.h&gt;</cpp:file></cpp:include>
+<cpp:define>#<cpp:directive>define</cpp:directive> <cpp:macro><name>For</name><parameter_list>(<parameter><type><name>i</name></type></parameter>,<parameter><type><name>n</name></type></parameter>)</parameter_list></cpp:macro> <cpp:value>for(i=0;i&lt;(n);i++)</cpp:value></cpp:define>
+
+<function><type><name>int</name></type> <name>max</name><parameter_list>(<parameter><decl><type><name>int</name></type> <name>x</name></decl></parameter>,<parameter><decl><type><name>int</name></type> <name>y</name></decl></parameter>)</parameter_list><block>{<block_content>
+    <return>return <expr><ternary><condition><expr><name>x</name><operator>&gt;</operator><name>y</name></expr>?</condition><then><expr><name>x</name></expr></then><else>:<expr><name>y</name></expr></else></ternary></expr>;</return>
+</block_content>}</block></function>
+
+<function><type><name>double</name></type> <name>min</name><parameter_list>(<parameter><decl><type><name>double</name></type> <name>x</name></decl></parameter>,<parameter><decl><type><name>double</name></type> <name>y</name></decl></parameter>)</parameter_list><block>{<block_content>
+    <return>return <expr><ternary><condition><expr><name>x</name><operator>&lt;</operator><name>y</name></expr>?</condition><then><expr><name>x</name></expr></then><else>:<expr><name>y</name></expr></else></ternary></expr>;</return>
+</block_content>}</block></function>
+
+
+<function><type><name>void</name></type> <name>solve</name><parameter_list>(<parameter><decl><type><name>int</name></type> <name>n</name></decl></parameter>)</parameter_list><block>{<block_content>
+    <decl_stmt><decl><type><name>int</name></type> <name>i</name></decl>,<decl><type ref="prev"/><name>m</name></decl>,<decl><type ref="prev"/><name><name>sb</name><index>[<expr><literal type="number">100100</literal></expr>]</index></name></decl>,<decl><type ref="prev"/><name>t</name></decl>,<decl><type ref="prev"/><name>l</name></decl>,<decl><type ref="prev"/><name>r</name></decl>;</decl_stmt>
+    <macro><name>For</name><argument_list>(<argument>i</argument>,<argument>n</argument>)</argument_list></macro><block>{<block_content>
+        <expr_stmt><expr><call><name>scanf</name><argument_list>(<argument><expr><literal type="string">"%d"</literal></expr></argument>,<argument><expr><operator>&amp;</operator><name><name>sb</name><index>[<expr><name>i</name></expr>]</index></name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <if_stmt><if>if<condition>(<expr><name>i</name><operator>!=</operator><literal type="number">0</literal></expr>)</condition><block type="pseudo"><block_content> <expr_stmt><expr><name><name>sb</name><index>[<expr><name>i</name></expr>]</index></name><operator>+=</operator><name><name>sb</name><index>[<expr><name>i</name><operator>-</operator><literal type="number">1</literal></expr>]</index></name></expr>;</expr_stmt></block_content></block></if></if_stmt>
+    </block_content>}</block>
+    <expr_stmt><expr><call><name>scanf</name><argument_list>(<argument><expr><literal type="string">"%d"</literal></expr></argument>,<argument><expr><operator>&amp;</operator><name>m</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    <macro><name>For</name><argument_list>(<argument>i</argument>,<argument>m</argument>)</argument_list></macro><block>{<block_content>
+        <expr_stmt><expr><call><name>scanf</name><argument_list>(<argument><expr><literal type="string">"%d"</literal></expr></argument>,<argument><expr><operator>&amp;</operator><name>t</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><name>l</name><operator>=</operator><literal type="number">0</literal></expr>;</expr_stmt>
+        <expr_stmt><expr><name>r</name><operator>=</operator><name>n</name><operator>-</operator><literal type="number">1</literal></expr>;</expr_stmt>
+        <while>while<condition>(<expr><name>r</name><operator>-</operator><name>l</name><operator>&gt;</operator><literal type="number">1</literal></expr>)</condition><block>{<block_content>
+            <if_stmt><if>if<condition>(<expr><name><name>sb</name><index>[<expr><operator>(</operator><name>l</name><operator>+</operator><name>r</name><operator>)</operator><operator>/</operator><literal type="number">2</literal></expr>]</index></name><operator>&gt;=</operator><name>t</name></expr>)</condition><block type="pseudo"><block_content> <expr_stmt><expr><name>r</name><operator>=</operator><operator>(</operator><name>l</name><operator>+</operator><name>r</name><operator>)</operator><operator>/</operator><literal type="number">2</literal></expr>;</expr_stmt></block_content></block></if>
+            <else>else<block type="pseudo"><block_content> <expr_stmt><expr><name>l</name><operator>=</operator><operator>(</operator><name>l</name><operator>+</operator><name>r</name><operator>)</operator><operator>/</operator><literal type="number">2</literal></expr>;</expr_stmt></block_content></block></else></if_stmt>
+        </block_content>}</block></while>
+        <if_stmt><if>if<condition>(<expr><name><name>sb</name><index>[<expr><name>l</name></expr>]</index></name><operator>&gt;=</operator><name>t</name></expr>)</condition><block type="pseudo"><block_content> <expr_stmt><expr><call><name>printf</name><argument_list>(<argument><expr><literal type="string">"%d\n"</literal></expr></argument>,<argument><expr><name>l</name><operator>+</operator><literal type="number">1</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt></block_content></block></if>
+        <else>else<block type="pseudo"><block_content> <expr_stmt><expr><call><name>printf</name><argument_list>(<argument><expr><literal type="string">"%d\n"</literal></expr></argument>,<argument><expr><name>r</name><operator>+</operator><literal type="number">1</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt></block_content></block></else></if_stmt>
+    </block_content>}</block>
+</block_content>}</block></function>
+
+<function><type><name>int</name></type> <name>main</name><parameter_list>()</parameter_list> <block>{<block_content>
+<cpp:pragma>#<cpp:directive>pragma</cpp:directive> <name>comment</name><name>(</name><name>linker</name><name>,</name> <cpp:literal>"/STACK:268435456"</cpp:literal><name>)</name></cpp:pragma>
+<cpp:ifndef>#<cpp:directive>ifndef</cpp:directive> <name>ONLINE_JUDGE</name></cpp:ifndef>
+    <expr_stmt><expr><call><name>freopen</name><argument_list>(<argument><expr><literal type="string">"input.txt"</literal></expr></argument>, <argument><expr><literal type="string">"rt"</literal></expr></argument>, <argument><expr><name>stdin</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    <expr_stmt><expr><call><name>freopen</name><argument_list>(<argument><expr><literal type="string">"output.txt"</literal></expr></argument>, <argument><expr><literal type="string">"wt"</literal></expr></argument>, <argument><expr><name>stdout</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+<cpp:endif>#<cpp:directive>endif</cpp:directive></cpp:endif>
+    <decl_stmt><decl><type><name>int</name></type> <name>n</name></decl>,<decl><type ref="prev"/><name>m</name></decl>,<decl><type ref="prev"/><name>k</name></decl>,<decl><type ref="prev"/><name>l</name></decl>;</decl_stmt>
+    <while>while<condition>(<expr><call><name>scanf</name><argument_list>(<argument><expr><literal type="string">"%d"</literal></expr></argument>,<argument><expr><operator>&amp;</operator><name>n</name></expr></argument>)</argument_list></call><operator>!=</operator><name>EOF</name></expr>)</condition><block>{<block_content>
+        <expr_stmt><expr><call><name>solve</name><argument_list>(<argument><expr><name>n</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></while>
+    <return>return <expr><literal type="number">0</literal></expr>;</return>
+</block_content>}</block></function></unit>

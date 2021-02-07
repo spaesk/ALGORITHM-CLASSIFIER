@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<unit xmlns="http://www.srcML.org/srcML/src" xmlns:cpp="http://www.srcML.org/srcML/cpp" revision="1.0.0" language="C++" filename="C:\Users\spaes\Desktop\min\bs\17.txt"><cpp:include>#<cpp:directive>include</cpp:directive><cpp:file>&lt;bits/stdc++.h&gt;</cpp:file></cpp:include>
+<cpp:define>#<cpp:directive>define</cpp:directive> <cpp:macro><name>lli</name></cpp:macro> <cpp:value>long long int</cpp:value></cpp:define>
+<cpp:define>#<cpp:directive>define</cpp:directive> <cpp:macro><name>pb</name></cpp:macro> <cpp:value>push_back</cpp:value></cpp:define>
+<using>using <namespace>namespace <name>std</name>;</namespace></using>
+
+<decl_stmt><decl><type><specifier>const</specifier> <name>int</name></type> <name>mod</name> <init>= <expr><literal type="number">1000000007</literal></expr></init></decl>;</decl_stmt>
+
+<decl_stmt><decl><type><name>lli</name></type> <name><name>lsum</name><index>[<expr><literal type="number">1000007</literal></expr>]</index></name></decl>;</decl_stmt>
+
+<function><type><name>void</name></type> <name>solve</name><parameter_list>()</parameter_list>
+<block>{<block_content>
+
+    <decl_stmt><decl><type><name>lli</name></type> <name>n</name></decl>, <decl><type ref="prev"/><name>d</name></decl>;</decl_stmt>
+    <expr_stmt><expr><name>cin</name><operator>&gt;&gt;</operator><name>n</name><operator>&gt;&gt;</operator><name>d</name></expr>;</expr_stmt>
+    <decl_stmt><decl><type><name><name>vector</name><argument_list type="generic">&lt;<argument><expr><name><name>pair</name><argument_list type="generic">&lt;<argument><expr><name>lli</name></expr></argument>, <argument><expr><name>lli</name></expr></argument> &gt;</argument_list></name></expr></argument> &gt;</argument_list></name></type> <name>v</name></decl>;</decl_stmt>
+    <for>for<control>(<init><decl><type><name>int</name></type> <name>i</name> <init>= <expr><literal type="number">0</literal></expr></init></decl>;</init> <condition><expr><name>i</name> <operator>&lt;</operator> <name>n</name></expr>;</condition> <incr><expr><name>i</name><operator>++</operator></expr></incr>)</control>
+    <block>{<block_content>
+        <decl_stmt><decl><type><name>lli</name></type> <name>m</name></decl>, <decl><type ref="prev"/><name>f</name></decl>;</decl_stmt>
+        <expr_stmt><expr><name>cin</name><operator>&gt;&gt;</operator><name>m</name><operator>&gt;&gt;</operator><name>f</name></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>v</name><operator>.</operator><name>pb</name></name><argument_list>(<argument><expr><block>{<expr><name>m</name></expr>, <expr><name>f</name></expr>}</block></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></for>
+    <expr_stmt><expr><call><name>sort</name><argument_list>(<argument><expr><call><name><name>v</name><operator>.</operator><name>begin</name></name><argument_list>()</argument_list></call></expr></argument>, <argument><expr><call><name><name>v</name><operator>.</operator><name>end</name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    <expr_stmt><expr><name><name>lsum</name><index>[<expr><literal type="number">0</literal></expr>]</index></name> <operator>=</operator> <name><name>v</name><index>[<expr><literal type="number">0</literal></expr>]</index></name><operator>.</operator><name>second</name></expr>;</expr_stmt>
+    <decl_stmt><decl><type><name>lli</name></type> <name><name>money</name><index>[<expr><name>n</name></expr>]</index></name></decl>;</decl_stmt>
+    <expr_stmt><expr><name><name>money</name><index>[<expr><literal type="number">0</literal></expr>]</index></name> <operator>=</operator> <name><name>v</name><index>[<expr><literal type="number">0</literal></expr>]</index></name><operator>.</operator><name>first</name></expr>;</expr_stmt>
+    <for>for<control>(<init><decl><type><name>int</name></type> <name>i</name> <init>= <expr><literal type="number">1</literal></expr></init></decl>;</init> <condition><expr><name>i</name> <operator>&lt;</operator> <name>n</name></expr>;</condition> <incr><expr><name>i</name><operator>++</operator></expr></incr>)</control>
+    <block>{<block_content>
+        <expr_stmt><expr><name><name>money</name><index>[<expr><name>i</name></expr>]</index></name> <operator>=</operator> <name><name>v</name><index>[<expr><name>i</name></expr>]</index></name><operator>.</operator><name>first</name></expr>;</expr_stmt>
+        <expr_stmt><expr><name><name>lsum</name><index>[<expr><name>i</name></expr>]</index></name> <operator>=</operator> <name><name>lsum</name><index>[<expr><name>i</name> <operator>-</operator> <literal type="number">1</literal></expr>]</index></name> <operator>+</operator> <name><name>v</name><index>[<expr><name>i</name></expr>]</index></name><operator>.</operator><name>second</name></expr>;</expr_stmt>
+    </block_content>}</block></for>
+    <decl_stmt><decl><type><name>lli</name></type> <name>ans</name> <init>= <expr><literal type="number">0</literal></expr></init></decl>;</decl_stmt>
+    <for>for<control>(<init><decl><type><name>int</name></type> <name>i</name> <init>= <expr><literal type="number">0</literal></expr></init></decl>;</init> <condition><expr><name>i</name> <operator>&lt;</operator> <name>n</name></expr>;</condition> <incr><expr><name>i</name> <operator>++</operator></expr></incr>)</control>
+    <block>{<block_content>
+        <decl_stmt><decl><type><name>lli</name></type> <name>x</name> <init>= <expr><call><name>lower_bound</name><argument_list>(<argument><expr><name>money</name> <operator>+</operator> <name>i</name></expr></argument>, <argument><expr><name>money</name> <operator>+</operator> <name>n</name></expr></argument>, <argument><expr><name><name>money</name><index>[<expr><name>i</name></expr>]</index></name> <operator>+</operator> <name>d</name></expr></argument>)</argument_list></call> <operator>-</operator> <name>money</name></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name>lli</name></type> <name>temp</name></decl> ;</decl_stmt>
+        <expr_stmt><expr><name>x</name><operator>--</operator></expr>;</expr_stmt>
+        <if_stmt><if>if<condition>(<expr><name>i</name> <operator>==</operator> <literal type="number">0</literal></expr>)</condition><block type="pseudo"><block_content>
+            <expr_stmt><expr><name>temp</name> <operator>=</operator> <name><name>lsum</name><index>[<expr><name>x</name></expr>]</index></name></expr>;</expr_stmt></block_content></block></if>
+        <else>else<block type="pseudo"><block_content>
+            <expr_stmt><expr><name>temp</name> <operator>=</operator> <name><name>lsum</name><index>[<expr><name>x</name></expr>]</index></name> <operator>-</operator> <name><name>lsum</name><index>[<expr><name>i</name> <operator>-</operator> <literal type="number">1</literal></expr>]</index></name></expr>;</expr_stmt></block_content></block></else></if_stmt>
+        <if_stmt><if>if<condition>(<expr><name>temp</name> <operator>&gt;</operator> <name>ans</name></expr>)</condition><block type="pseudo"><block_content>
+            <expr_stmt><expr><name>ans</name> <operator>=</operator> <name>temp</name></expr>;</expr_stmt></block_content></block></if></if_stmt>
+    </block_content>}</block></for>
+    <expr_stmt><expr><name>cout</name><operator>&lt;&lt;</operator><name>ans</name></expr>;</expr_stmt>
+    <return>return ;</return>
+</block_content>}</block></function>
+
+
+
+<function><type><name>int</name></type> <name>main</name><parameter_list>()</parameter_list>
+<block>{<block_content>
+    <expr_stmt><expr><call><name><name>ios_base</name><operator>::</operator><name>sync_with_stdio</name></name><argument_list>(<argument><expr><literal type="boolean">false</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    <expr_stmt><expr><call><name><name>cin</name><operator>.</operator><name>tie</name></name><argument_list>(<argument><expr><literal type="number">0</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    <expr_stmt><expr><call><name><name>cout</name><operator>.</operator><name>tie</name></name><argument_list>(<argument><expr><literal type="number">0</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+    <decl_stmt><decl><type><name>lli</name></type> <name>t</name></decl>;</decl_stmt>
+<comment type="line">//    cin&gt;&gt;t;</comment>
+    <expr_stmt><expr><name>t</name><operator>=</operator><literal type="number">1</literal></expr>;</expr_stmt>
+    <while>while<condition>(<expr><name>t</name><operator>--</operator></expr>)</condition>
+    <block>{<block_content>
+        <expr_stmt><expr><call><name>solve</name><argument_list>()</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></while>
+    <return>return <expr><literal type="number">0</literal></expr>;</return>
+</block_content>}</block></function>
+</unit>
