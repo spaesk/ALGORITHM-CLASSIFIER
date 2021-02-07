@@ -1,0 +1,111 @@
+#include <bits/stdc++.h>
+#include <ext/pb_ds/assoc_container.hpp>
+#include <ext/pb_ds/tree_policy.hpp>
+using namespace std;
+using namespace __gnu_pbds;
+#define ll long long int
+#define pii 3.14
+#define mod (int)(1e9+7)
+#define fio ios_base::sync_with_stdio(0);cin.tie(0);cout.tie(0);
+#define ordered_set tree<int, null_type, less_equal<int>, rb_tree_tag, tree_order_statistics_node_update>
+#define pi pair<int,int>
+int n,m,u,v;
+
+template<typename T>
+class graph
+{
+    public:
+        map<T, list<T> >adj;
+        map<T,bool>vis;
+        map<T,int>dis;
+
+    void add(T u,T v,bool bi = true)
+    {
+        adj[u].push_back(v);
+        if(bi)
+            adj[v].push_back(u);
+    }
+
+    void print()
+    {
+        for(auto itr : adj)
+        {
+            T node = itr.first;
+            cout<<node.first<<" "<<node.second<<" - > ";
+            for(T el : adj[node])
+                cout<<el.first<<","<<el.second<<" : ";
+            cout<<endl;
+        }
+    }
+
+    bool isCycle(T src)
+    {
+        queue<T>q;
+        map<T,int>indeg;
+        for(auto it : adj)
+        {
+            T node = it.first;
+            for(auto el : adj[node])
+                indeg[el]++;
+        }
+
+        for(int i=1;i<=n;i++)
+        {
+            if(indeg[i] == 0)
+                q.push(i);
+        }
+        int cnt = 0;
+        while(!q.empty())
+        {
+            T node = q.front();
+            q.pop();
+            cnt++;
+            for(auto el : adj[node])
+            {
+                indeg[el]--;
+                if(indeg[el] == 0)
+                    q.push(el);
+            }
+        }
+
+        if(cnt == n)
+            return false;
+        return true;
+
+    }
+};
+
+int main() {
+
+    //freopen("input.txt", "rt", stdin);
+    //freopen("output.txt", "wt", stdout);
+
+    fio;
+    cin>>n>>m;
+    graph<int>g;
+    vector<pi>vi;
+    for(int i=1;i<=m;i++)
+    {
+        cin >> u >> v;
+        vi.push_back({u,v});
+        g.add(u,v,0);
+    }
+
+    if(!(g.isCycle(1)))
+    {
+        cout<<"1\n";
+        for(int i=0;i<m;i++)
+            cout<<"1 ";
+    }
+    else
+    {
+        cout<<"2\n";
+        for(auto el : vi)
+        {
+            if(el.first < el.second)
+                cout<<"1 ";
+            else
+                cout<<"2 ";
+        }
+    }
+}

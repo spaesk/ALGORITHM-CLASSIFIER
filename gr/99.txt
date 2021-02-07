@@ -1,0 +1,108 @@
+/*
+ * Author: rush
+ * Filename: D.cpp
+ * Timestamp: 2012-01-18 23:54:49 CST
+ */
+#include <cstdio>
+#include <cstring>
+#include <cmath>
+#include <cstdlib>
+#include <iostream>
+#include <algorithm>
+#include <vector>
+#include <map>
+#include <set>
+#include <string>
+#include <sstream>
+#define OUT(x) cerr << #x << ": " << (x) << endl
+#define SZ(x) ((int)x.size())
+#define FOR(i, n) for (int i = 0; i < (n); ++i)
+using namespace std;
+typedef long long LL;
+
+#include <queue>
+const int oo = 0x3f3f3f3f;
+typedef int Weight;
+
+struct Graph {
+	struct Edge { int y, next; Weight w; };
+	vector<int> node;
+	vector<Edge> edge;
+	void init(int N, int M) {
+		node.assign(N, -1);
+		edge.clear();
+		edge.reserve(M);
+	}
+	void addEdge(int x, int y, Weight w) {
+		Edge e = Edge();
+		e.y = y, e.w = w, e.next = node[x];
+		node[x] = SZ(edge);
+		edge.push_back(e);
+	}
+};
+
+// Dijkstra Shortest Path Algorithm, O((E + V) * log(V))
+// Accepted: pku1511, pku2387
+void dijkstra(Graph const &G, int home, vector<Weight> &dist) {
+	typedef pair<Weight, int> PWI;
+	priority_queue<PWI, vector<PWI>, greater<PWI> > PQ;
+	vector<bool> vis(SZ(G.node), false);
+	dist.assign(SZ(G.node), +oo);
+	dist[home] = 0;
+	PQ.push(PWI(dist[home], home));
+	int loop = SZ(G.node) - 1;
+	while (loop-- && !PQ.empty()) {
+		int x = PQ.top().second;
+		PQ.pop();
+		vis[x] = true;
+		for (int j = G.node[x]; j != -1; j = G.edge[j].next) {
+			int y = G.edge[j].y;
+			Weight w = G.edge[j].w;
+			if (dist[y] > dist[x] + w) {
+				dist[y] = dist[x] + w;
+				PQ.push(PWI(dist[y], y));
+			}
+		}
+		while (!PQ.empty() && vis[PQ.top().second]) {
+			PQ.pop();
+		}
+	}
+}
+
+int main() {
+	int n, m, s;
+	Graph G;
+	int l;
+	
+	while (scanf("%d%d%d", &n, &m, &s) != EOF) {
+		--s;
+		G.init(n, m * 2);
+		vector<int> u(m), v(m), w(m);
+		FOR(i, m) {
+			scanf("%d%d%d", &u[i], &v[i], &w[i]);
+			--u[i], --v[i];
+			G.addEdge(u[i], v[i], w[i]);
+			G.addEdge(v[i], u[i], w[i]);
+		}
+		scanf("%d", &l);
+		vector<int> dist;
+		dijkstra(G, s, dist);
+		int cnt = 0;
+		FOR(i, n)
+			if (dist[i] == l) ++cnt;
+		FOR(i, m) {
+			int a = dist[u[i]];
+			int b = dist[v[i]];
+			if (a < l && l < a + w[i] && l <= w[i] - (l - a) + b)
+				++cnt;
+			if (b < l && l < b + w[i] && l <= w[i] - (l - b) + a)
+				++cnt;
+			if (a < l && l < a + w[i] && l <= w[i] - (l - a) + b
+			 && b < l && l < b + w[i] && l <= w[i] - (l - b) + a
+			 && a + b + w[i] == l * 2)
+				--cnt;
+		}
+		printf("%d\n", cnt);
+	}
+	return 0;
+}

@@ -1,0 +1,68 @@
+#include <stdio.h>
+#include <algorithm>
+#include <stdlib.h>
+#include <string>
+#include <vector>
+#include <time.h>
+#include <queue>
+#include <iostream>
+#include <string.h>
+using namespace std;
+#define FOR(i,n,m) for (int i=(n);i<=(m);i++)
+#define si(n) fscanf(in,"%d",&n)
+#define NM 5005
+#define MOD 1000000007
+#define INF 1000000007
+typedef long long int ll;
+
+//FILE *in = fopen("input.txt", "r"), *out = fopen("output.txt", "w");
+FILE *in = stdin, *out = stdout;
+
+int n, m, last;
+vector<pair<int,int> > con[NM];
+int visit[NM], ans[NM], ind[NM], edge[NM][2];
+void input() {
+	si(n), si(m);
+	FOR(i, 1, m) {
+		int u, v;
+		si(u), si(v);
+		edge[i][0] = u, edge[i][1] = v;
+		ind[v]++;
+		con[u].push_back({ v,i });
+	}
+}
+bool check() {
+	queue<int>Q;
+	FOR(i, 1, n) if (ind[i] == 0) Q.push(i);
+	while (!Q.empty()) {
+		int x = Q.front(); Q.pop();
+		for (auto &p : con[x]) {
+			ind[p.first]--;
+			if (ind[p.first] == 0) Q.push(p.first);
+		}
+	}
+	FOR(i, 1, n) if (ind[i] != 0) return false;
+	return true;
+}
+void dfs(int x) {
+	visit[x] = 1;
+	for (auto& y : con[x]) {
+		if (visit[y.first] != 0) continue;
+		ans[y.second] = 1;
+		dfs(y.first);
+	}
+}
+int main() {
+	input();
+	if (check()) {
+		fprintf(out, "1\n");
+		FOR(i, 1, m) fprintf(out, "1 ");
+		return 0;
+	}
+	fprintf(out, "2\n");
+	FOR(i, 1, m) {
+		if (edge[i][0] > edge[i][1]) fprintf(out, "1 ");
+		else fprintf(out,"2 ");
+	}
+	return 0;
+}

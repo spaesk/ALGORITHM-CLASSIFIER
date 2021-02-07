@@ -1,0 +1,82 @@
+#include<iostream>
+#include<cstdio>
+#include<cstdlib>
+#include<cstring>
+using namespace std;
+#define re(i,n) for(int i=0;i<n;i++)
+#define re1(i,n) for(int i=1;i<=n;i++)
+#define re2(i,n) for(int i=0;i<=n;i++)
+#define re3(i,n) for(int i=1;i<n;i++)
+#define clr(a,n) memset(a,n,sizeof(a))
+#define debug(n) cout<<#n<<"="<<n<<endl
+const int V = 100005;
+const int E = 200005;
+int n,m,e,s, head[V],pnt[E],nxt[E],cost[E],vis[V],Q[V],dist[V];
+void add(int u,int v,int c){
+	nxt[e] = head[u];
+	head[u] = e;
+	pnt[e] = v;
+	cost[e] = c;
+	e++;
+}
+const int inf = ~0u>>2;
+int hash[E];
+void spfa(){
+	Q[0] = s;
+	clr(vis,0);
+	vis[s] = 1;
+	re(i,n) dist[i] = inf;
+	dist[s] = 0;
+	int front = 0,tail = 1;
+	while(front<tail){
+		int u = Q[front++];
+		vis[u] = 0;
+		for(int i=head[u]; i!=-1;i=nxt[i]){
+			int v= pnt[i];
+			if(dist[v]>dist[u]+cost[i]){
+				dist[v] = dist[u]+cost[i];
+				if(vis[v]==0){
+					Q[tail++] = v;
+					vis[v] = 1;
+				}
+			}
+		}
+	}
+}
+int main(){
+	while(cin>>n>>m>>s){
+		s--; e=0; clr(head,-1);
+		re(i,m) {
+			int a,b,c;
+			scanf("%d%d%d",&a,&b,&c);
+			a--,b--;
+			add(a,b,c);
+			add(b,a,c);
+		}
+		int l ; cin>>l;
+		spfa();
+		int ans = 0;
+	//	re(i,n) cout<<dist[i]<<" "; cout<<endl;
+		re(i,n) if(dist[i]==l) ans++;
+		for(int i=0;i<e;i+=2){
+			int x = pnt[i], y=pnt[i+1],c = cost[i];
+			int a = -1,b=-1;
+			if(l-dist[x]>0 && l-dist[x]<c){
+				int dis = l-dist[x];if(dist[y]+c-dis>=l) a = dis;
+			}
+			int dis = l-dist[y];
+			if(l-dist[y]>0 && l-dist[y]<c){
+				if(dist[x]+c-dis>=l) b=dis;
+			}
+//			cout<<x<<" "<<y<<" "<<a<<" "<<b<<endl;
+			if(a==-1 && b==-1) continue;
+			else if(a==-1|| b==-1) ans++;
+			else if(a+b==c) ans++;
+			else ans+=2;
+			//cout<<x<<" "<<y<<" "<<a<<" "<< b<<endl;
+		}
+		cout<<ans<<endl;
+	}
+	return 0;
+}
+

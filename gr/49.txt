@@ -1,0 +1,130 @@
+#include <bits/stdc++.h>
+
+#define loop(i, n)    for(int i = 0; i < n; i++)
+#define loop1(i, a, n) for(int i = a; i < n; i++)
+#define vloop(i, a)   for(vector<int>::iterator i=a.begin(); i != a.end(); i++)
+#define dloop(i, a)   for(deque<int>::iterator i=a.begin(); i != a.end(); i++)
+#define PI 3.141592653589793238
+#define bc __builtin_popcountll
+#define gc getchar_unlocked
+#define pc putchar_unlocked
+#define pb push_back
+#define pf push_front
+#define rf pop_front
+#define rb pop_back
+#define mp make_pair
+#define fs first
+#define sc second
+#define fi ios_base::sync_with_stdio(false); cin.tie(NULL)
+
+using namespace std;
+typedef long long ll;
+typedef unsigned long long ull;
+const ll M = 1e9 + 7;
+const ll INF = 1e9;
+inline ll pwr(ll base, ll n, ll m){ll ans = 1;while( n > 0 ) {if ( n % 2 == 1 )ans = (ans * base) % m; base = (base * base) % m;n/=2;}return ans;}
+
+const int N = 2e5 + 10;
+vector<int> adj[N];
+int u, v, n, par[N], lvl[N];
+deque< int >check;
+vector< pair<int, int> > res;
+vector< pair<int, int> > res1;
+vector<int> corder[N];
+
+void solve() {
+
+    deque< int >mv;
+    int t = check.front();
+    mv.pb(t);
+    lvl[t] = 1;
+    par[t] = t;
+
+    while( !mv.empty() ) {
+        t = mv.front();
+        //cout << t << " ";
+        res.pb(mp(lvl[t], par[t]));
+        mv.rf();
+        for( auto j: adj[t] ) {
+            if( j == par[t] )
+                continue;
+            par[j] = t;
+            lvl[j] = lvl[t] + 1;
+            mv.pb(j);
+        }
+
+    }
+}
+
+int main() {
+    fi;
+
+    #ifndef ONLINE_JUDGE
+    freopen("input.txt", "r", stdin);
+    freopen("output.txt", "w", stdout);
+    #endif
+
+    cin >> n;
+    loop(i, n-1) {
+        cin >> u >> v;
+        adj[u].pb(v);
+        adj[v].pb(u);
+    }
+
+    loop(i, n) {
+        cin >> v;
+        check.pb(v);
+    }
+    if( check[0] != 1 ) {
+        cout << "No";
+        return 0;
+    }
+    solve();
+
+    loop(i, n) {
+        res1.pb(mp(lvl[check[i]], par[check[i]]));
+    }
+
+    int z = 0, mxl = 0;
+
+    loop(i, n) {
+        if( res[i].fs != res1[i].fs ) {
+            cout << "No";
+            return 0;
+        }
+        mxl = max(mxl, res1[i].fs);
+        corder[res1[i].fs].pb(check[i]);
+    }
+
+    loop1(i, 2, mxl+1) {
+
+        int z = corder[i].size();
+        vector< int > temp;
+
+        loop(j, z) {
+            if( j == 0 ) temp.pb( par[corder[i][j]] );
+            else if( par[corder[i][j]] != par[corder[i][j-1]] )
+                temp.pb( par[corder[i][j]] );
+        }
+
+        if( temp.size() > corder[i-1].size() ) {
+            cout << "No";
+            return 0;
+        }
+        z = temp.size();
+        int z1 = 0;
+        loop(k, z) {
+            while( z1 < corder[i-1].size() && corder[i-1][z1] != temp[k] ) {
+                z1++;
+            }
+            if( z1 >= corder[i-1].size() ) {
+                cout << "No";
+                return 0;
+            }
+        }
+    }
+
+    cout << "Yes";
+
+    return 0;
+}

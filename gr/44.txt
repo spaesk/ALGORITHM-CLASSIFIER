@@ -1,0 +1,112 @@
+//#pragma GCC optimize("Ofast")
+//#pragma GCC optimize ("unroll-loops")
+//#pragma GCC target("sse,sse2,sse3,ssse3,sse4,popcnt,abm,mmx,avx,tune=native")
+
+#include <bits/stdc++.h>
+#define ll long long
+#define pll pair<ll,ll>
+#define vpll vector<pll>
+#define vppll vector< pair<ll , pll> >
+#define pb push_back
+#define eb emplace_back
+#define vll vector<ll>
+#define mp make_pair
+#define F first
+#define S second
+#define fast ios_base::sync_with_stdio(false); cin.tie(NULL)
+#define bc(x) __builtin_popcountll(x)
+#define init(x) memset(x,-1,sizeof(x))
+#define clr(x) memset(x,0,sizeof(x))
+#define max_pq priority_queue<ll>
+#define min_pq priority_queue<ll,vector<ll>,greater<ll> >;
+#define For(i,x,n) for(i=x; i<n; ++i)
+#define inp(x) scanf("%lld",&x)
+#define inp2(x,y) scanf("%lld %lld",&x, &y)
+#define inp3(x,y,z) scanf("%lld %lld %lld",&x, &y, &z)
+#define out(x) printf("%lld ",x)
+#define br printf("\n")
+#define T ll t; scanf("%lld",&t); while(t--)
+#define MOD 1000000007
+#define M   200002
+using namespace std;
+//typedef tree<ll, null_type, less_equal<ll>, rb_tree_tag, tree_order_statistics_node_update> ordered_set;
+
+//ll modpow(ll a,ll b,ll m){ ll r=1; while(b>0) { if(b&1) r=(r*a)%m; a=(a*a)%m; b>>=1;} return r; }
+/*ll seive[M];
+void create()
+{
+    clr(seive);
+    for(ll i=M-1;i>=2;--i)
+    {
+        for(ll j=i;j<M;j+=i)
+            seive[j]=i;
+    }
+}*/
+
+/*bool seive1[M];
+void create1()
+{
+    clr(seive1);
+    for(ll i=2;i<M;++i)
+    {
+        if(!seive1[i])
+        {
+            for(ll j=i<<1;j<M;j+=i)
+                seive1[j]=true;
+        }
+    }
+}*/
+vll v[M];
+ll lev[M], a[M], ind[M];
+bool visit[M];
+
+bool cmp(ll a, ll b) {
+    return ind[a] < ind[b];
+}
+
+void bfs() {
+    clr(visit);
+    queue<ll> q;
+    q.push(1);
+    visit[1] = true;
+
+    ll x, i = 0;
+    vll z;
+    while(!q.empty()) {
+        x = q.front();
+        if(a[i++] != x) {
+            printf("No\n");
+            return;
+        }
+        q.pop();
+        for(auto xx: v[x]) {
+            if(!visit[xx]) {
+                visit[xx] = true;
+                q.push(xx);
+            }
+        }
+    }
+    printf("Yes\n");
+}
+
+int main()
+{
+    ll n,i,x,y;
+    inp(n);
+
+    For(i,0,n-1) {
+        inp2(x,y);
+        v[x].pb(y);
+        v[y].pb(x);
+    }
+    For(i,0,n) {
+        inp(a[i]);
+        ind[a[i]] = i;
+    }
+    For(i,1,n+1) {
+        sort(v[i].begin(), v[i].end(), cmp);
+    }
+
+    bfs();
+    return 0;
+} 

@@ -1,0 +1,101 @@
+#include <cstdio>
+#include <iostream>
+#include <algorithm>
+#include <vector>
+#include <string>
+#include <map>
+#include <set>
+#include <queue>
+#include <cmath>
+#include <cassert>
+#include <list>
+using namespace std;
+typedef vector<int> vint;
+typedef pair<int, int> pii;
+typedef long long lint;
+#define mp make_pair
+#define pb push_back
+#define all(a) (a).begin(), (a).end()
+#define sz(a) (int)(a).size()
+
+const int INF = 1 << 30;
+int D[100 * 1000 + 5];
+bool Used[100 * 1000 + 5];
+int N, M, S;
+
+struct cmp {
+	inline bool operator()(pii a, pii b) {
+		return b < a;
+	}
+};
+
+priority_queue<pii, vector<pii>, cmp> X;
+list<pii> G[100 * 1000 * 5];
+
+void Solve() {
+	scanf("%d %d %d", &N, &M, &S);
+	fill(D, D + N + 1, INF);
+	for(int k = 0; k < M; k++) {
+		int u, v, w;
+		scanf("%d %d %d", &u, &v, &w);
+		G[u].push_front(mp(v, w));
+		G[v].push_front(mp(u, w));
+	}
+	D[S] = 0;
+	X.push(mp(0, S));
+	while(!X.empty()) {
+		pii p = X.top();
+		X.pop();
+		int d = p.first;
+		int u = p.second;
+		if(Used[u]) continue;
+		Used[u] = true;
+		for(list<pii>::iterator it = G[u].begin(); it != G[u].end(); it++) {
+			int v = it->first;
+			int w = it->second;
+			if(D[v] > D[u] + w) {
+				D[v] = D[u] + w;
+				X.push(mp(D[v], v));
+			}
+		}
+	}
+	int L;
+	scanf("%d", &L);
+	int ans = 0;
+	for(int u = 1; u <= N; u++) {
+		if(D[u] == L) {
+			ans++;
+		}
+		if(D[u] < L) {
+			for(list<pii>::iterator it = G[u].begin(); it != G[u].end(); it++) {
+				int v = it->first;
+				if((D[v] > D[u]) || (D[u] == D[v] && u < v)) {
+					if(D[v] > L) {
+						ans++;
+					}
+					else if(D[v] < L) {
+						int w = it->second;
+						w -= L - D[u];
+						w -= L - D[v];
+						if(w == 0) ans++;
+						if(w > 0) ans += 2;
+					}
+					else if(D[v] == L) {
+						int w = it->second;
+						w -= L - D[u];
+						if(w > 0) ans++;
+					}
+				}
+			}
+		}
+	}
+	printf("%d\n", ans);
+}
+
+int main() {
+#ifndef ONLINE_JUDGE
+	freopen("input.txt", "r", stdin);
+#endif
+	Solve();
+	return 0;
+}

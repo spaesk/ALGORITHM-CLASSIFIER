@@ -1,0 +1,83 @@
+//By Lin
+#include<cstdio>
+#include<cstring>
+#include<queue>
+#define maxn 100005
+using namespace std;
+
+int	cnt,n,m,s; 
+struct Edge{
+	int to,w;
+	Edge *next; 
+}*mat[maxn] , edges[maxn*2]; 
+
+void	link(int x ,int to ,int w )
+{
+	edges[cnt].to = to; 
+	edges[cnt].w  = w; 
+	edges[cnt].next = mat[x]; 
+	mat[x] = &edges[cnt++]; 
+}
+
+queue<int> que; 
+bool in_que[maxn]; 
+int	 d[maxn]; 
+void	spfa() 
+{
+	memset( d , -1 , sizeof(d) ); 
+	memset( in_que, false , sizeof(in_que) ); 
+	d[s] = 0;
+	que.push(s); 
+	while ( !que.empty() )
+	{
+		int i = que.front(); 
+		que.pop(); 
+		in_que[i] = false; 
+		for ( Edge *p = mat[i]; p ; p =p->next )
+		{
+			int to = p->to; 
+			if ( d[to] == -1 || d[to] > d[i]+p->w )
+			{
+				d[to] = d[i] + p->w; 
+				if ( !in_que[to] )
+				{
+					in_que[to] = true; 
+					que.push(to); 
+				}
+			}
+		}
+	}
+}
+int main()
+{
+	scanf("%d%d%d" , &n ,&m ,&s); 
+	int x , y , w; 
+	cnt = 0; 
+	memset( mat , 0 , sizeof(mat) ); 
+	for (int i = 0; i<m; i++)
+	{
+		scanf("%d%d%d" ,&x ,&y ,&w ); 
+		link(x ,y , w ); 
+		link(y, x , w ); 
+	}
+	spfa(); 
+	int k , ans = 0 ; 
+	scanf("%d" , &k ); 
+	for (int i = 1; i<=n; i++)
+	{
+		if ( d[i] > k ) continue; 
+		if ( d[i] == k ) ans ++; 
+		else 
+		for ( Edge *p = mat[i]; p ; p = p->next )
+		{
+			int to = p->to; 
+			if ( d[i] + p->w <= k ) continue; 
+			int l = k-d[i]; 
+			if ( d[to] + p->w - l < k ) continue; 
+			if ( d[to] + p->w - l > k ) ans++; 
+			else if ( i < to ) ans++; 
+		}
+	}
+	printf("%d\n" , ans ); 
+	return 0; 
+}

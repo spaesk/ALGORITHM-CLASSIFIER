@@ -1,0 +1,88 @@
+#include<bits/stdc++.h>
+#include <ext/pb_ds/assoc_container.hpp> // Common file
+#include <ext/pb_ds/tree_policy.hpp> // Including tree_order_statistics_node_update
+#define int long long
+#define mod 1000000007
+#define maxN 1000
+#define pb push_back
+#define mp make_pair
+#define pii pair<int,int>
+#define pip pair<int,pii>
+#define vi vector<int>
+#define vpi vector<pii >
+#define endl "\n"
+#define fastIO ios_base::sync_with_stdio(0);cin.tie(0);cout.tie(0)
+#define FOR(a,b,c) for(int(a) = b;a<=c;a++)
+#define repr(a,b,c) for(int(a) = b;a>=c;a--)
+#define rep(i,n) for(int(i) = 0;i<n;i++)
+#define fir first
+#define sec second
+#define beg begin()
+#define e end()
+#define len length()
+using namespace std;
+using namespace __gnu_pbds;
+const int inf = 0x3f3f3f3f3f3f3f3fll;
+typedef tree<int,null_type,less<int>,rb_tree_tag,tree_order_statistics_node_update> ordered_set;
+typedef tree<int,null_type,less_equal<int>,rb_tree_tag,tree_order_statistics_node_update> ordered_multiset;
+#define N 200005
+vi adj1[N];
+int dist1[N];
+int indexswap[N];
+bool comp(int a,int b){
+return indexswap[a]<indexswap[b];}
+int32_t main()
+{
+fastIO;
+    int n=0;
+    int m=0;
+    cin>>n;
+    m=n-1;
+    rep(i,m)
+    {
+        int u;
+        int v;
+        cin>>u>>v;
+       adj1[u].pb(v);
+       adj1[v].pb(u);
+    }
+    vi arr(n+1,0);
+    FOR(i,1,n){
+    cin>>arr[i];
+    
+    	indexswap[arr[i]]=i;
+    }
+    FOR(i,1,n)
+    sort(adj1[i].beg,adj1[i].e,comp);
+    queue<int> q;
+  q.push(1);
+  int par[n+1];
+  bool vis[n+1] = {false};
+  par[1] = 1;
+  vis[1] = true;
+  vi ans;
+  ans.pb(1);
+  while(!q.empty())
+  {
+    int a = q.front();
+    q.pop();
+    rep(i,adj1[a].size()){
+      int y = adj1[a][i];
+      if(!vis[y]){
+        vis[y] = true;
+        par[y] = a;
+        q.push(y);
+        ans.pb(y);
+      }
+    }
+  }
+  int flag=0;
+  rep(i,ans.size())
+  {
+	if(ans[i]!=arr[i+1])
+	flag=1;
+  }
+   string ans1=flag?"No":"Yes";
+   cout<<ans1<<endl;
+   return 0;
+}

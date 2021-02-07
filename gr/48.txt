@@ -1,0 +1,102 @@
+#include<bits/stdc++.h>
+#define int long long
+#define ll long long
+#define maxN 200005
+#define rep(i,n) for(int i=0;i<n;i++)
+#define refv(i,l,r) for(int i=l;i<r;i++)
+#define rerv(i,l,r) for(int i=r;i>=r;i--)
+#define pi pair<ll,ll>
+#define pii pair<ll,pair<ll,ll> > 
+#define pb push_back
+#define mp make_pair
+#define F first
+#define S second
+#define mod 1000000007
+#define printvector(v) for(int i= 0;i<v.size();i++) {cout<<v[i]<<" ";} cout<<endl;
+#define printset(s) for(auto it = s.begin();it!=S.end();it++){cout<<*it<<" ";} cout<<endl;
+#define fastio ios_base::sync_with_stdio(false); cin.tie(NULL);  cout.tie(NULL);
+using namespace std;
+vector<int> v[maxN];
+
+int32_t main()
+{
+    int n;
+    cin>>n;
+    rep(i,n-1)
+    {
+        int x,y;
+        cin>>x>>y;
+        v[x].pb(y);
+        v[y].pb(x);
+    }
+    int par[n+1];
+    par[1]=0;
+    queue<int> q;
+    q.push(1);
+    int visited[n+1]={0};
+    visited[1]=1;
+    while(!q.empty())
+    {
+        int node=q.front();
+        q.pop();
+        for(auto x: v[node])
+        {
+            if(!visited[x])
+            {
+                q.push(x);
+                par[x]=node;
+                visited[x]=1;
+            }
+        }
+    }
+    int arr[n];
+    rep(i,n)
+    {
+        cin>>arr[i];
+    }
+    if(arr[0]!=1)
+    {
+        cout<<"NO"<<endl;
+        return 0;
+    }
+    queue<int> qe;
+    rep(i,n)
+    {
+        qe.push(arr[i]);
+    }
+    int i=0;
+    int flag=0;
+//    cout<<par[4]<<arr[0]<<endl;
+    while(!qe.empty())
+    {
+        int node=qe.front();
+        if(par[node]==0)
+        {
+            qe.pop();
+            continue;
+        }
+        qe.pop();
+        while(i<n && par[node]!=arr[i])
+        {
+
+           // cout<<node<<" "<<par[node]<<" "<<arr[i]<<endl;
+            i++;
+        }
+        
+        if(i>=n)
+        {
+            //cout<<node<<endl;
+            flag=1;
+            break;
+        }
+    }
+    if(flag==0)
+    {
+        cout<<"YES"<<endl;
+    }
+    else
+    {
+        cout<<"NO"<<endl;
+    }
+    
+}

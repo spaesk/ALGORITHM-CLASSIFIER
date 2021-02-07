@@ -1,0 +1,65 @@
+#include <cstdio>
+#include <vector>
+#include <set>
+#include <queue>
+#include <stack>
+#include <utility>
+#include <algorithm>
+#include <list>
+#include <climits>
+
+#define FOREACH(a,c) for(__typeof((c).begin()) a = (c).begin(); a != (c).end(); a++)
+
+using namespace std;
+
+typedef pair<int, int> PII;
+typedef vector<int> VI;
+typedef vector<PII> VII;
+
+const int MAXX = 100100;
+VII G[MAXX];
+int D[MAXX];
+int compute(int n, int s, int l){
+    priority_queue<PII, vector<PII>, greater<PII> > Q;
+    for (int i = 0; i <= n; i++)
+        D[i] = (i == s ? 0 : INT_MAX);
+    Q.push(make_pair(D[s],s));
+    while (!Q.empty()){
+        PII U = Q.top(); Q.pop();
+        int u = U.second;
+        if (D[u] < U.first) continue;
+        FOREACH(a,G[u]){
+            if (D[a->first] > D[u]+a->second){
+                D[a->first] = D[u]+a->second;
+                Q.push(make_pair(D[a->first], a->first));
+            }
+        }
+    }
+    int r = 0;
+    for (int i = 1; i <= n; i++){
+        if (D[i] == l){
+            r++;
+        }
+        FOREACH(a,G[i])
+            if (D[i] < l && D[i] + a->second > l){
+                int d = l-D[i];
+                if (D[i] + d > D[a->first]+(a->second-d)) continue;
+                if (l - D[i] == a->second-(l-D[a->first]) && i > a->first) continue;
+                r++;
+            }
+    }
+    return r;
+}
+
+int main(){
+    int n,m,s; scanf ("%d %d %d", &n, &m, &s);
+    for (int i = 0; i < m; i++){
+        int v,u,w; scanf ("%d %d %d", &v, &u, &w);
+        G[v].push_back(make_pair(u,w));
+        G[u].push_back(make_pair(v,w));
+    }
+    int l; scanf ("%d", &l);
+    printf ("%d\n", compute(n,s,l));
+    return 0;
+}
+

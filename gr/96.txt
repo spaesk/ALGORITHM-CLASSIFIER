@@ -1,0 +1,105 @@
+#include<bits/stdc++.h>
+#include<math.h>
+using namespace std; 
+
+vector<vector<pair<int,int> > > graph;
+vector<int> dist;
+
+vector<int> parent;
+
+
+int dijk(int n, int s){
+     dist.resize(n, INT_MAX);
+    vector<bool> taken(n, false);
+    parent.resize(n,-1);
+    priority_queue<pair<int,int> > que;
+    que.push(make_pair(0,s));
+    dist[s] = 0;
+    while(true){
+        if(que.empty()) break;
+        pair<int,int> p;
+        while(!que.empty() && (taken[que.top().second])){
+         //   p = que.top();
+        
+            que.pop();
+        }
+        
+        if(que.empty()) break;
+        p = que.top();
+        que.pop();
+        
+        int id = p.second;
+       
+        int wt = -1*p.first;
+        taken[id] = true;
+        for(pair<int,int> ch : graph[id]){
+           
+            if(dist[ch.first] == INT_MAX){
+                dist[ch.first] = dist[id] + ch.second;
+                parent[ch.first] = id;
+                que.push(make_pair(-1*dist[ch.first], ch.first));
+            }else if(ch.second + dist[id] < dist[ch.first]){
+                dist[ch.first] = ch.second + dist[id];
+                parent[ch.first] = id;
+                que.push(make_pair(-1*dist[ch.first], ch.first));
+            }
+        }
+        
+    }
+
+}
+
+
+
+
+
+
+
+
+int main(){
+    int n, m, s;
+    cin >> n >> m >> s; 
+    
+    graph.resize(n+1, vector<pair<int,int> > ());
+    vector<pair<pair<int,int>, int> > edges(m);
+    for(int i = 0; i<m; i++){
+        cin >> edges[i].first.first >> edges[i].first.second >> edges[i].second;
+        graph[edges[i].first.first].push_back(make_pair(edges[i].first.second,edges[i].second));
+        graph[edges[i].first.second].push_back(make_pair(edges[i].first.first,edges[i].second));
+    }
+    
+    int l; cin >> l ; 
+    
+    dijk(n+1,s);
+    
+    int count = 0;
+    
+    for(int i = 1; i<=n; i++){
+        if(dist[i] == l) count++;
+    }
+    
+    for(pair<pair<int,int> , int > p : edges){
+        int a, b, d;
+        a = dist[p.first.first]; 
+        b = dist[p.first.second];
+        d = p.second;
+        double maxd = (a+b+d)/(double)2;
+       // cout << a << " " << b << " " << maxd << endl;
+        if(maxd > a && maxd > b){
+            if(l > a && l < maxd) count++;
+            if(l > b && l < maxd) count++;
+            if(l == maxd) count++;
+            
+            
+            
+        }else{
+            if(l > min(a,b) && l < max(a,b)) count++;
+        }
+        
+        
+    }
+    
+    cout << count;
+    
+    
+}

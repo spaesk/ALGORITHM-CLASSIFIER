@@ -1,0 +1,62 @@
+#include<bits/stdc++.h>
+using namespace std;
+#define fastIO ios_base::sync_with_stdio(false);cin.tie(NULL);cout.tie(NULL);
+#define int long long
+#define fi first
+#define se second
+#define pub push_back
+#define endl "\n"
+#define mkp make_pair
+#define pi pair<int,int>
+#define all(v) (v).begin(), (v).end()
+#define rep(i, l, r) for(int i=(int)(l);i<(int)(r);i++)
+#define repd(i, l, r) for (int i=(int)(l);i>=(int)(r);i--)
+//int power(int x, unsigned int y){int res = 1;while (y > 0){ if (y & 1){res = res*x;} y = y>>1;x = x*x;}return res;}
+//int powermod(int x, unsigned int y, int p){int res = 1;x = x % p;while (y > 0){if (y & 1){res = (res*x) % p;}y = y>>1; x = (x*x) % p;}return res;}
+#define print2d(mat,n,m){for(int i=0;i<(int)(n);i++){for(int j=0;j<(m);j++){cout<<mat[i][j]<<" ";}cout<<endl;}}
+#define clr(a,x) memset(a,x,sizeof(a))
+#define rr(v) for(auto &val:v)
+#define print(v) for (const auto itr:v){cout<<itr<<' ';}cout<<endl;
+#define printarr(v,slz) rep(i,0,slz){cout<<v[i]<<' ';}cout<<endl;
+#define init(v,x) for (auto &itr:v){itr=x;}
+#define minpq(x) x,vector<x>,greater<x>
+#define ln length()
+#define sz size()
+const int mod=1e9+7;
+const int inf=1e18;
+const int maxn=5005;
+
+int edg[maxn];
+vector<pi> g[maxn];
+void dfs(int i,int dest,int *tmp,int cl,int *vis){
+  vis[i]=1;
+  if(i==dest){tmp[cl]=1;return;}
+  rr(g[i]){
+    if(vis[val.fi])continue;
+    if(val.se==cl){
+      dfs(val.fi,dest,tmp,cl,vis);
+    }
+  }
+}
+main(){
+    fastIO
+    int n,m;
+    cin >>n>>m;
+    int maxx=0;
+    rep(i,0,m){
+      int u,v;cin>>u>>v;
+      int vis[n+1]={0};
+      int tmp[m+1]={0};
+      vis[v]=1;
+      rr(g[v]){
+        dfs(val.fi,u,tmp,val.se,vis);
+      }
+      int cl=0;
+      rep(j,1,m+1){if(tmp[j])continue;cl=j;break;}
+      maxx=max(maxx,cl);
+      g[u].pub({v,cl});
+      edg[i]=cl;
+    }
+    cout<<maxx<<endl;
+    rep(i,0,m){cout<<edg[i]<<" ";}
+}

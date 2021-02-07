@@ -1,0 +1,90 @@
+#include<bits/stdc++.h>
+using namespace std;
+vector<vector<int> >a,num;
+vector<int>col;
+vector<int>pr;
+vector<vector<int> >b,n1;
+vector<int>used;
+int t=0;
+void dfs(int n)
+{
+
+    used[n]=1;
+    for(int j=0;j<a[n].size();j++)
+
+        {if(used[a[n][j]]==1)
+    {
+        b[n].push_back(a[n][j]);
+        n1[n].push_back(num[n][j]);
+
+    }
+    else if(used[a[n][j]]==0)
+    {
+        pr[a[n][j]]=n;col[num[n][j]]=t;
+        dfs(a[n][j]);
+
+
+    }
+    else   col[num[n][j]]=t;
+        }
+        used[n]=2;
+}
+int main()
+{
+    int n,m;
+    cin>>n>>m;
+    int kol=0;
+    a.resize(n);
+    num.resize(n);
+    b.resize(n);
+    n1.resize(n);
+    used.resize(n);
+    pr.resize(n);
+
+
+    col.resize(m);
+
+
+    for(int i=0;i<m;i++)
+    {
+        int x,y;
+        cin>>x>>y;
+        x--;
+        y--;
+        a[x].push_back(y);
+       // a[y].push_back(x);
+        num[x].push_back(i);
+       // num[y].push_back(i);
+
+    }
+    bool ok=false;
+
+    while(!ok)
+    {
+        t++;
+        for(int j=0;j<n;j++)
+        {
+
+            pr[j]=-1;
+            used[j]=0;
+        }
+        for(int j=0;j<n;j++)
+
+            if(!used[j])
+            dfs(j);
+        a=b;
+        num=n1;
+        ok=true;
+        for(int j=0;j<n;j++)
+            if(a[j].size()!=0)
+            ok=false;
+        b.clear();
+        n1.clear();
+        b.resize(n);
+        n1.resize(n);
+    }
+cout<<t<<endl;
+for(int i=0;i<m;i++)
+    cout<<col[i]<<' ';
+
+}

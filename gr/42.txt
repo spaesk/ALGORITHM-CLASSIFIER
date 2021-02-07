@@ -1,0 +1,103 @@
+#include<bits/stdc++.h>
+#include <ext/pb_ds/assoc_container.hpp> // Common file
+#include <ext/pb_ds/tree_policy.hpp> // Including tree_order_statistics_node_update
+#define int long long
+#define mod 1000000007
+#define maxN 1000001
+#define pb push_back
+#define mp make_pair
+#define pii pair<int,int>
+#define pip pair<int,pii>
+#define vi vector<int>
+#define vpi vector<pii >
+#define endl "\n"
+#define fastIO ios_base::sync_with_stdio(0);cin.tie(0);cout.tie(0)
+#define FOR(a,b,c) for(int(a) = b;a<=c;a++)
+#define repr(a,b,c) for(int(a) = b;a>=c;a--)
+#define rep(i,n) for(int(i) = 0;i<n;i++)
+#define fir first
+#define sec second
+#define beg begin()
+#define e end()
+#define len length()
+using namespace std;
+using namespace __gnu_pbds;
+const int inf = 0x3f3f3f3f3f3f3f3fll;
+typedef tree<int,null_type,less<int>,rb_tree_tag,tree_order_statistics_node_update> ordered_set;
+typedef tree<int,null_type,less_equal<int>,rb_tree_tag,tree_order_statistics_node_update> ordered_multiset;
+
+inline string uppercase(string s){
+  int n = s.size();
+  rep(i, n)
+    if (s[i] >= 'a' && s[i] <= 'z')
+      s[i] = s[i] - 'a' + 'A';
+  return s;
+}
+inline string lowercase(string s){
+  int n = s.size();
+  rep(i, n)
+    if (s[i] >= 'A' && s[i] <= 'Z')
+      s[i] = s[i] - 'A' + 'a';
+  return s;
+}
+
+int32_t main(){
+  fastIO;
+  int n;
+  cin>>n;
+  if(n == 1){
+    cout<<"Yes";
+    return 0;
+  }
+  vi adjList[n+1];
+  int x,y;
+  rep(i,n-1){
+    cin>>x>>y;
+    adjList[x].pb(y);
+    adjList[y].pb(x);
+  }
+  int arr[n];
+  rep(i,n)cin>>arr[i];
+  if(arr[0] != 1){
+    cout<<"No";
+    return 0;
+  }
+  queue<int> q;
+  q.push(1);
+  int par[n+1];
+  bool vis[n+1] = {false};
+  par[1] = 1;
+  while(!q.empty()){
+    int a = q.front();
+    q.pop();
+    vis[a] = true;
+    rep(i,adjList[a].size()){
+      int y = adjList[a][i];
+      if(!vis[y]){
+        vis[y] = true;
+        par[y] = a;
+        q.push(y);
+      }
+    }
+  }
+  int ind = 0;
+  int id = 1;
+  while(id < n){
+    int cnt = 0;
+    while(id < n && par[arr[id]] == arr[ind]){
+      id++;
+      cnt++;
+    }
+    if(cnt != adjList[arr[ind]].size()-1 && arr[ind] != 1){
+      cout<<"No";
+      return 0;
+    }
+    else if(cnt != adjList[1].size() && arr[ind] == 1){
+      cout<<"No";
+      return 0;
+    }
+    ind++;
+  }
+  cout<<"Yes";
+  return 0;
+}

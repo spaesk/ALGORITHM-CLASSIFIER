@@ -1,0 +1,114 @@
+/*_BELIEVE_*/
+
+//CF,CC,AtC,SPOJ: hp1999
+//HE: hemant269
+//HR: hemant2132
+
+#include<bits/stdc++.h>
+using namespace std;
+
+#define     int          long long int
+#define     fast()       ios::sync_with_stdio(0);cin.tie(0);cout.tie(0);
+#define     all(x)       x.begin(),x.end()
+#define     mem(a,b)     memset(a,b,sizeof(a))
+#define     gcd(a,b)     __gcd((a),(b))
+#define     lcm(a,b)     ((a)*(b))/gcd((a),(b))
+#define     pb           push_back
+#define     ins          insert
+#define     F            first
+#define     S            second
+
+const int inf=1e18,M=1e9+7;
+
+const int N=2e5+5;
+
+vector<int> v[N],vis(N,0),par(N),child(N,0),arr(N),sum(N);
+
+void solve()
+{
+    int n;
+    cin>>n;
+
+    int a,b;
+    for(int i=1;i<n;++i)
+    {
+        cin>>a>>b;
+        v[a].pb(b);
+        v[b].pb(a);
+    }
+
+    queue<int> q;
+    int x;
+
+    q.push(1);
+    vis[1]=1;
+    par[1]=-1;
+    while(!q.empty())
+    {
+        x=q.front();
+        q.pop();
+
+        for(auto u:v[x])
+        {
+            if(vis[u])
+                continue;
+            vis[u]=1;
+            par[u]=x;
+            ++child[x];
+            q.push(u);
+        }
+    }
+
+    for(int i=0;i<n;++i)
+    cin>>arr[i];
+
+    if(arr[0]!=1)
+    {
+        cout<<"No";
+        return;
+    }
+
+    int cur=0;
+    for(int i=1;i<n;++i)
+    {
+        if(par[arr[i]]!=par[arr[i-1]])
+            ++cur;
+        sum[i]=cur;
+    }
+
+    cur=0ll;
+    for(int i=0;i<n;++i)
+    {
+        if(!child[arr[i]])
+        continue;
+
+        cur+=child[arr[i]];
+
+        //cout<<arr[i]<<" "<<cur<<"\n";
+
+        if(par[arr[cur]]==arr[i] && par[arr[cur-child[arr[i]]+1]]==arr[i] && sum[cur]==sum[cur-child[arr[i]]+1])
+            ;
+        else
+        {
+            cout<<"No";
+            return;
+        }
+    }
+
+    cout<<"Yes";
+}
+
+int32_t main()
+{
+ fast();
+
+ int t=1;
+ //cin>>t;
+ while(t--)
+ {
+  solve();
+ }
+
+ return 0;
+}
+

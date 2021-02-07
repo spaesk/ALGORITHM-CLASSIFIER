@@ -1,0 +1,125 @@
+#include <bits/stdc++.h>
+
+using namespace std;
+
+#define X first
+#define Y second
+#define mp make_pair
+#define pb push_back
+#define mset(a) memset(a,0,sizeof(a))
+#define mmset(a) memset(a,-1,sizeof(a))
+#define mcpy(a,b) memcpy(a,b,sizeof(a))
+#define forit(it,x) for(__typeof((x).begin()) it=(x).begin();it!=(x).end();it++)
+#define debugit(x) {cout<<#x<<": ";forit(it_for_debug,(x))cout<<(*it_for_debug)<<' ';cout<<endl;}
+#define debugitp(x) {cout<<#x<<": ";forit(it_for_debug,(x))cout<<"("<<(*it_for_debug).X<<","<<(*it_for_debug).Y<<") ";cout<<endl;}
+
+typedef double lf;
+typedef long long ll;
+typedef unsigned int uint;
+typedef unsigned long long ull;
+typedef pair<int,int> pii;
+typedef pair<ll,ll> pll;
+typedef pair<ll,int> pli;
+typedef pair<lf,lf> pdd;
+typedef pair<int,pii> pip;
+typedef pair<pii,int> ppi;
+typedef pair<pii,pii> ppp;
+typedef vector<int> vi;
+typedef vector<pii> vpii;
+
+const int inf=1000000007;
+const ll linf=1000000000000000001LL;
+const ull ulinf=(1ULL<<63)-10ULL;
+const lf eps=0.000001;
+const lf pi=3.14159265358979323846;
+
+template <class T> T abs(T a){return a>=0?a:-a;}
+template <class T> int sign(T a){return a>eps?1:a<-eps?-1:0;}
+template <class T> T sqr(T a){return a*a;}
+template <class T> T gcd(T a,T b){return b?gcd(b,a%b):a;}
+template <class T> T mod(T a,T b){T ret=a%b;if(ret<0)ret+=b;return ret;}
+template <class T> T lowbit(T x){return x&-x;}
+ll addmod(ll a,ll b,ll c){return ((a+b)%c+c)%c;}
+ll mulmod(ll a,ll b,ll c){if(b==0LL)return 0LL;ll ret=mulmod(a,b>>1,c);ret=(ret+ret)%c;if(b&1LL)ret=(ret+a)%c;return ret;}
+ll powmod(ll a,ll b,ll c){if(b==0LL)return 1LL;ll ret=powmod(a,b>>1,c);ret=ret*ret%c;if(b&1LL)ret=ret*a%c;return ret;}
+ll modinv(ll a,ll b){return powmod(a,b-2LL,b);}
+template <class T> void maxe(T &a,T b){if(a<b)a=b;}
+template <class T> void mine(T &a,T b){if(a>b)a=b;}
+int iszero(lf a){return a<eps&&a>-eps;}
+
+template <class T> void geti(T &a){a=0;int b=0;char c;while((c=getchar())==' '||c=='\n');if(c=='-')b=1;else a=c-48;while((c=getchar())!=' '&&c!='\n')a=a*10+c-48;if(b)a=-a;}
+
+void fileio_in_out(){freopen(".in","r",stdin);freopen(".out","w",stdout);}
+void fileio_txt(){freopen("input.txt","r",stdin);freopen("output.txt","w",stdout);}
+
+//==================================================
+
+const int N = 333333;
+const int M = 22;
+const ll md = 1e9 + 7;
+
+int tcase;
+int n, m, k, q;
+int ans;
+set<pii> s;
+set<int> s0, s1;
+
+int main()
+{
+	ios::sync_with_stdio(false); cout<<setprecision(20);
+	
+	scanf("%d%d", &n, &m);
+	for (int i = 1; i <= m; i++)
+	{
+		int x, y;
+		scanf("%d%d", &x, &y);
+		s.insert(mp(x, y));
+		s.insert(mp(y, x));
+	}
+	s0.insert(1);
+	for (int i = 2; i <= n; i++)
+	{
+		if (s.find(mp(1, i)) == s.end())
+		{
+			s0.insert(i);
+		}
+		else
+		{
+			s1.insert(i);
+		}
+	}
+	while (!s0.empty() || !s1.empty())
+	{
+		int x;
+		if (!s0.empty())
+		{
+			x = *s0.begin();
+			s0.erase(s0.begin());
+		}
+		else
+		{
+			x = *s1.begin();
+			s1.erase(s1.begin());
+			ans++;
+		}
+		vi v;
+		forit (it, s1)
+		{
+			int y = *it;
+			if (s.find(mp(x, y)) == s.end())
+			{
+				v.pb(y);
+			}
+		}
+		for (int i = 0; i < v.size(); i++)
+		{
+			int y = v[i];
+			s1.erase(y);
+			s0.insert(y);
+		}
+	}
+	
+	printf("%d\n", ans);
+	
+	return 0;
+}

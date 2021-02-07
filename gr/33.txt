@@ -1,0 +1,89 @@
+#include <cstdio>
+#include <memory.h>
+#include <cstring>
+#include <vector>
+#include <deque>
+#include <cstdlib>
+#include <queue>
+#include <algorithm>
+#include <cmath>
+#include <cassert>
+#include <functional>
+#include <iostream>
+#include <set>
+#include <list>
+#include <map>
+#include <time.h>
+#include <unordered_map>
+#include <unordered_set>
+#include <bitset>
+#define sz(x) (int)(x).size()
+#define all(x) (x).begin(), (x).end()
+using namespace std;
+
+typedef long long ll;
+typedef unsigned long long llu;
+typedef pair<int, int> pii;
+typedef pair<int, pii> piii;
+typedef pair<ll, ll> pll;
+typedef pair<ll, int> pli;
+typedef pair<int, ll> pil;
+typedef pair<string, int> psi;
+typedef pair<char, int> pci;
+typedef pair<int, char> pic;
+const ll MOD = (ll)1e9 + 7;
+const long double PI = 3.141592653589793238462643383279502884197;
+
+priority_queue<int, vector<int>, greater<int> > pq;
+vector<int> v[5000];
+
+// 1. 사이클이 없다. (1-컬러로 가능)
+// 2. 사이클이 있다. (2-컬러로 가능)
+// 그런데 어떤 간선끼리 나눠야 할까?
+// dag할 수 있는 간선들을 최대한 넣어본다?
+int deg[5000], tmp[5000];
+int ans[5000];
+
+int main() {
+	int n, m;
+	scanf("%d %d", &n, &m);
+
+	int cc = 0, flag = 1;
+	while (m--) {
+		int a, b;
+		scanf("%d %d", &a, &b);
+		a--; b--;
+		v[a].push_back(b);
+		
+		deg[b]++;
+		memcpy(tmp, deg, sizeof(tmp));
+
+		queue<int> q;
+		for (int i = 0; i < n; i++)
+			if (tmp[i] == 0) q.push(i);
+
+		int cnt = 0;
+		while (!q.empty()) {
+			cnt++;
+			int tv = q.front();
+			q.pop();
+
+			for (int i : v[tv])
+				if (--tmp[i] == 0) q.push(i);
+		}
+
+		if (cnt != n) {
+			ans[cc] = 2;
+			v[a].pop_back();
+			deg[b]--;
+			flag = 2;
+		}
+
+		else ans[cc] = 1;
+		cc++;
+	}
+
+	printf("%d\n", flag);
+	for (int i = 0; i < cc; i++)
+		printf("%d ", ans[i]);
+}

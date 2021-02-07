@@ -1,0 +1,99 @@
+//codeforces
+//R103 (div.2)
+//PROB D
+
+#include <iostream>
+#include <cstdio>
+
+using namespace std;
+
+const int MAXN = 210000;
+int n, m, s, dis[MAXN], v[MAXN], mct, q[MAXN * 2], lim;
+struct edge{int next, v, w;} e[MAXN];
+bool f[MAXN];
+
+void e_add(int x, int y, int w)
+{
+     mct++;
+     e[mct].next = v[x];
+     v[x] = mct;
+     e[mct].v = y;
+     e[mct].w = w;
+}
+
+void spfa(void)
+{
+     for (int i = 1; i <= n; i++) dis[i] = 123456789;
+     for (int i = 1; i <= n; i++) f[i] = false;
+     f[s] = true;
+     int cc = 0, hd = 0, tl = 0;
+     q[hd] = s;
+     dis[s] = 0;
+     while (cc || (hd <= tl))
+     {
+         int x = q[hd];
+         hd++;
+         f[x] = false;
+         if (hd >= MAXN) { hd = 0; cc--; }
+         for (int j = v[x]; j > 0; j = e[j].next)
+         {
+             int y = e[j].v;
+             if (dis[y] > dis[x] + e[j].w)
+             {
+                 dis[y] = dis[x] + e[j].w;
+                 if (!f[y])
+                 {
+                     if (dis[y] >= dis[hd])
+                     {
+                        tl++;
+                        if (tl >= MAXN) { tl = 0; cc++; }
+                        q[tl] = y;
+                     }
+                     else
+                     {
+                         hd--;
+                         if (hd < 0) { hd = MAXN - 1; cc++; }
+                         q[hd] = y;
+                     }
+                     f[y] = true;
+                 }
+             }
+         }
+     }
+}
+
+int main()
+{
+    cin >> n >> m >> s;
+    int x, y, w;
+    for (int i = 0; i < m; i++)
+    {
+        cin >> x >> y >> w;
+        e_add(x, y, w);
+        e_add(y, x, w);
+    }
+    cin >> lim;
+    spfa();
+    int ans1 = 0, ans2 = 0;
+    for (int i = 1; i <= n; i++) if (dis[i] == lim) ans1++;
+    for (int i = 1; i <= n; i++)
+        for (int j = v[i]; j > 0; j = e[j].next)
+        {
+            int x = i, y = e[j].v;
+            if (x >= y) continue;
+            if (dis[x] < lim)
+            {
+                int k = lim - dis[x];
+                if (k < e[j].w)
+                   if (dis[y] + (e[j].w - k) >= lim) ans2++;
+            }
+            if (dis[y] < lim)
+            {
+                int k = lim - dis[y];
+                if (k < e[j].w)
+                   if (dis[x] + (e[j].w - k) > lim) ans2++;
+            }
+        }
+    cout << ans1 + ans2 << endl;
+    return 0;
+}

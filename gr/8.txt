@@ -1,0 +1,103 @@
+#include<bits/stdc++.h>
+#include<ext/pb_ds/assoc_container.hpp>
+#include<ext/pb_ds/tree_policy.hpp>
+#define int long long
+#define mkp make_pair
+#define pb push_back
+#define ff first
+#define ss second
+#define debug1(a) cout<<a<<endl;
+#define debug2(a,b) cout<<a<<' '<<b<<endl;
+#define debug3(a,b,c) cout<<a<' '<<b<<' '<<c<<endl;
+#define rep(i,n) for(int i=0;i<n;i++)
+#define repr(i,a,b)for(int i=a;i<b;i++)
+#define repre(i,a,b)for(int i=a;i<=b;i++)
+#define clr1(arr) memset(arr,-1,sizeof(arr));
+#define clr0(arr) memset(arr,0,sizeof(arr));
+#define pi pair<int,int>
+#define pii pair<int,pi>
+#define all(v) v.begin(),v.end()
+#define pq priority_queue
+#define mpq priority_queue<int,vector<int>,greater<int> >
+#define fastio ios_base::sync_with_stdio(false);cin.tie(NULL);cout.tie(NULL);
+using namespace __gnu_pbds;
+using namespace std;
+typedef tree<int,null_type,less<int>,rb_tree_tag,tree_order_statistics_node_update> orderedSet;
+typedef tree<int,null_type,less_equal<int>,rb_tree_tag,tree_order_statistics_node_update> orderedMSet;
+//*p.find_by_order(index) return value at index
+//p.order_of_key(key) return index
+/*
+2d pointer array
+int **dp;
+in main function
+int row,col;
+dp=new int*[n];
+rep(i,n)dp[i]=new int[m]
+*/
+const int maxn=100009;
+vector<int>adj[maxn];
+int n,m;
+int visited[maxn][2];
+bool dfs(int v)
+{
+  visited[v][0]=1;
+  visited[v][1]=1;
+  for(int u:adj[v])
+  {
+    if(visited[u][0]==0)
+    {
+      if(dfs(u)==true)return true;
+    }
+    else if(visited[u][1])
+    {
+      return true;
+    }
+  }
+  visited[v][1]=0;
+  return false;
+}
+int32_t main()
+{
+  //freopen("input.txt", "r", stdin);
+  //freopen("output.txt", "w", stdout);
+  fastio
+  cin>>n>>m;
+  vector<pi >v1;
+  rep(i,m)
+  {
+    int u,v;
+    cin>>u>>v;
+    v1.pb({u,v});
+    adj[u].pb(v);
+  }
+  int isCycle=0;
+  repre(i,1,n)
+  {
+    if(visited[i][0]==0){
+      if(dfs(i)==true)
+      {
+        isCycle=1;
+        break;
+      }
+    }
+  }
+  if(isCycle==0)
+  {
+    cout<<1<<endl;
+    rep(i,m)cout<<1<<" ";
+    cout<<endl;
+    exit(0);
+  }
+  else
+  {
+    cout<<2<<endl;
+    rep(i,v1.size())
+    {
+      if(v1[i].ff<v1[i].ss)cout<<1;
+      else cout<<2;
+      cout<<" ";
+    }
+    cout<<endl;
+  }
+
+}

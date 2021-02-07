@@ -1,0 +1,63 @@
+#include<bits/stdc++.h>
+#define P(x,y) make_pair(x,y)
+using namespace std;
+const int MX=(1<<20);
+vector < pair < int , int > > v[MX];
+priority_queue < pair < int , int > > Q;
+int n , m , S , L , dis[MX] , is[MX] , ans=0;
+map < pair < int , pair < int , int > >  , int > hashy;
+void mark(int a , int b , int c , int cost){
+    if(a>b){
+        swap(a,b);
+        c=cost-c;
+    }
+    hashy[P(c , P(a,b) )] = 1;
+}
+void check(int x){
+    int omar=v[x].size();
+    for(int j=0;j<omar;j++){
+        int nxt=v[x][j].first , cost=v[x][j].second;
+        if(dis[x] + cost <= L ) continue;
+        int dif= L - dis[x];
+        if(dis[nxt] + cost - dif  < L ) continue;
+        mark(x , nxt , L-dis[x] , cost);
+    }
+}
+int main(){
+    scanf("%d %d %d",&n,&m,&S);
+    for(int j=1;j<=m;j++){
+        int a,b,c;
+        scanf("%d %d %d",&a,&b,&c);
+        v[a].push_back(P(b,c));
+        v[b].push_back(P(a,c));
+    }
+    scanf("%d",&L);
+    for(int j=1;j<=n;j++){
+        dis[j]=(1<<31)-1;
+    }
+    dis[S]=0;
+    Q.push(P(0,S));
+    while(!Q.empty()){
+        int node=Q.top().second , cost=Q.top().first*-1; Q.pop();
+        if(cost > dis[node]) continue;
+        int omar=v[node].size() , nxt , ncost;
+        for(int j=0;j<omar;j++){
+            nxt=v[node][j].first , ncost=cost+v[node][j].second;
+            if(dis[nxt] > ncost){
+                dis[nxt]=ncost;
+                Q.push(P(-ncost , nxt));
+            }
+        }
+    }
+    for(int j=1;j<=n;j++){
+        if(dis[j] > L) continue;
+        if(dis[j]==L){
+            is[j]=1;
+            continue;
+        }
+        check(j);
+    }
+    for(int j=1;j<=n;j++) if(is[j]) ans++;
+    ans+=hashy.size();
+    cout<<ans<<endl;
+}

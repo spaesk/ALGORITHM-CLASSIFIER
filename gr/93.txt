@@ -1,0 +1,85 @@
+
+
+#include <algorithm>
+#include <iostream>
+#include <assert.h>
+#include <sstream>
+#include <complex>
+#include <numeric>
+#include <cstring>
+#include <vector>
+#include <string>
+#include <cstdio>
+#include <queue>
+#include <cmath>
+#include <map>
+#include <set>
+#define INF 1000000000
+
+#define pb push_back
+#define mp make_pair
+
+using namespace std;
+vector<vector<pair<int, int> > > g(100100); // вес - вершина 2
+int d[100100], p[100100], x[100100], y[100100], w[100100];
+
+int main() {
+    int n, m, i, e, h, f, s, j, l, ans;
+    cin >> n >> m >> s;
+
+    for (i = 0; i < m; i++) {
+        cin >> h >> e >> f;
+        x[i] = h;
+        y[i] = e;
+        w[i] = f;
+        g[h].pb(mp(f, e));
+        g[e].pb(mp(f, h));
+    }
+
+    cin >> l;
+
+    for (i = 1; i <= n; i++)
+        d[i] = INF;
+
+    d[s] = 0;
+    priority_queue<pair<int, int> > q;
+    q.push(mp(0, s));
+
+    while (!q.empty()) {
+        int v = q.top().second, curd = -q.top().first;
+        q.pop();
+        if (curd > d[v])
+            continue;
+
+        for (j = 0; j < (int) g[v].size(); j++) {
+            int to = g[v][j].second, len = g[v][j].first;
+            if (d[v] + len < d[to]) {
+                d[to] = d[v] + len;
+                p[to] = v;
+                q.push(mp(-d[to], to));
+            }
+        }
+    }
+    ans = 0;
+    for (i = 0; i < m; i++) {
+        if (d[x[i]] < l && d[y[i]] < l && d[x[i]]+d[y[i]]+w[i] > 2*l){
+            ans += 2;
+        }
+        if (d[x[i]] < l && d[y[i]] < l && d[x[i]]+d[y[i]]+w[i] == 2*l){
+            ans += 1;
+        }
+        if (((d[x[i]] < l && d[y[i]] >= l) || (d[x[i]] >= l && d[y[i]] < l)) && d[x[i]]+d[y[i]]+w[i] >= 2*l){
+            ans += 1;
+        }
+    }
+    //cout << ans << endl;
+    for (i = 1; i <= n ; i++) {
+        if (d[i] == l){
+            ans++;
+        }
+    }
+    cout << ans << endl;
+   // for (i = 1; i <= n; i++) {
+   //     cout << d[i] << endl;
+   // }
+}

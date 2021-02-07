@@ -1,0 +1,77 @@
+#include <cstdio>
+#include <algorithm>
+#include <vector>
+#include <queue>
+#include <list>
+
+using namespace std;
+
+#define all(a) (a).begin(),(a).end()
+#define pb push_back
+#define sz(a) ((int)(a).size())
+#define mp make_pair
+
+typedef pair<int,int> pint;
+typedef long long ll;
+typedef unsigned long long ull;
+typedef vector<int> vi;
+
+
+#define MAX_N 100005
+#define INF 999999999
+
+int n,m,s,dist[MAX_N];
+list<pint> adjl[MAX_N];
+
+void dijkstra()
+{
+	priority_queue<pint,vector<pint>,greater<pint> > heap;
+	for (int i=0; i<n; i++)
+		dist[i]=INF;
+	dist[s]=0;
+	heap.push(mp(s,0));
+	int node,d;
+	while (!heap.empty())
+	{
+		node=heap.top().first,d=heap.top().second;
+		heap.pop();
+		if (dist[node]==d)
+			for (list<pint>::iterator it=adjl[node].begin(); it!=adjl[node].end(); it++)
+				if (d+it->second<dist[it->first])
+				{
+					dist[it->first]=d+it->second;
+					heap.push(mp(it->first,dist[it->first]));
+				}
+	}
+}
+
+int main()
+{
+	int l;
+	scanf("%d %d %d",&n,&m,&s);
+	s--;
+	int a,b,c;
+	for (int i=0; i<m; i++)
+		scanf("%d %d %d",&a,&b,&c),a--,b--,
+			adjl[a].pb(mp(b,c)),adjl[b].pb(mp(a,c));
+	scanf("%d",&l);
+	dijkstra();
+	int ans=0;
+	for (int i=0; i<n; i++)
+		if (dist[i]==l)
+			ans++;
+		else if (dist[i]<l)
+			for (list<pint>::iterator it=adjl[i].begin(); it!=adjl[i].end(); it++)
+				if (dist[i]+it->second>l&&dist[it->first]+(it->second-(l-dist[i]))>=dist[i]+(l-dist[i]))
+				{
+					if (dist[it->first]+(it->second-(l-dist[i]))==dist[i]+(l-dist[i]))
+					{
+						if (i<it->first)
+							ans++;
+					}
+					else
+						ans++;
+				}
+	printf("%d\n",ans);
+	return 0;
+}

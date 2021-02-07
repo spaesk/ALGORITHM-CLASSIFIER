@@ -1,0 +1,82 @@
+//              +-- -- --++-- +-In the name of ALLAH-+ --++-- -- --+              \\
+
+#include <bits/stdc++.h>
+
+#define F first
+#define S second
+#define _sz(x) (int)x.size()
+#define pb push_back
+
+#define error(x) cout << #x << " = " << x << endl
+
+using namespace std;
+using ll = long long;
+using ld = long double;
+using pii = pair<int, int>;
+
+const int N = 1e5 + 20;
+int n, m;
+vector <int> g[N];
+set <int> st;
+
+inline void bfs (int v)
+{
+	queue <int> que;
+
+	st.erase(v);
+	que.push(v);
+
+	while (_sz(que))
+	{
+		int v = que.front();
+		que.pop();
+
+		int ptr = 0;
+		vector <int> vec;
+
+		for (int u : st)
+		{
+			while (ptr < _sz(g[v]) && g[v][ptr] < u) ptr++;
+
+			if (ptr < _sz(g[v]) && g[v][ptr] == u) continue;
+			else vec.pb(u);
+		}
+
+		for (int u : vec)
+		{
+			st.erase(u);
+			que.push(u);
+		}
+	}
+}
+
+int main()
+{
+	ios::sync_with_stdio(false), cin.tie(0), cout.tie(0);
+
+	cin >> n >> m;
+
+	for (int i = 0, u, v; i < m; i++)
+	{
+		cin >> u >> v;
+		u--, v--;
+
+		g[u].pb(v);
+		g[v].pb(u);
+	}
+
+	for (int i = 0; i < n; i++)
+	{
+		sort(g[i].begin(), g[i].end());
+		st.insert(i);	
+	}
+
+	int cnt = 0;
+	while (st.size())
+	{
+		cnt++;
+		bfs(*st.begin());
+	}
+
+	cout << cnt - 1 << '\n';
+}

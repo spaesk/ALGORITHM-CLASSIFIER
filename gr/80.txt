@@ -1,0 +1,101 @@
+#include <cstdio>
+#include <iostream>
+#include <algorithm>
+#include <cstring>
+#include <vector>
+#include <queue>
+
+#define fi first
+#define se second
+
+using namespace std;
+
+const int MAXN = 100100 ;
+
+typedef long long ll ;
+typedef double db;
+typedef pair <int,int> ii;
+
+struct EDGE{
+	
+	int a,b,c;
+} W[MAXN];
+
+struct data{
+	
+	int node,len;
+	
+	data(int nd=0,int xx=0){
+		
+		node=nd;len=xx;
+	}
+	
+	friend bool operator < (const data &a,const data &b){
+		
+		return a.len > b.len ;
+	}
+};
+
+db L;
+
+int N,M,K;
+int res;
+int mark[MAXN];
+
+bool used[MAXN];
+
+vector <ii> ways[MAXN];
+
+priority_queue <data> heap ;
+
+int main(){
+
+	cin >> N >> M >> K ;
+
+	for(int i=1;i<=M;i++){
+		
+		scanf(" %d %d %d",&W[i].a,&W[i].b,&W[i].c);
+		ways[W[i].a].push_back(ii(W[i].b,W[i].c));
+		ways[W[i].b].push_back(ii(W[i].a,W[i].c));
+	}
+
+	heap.push(data(K,0));
+
+	while(!heap.empty()){
+		
+		int node=heap.top().node;
+		int x=heap.top().len;
+		heap.pop();
+		
+		if(used[node]) continue;
+		
+		used[node]=true;
+		mark[node]=x;
+		
+		for(int i=0;i<ways[node].size();i++)
+			if(!used[ways[node][i].fi])
+				heap.push(data(ways[node][i].fi,ways[node][i].se+x));
+	}
+	
+	cin >> L ;
+	
+	for(int i=1;i<=N;i++) if(mark[i]==L) res++;
+	
+	for(int i=1;i<=M;i++){
+		
+		int a=W[i].a;
+		int b=W[i].b;
+		db c=W[i].c;
+		
+		c+=mark[a]+mark[b];
+		c/=2;
+		
+		if(L>mark[a] && L<c) res++;
+		if(L>mark[b] && L<c) res++;
+		if(L==c && mark[a]!=c && mark[b]!=c) res++;
+	}
+	
+	cout << res << endl ;
+
+	return 0;
+}

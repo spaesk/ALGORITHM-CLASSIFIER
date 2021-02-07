@@ -1,0 +1,51 @@
+#include <cstdio>
+#include <vector>
+#include <cstring>
+#include <queue>
+#include <algorithm>
+using namespace std;
+
+vector<pair<pair<int,int>,int>> e[100001];
+int d[100001];
+bool v[100001];
+
+int main(){
+    int n,m,s,l;
+    scanf("%d%d%d",&n,&m,&s);
+    for(int i=0;i<m;i++){
+        int x,y,c;
+        scanf("%d%d%d",&x,&y,&c);
+        e[x].push_back({{y,c},i});
+        e[y].push_back({{x,c},i});
+    }
+    scanf("%d",&l);
+    priority_queue<pair<int,int>> q;
+    memset(d,63,sizeof(d));
+    q.push({d[s]=0,s});
+    while(!q.empty()){
+        int x=q.top().second; q.pop();
+        if(v[x]) continue; else v[x]=true;
+        for(auto& r:e[x]){
+            int y=r.first.first,c=r.first.second;
+            if(d[x]+c<d[y]){
+                d[y]=d[x]+c;
+                q.push({-d[y],y});
+            }
+        }
+    }
+    int ans=0;
+    vector<pair<int,int>> u;
+    for(int x=1;x<=n;x++){
+        if(d[x]==l) ans++;
+        if(d[x]>=l) continue;
+        for(auto& r:e[x]){
+            int y=r.first.first,c=r.first.second;
+            if(c<=l-d[x]) continue;
+            if(d[y]+c-(l-d[x])<l) continue;
+            u.push_back({r.second,x<y?l-d[x]:c-(l-d[x])});
+        }
+    }
+    sort(u.begin(),u.end());
+    u.erase(unique(u.begin(),u.end()),u.end());
+    printf("%d\n",ans+u.size());
+}

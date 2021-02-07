@@ -1,0 +1,44 @@
+#include <bits/stdc++.h>
+using namespace std;
+#define ll long long int
+const int maxn = 100005;
+
+int n;
+bool vis[maxn];
+set<int> Unvisited;
+map<int, bool> adj[maxn];
+
+void dfs(int u){
+    vis[u] = true;
+    Unvisited.erase(u);
+
+    int v = 0;
+    while(true){
+        auto it = Unvisited.upper_bound(v);
+        if(it == Unvisited.end()) break;
+        v = *it;
+
+        if(vis[v]) continue;
+        if(adj[u].count(v)) continue;
+        dfs(v);
+    }
+}
+
+int main(){
+    int m;
+    scanf("%d %d",&n, &m);
+
+    for(int i=1; i<=m; i++){
+        int u, v;
+        scanf("%d %d",&u, &v);
+        adj[u][v] = adj[v][u] = true;
+    }
+    for(int i=1; i<=n; i++) Unvisited.insert(i);
+
+    int cc = 0;
+    for(int i=1; i<=n; i++){
+        if(vis[i]) continue;
+        dfs(i); cc++;
+    }
+    printf("%d", cc - 1);
+}

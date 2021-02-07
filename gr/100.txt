@@ -1,0 +1,86 @@
+#include<cstdio>
+#include<cstring>
+#include<algorithm>
+#include<queue>
+using namespace std;
+const int MAXN=100005;
+const int MAXM=100005;
+const int INF=0x3f3f3f3f;
+int head[MAXN],vis[MAXN],d[MAXN];
+int U[MAXN],V[MAXN],W[MAXN];
+int m,n,num,S;
+typedef struct edge
+{
+	int v,w,next;
+};
+edge e[MAXM*2];
+
+typedef pair<int,int> pii;
+priority_queue<pii,vector<pii>,greater<pii> > q;
+
+void add(int u,int v,int w)
+{
+    e[num].v=v; e[num].w=w; e[num].next=head[u]; head[u]=num++;
+}
+void dijkstra(edge *e,int s)
+{
+    int i,u,v;
+    while(!q.empty()) q.pop(); 
+    memset(vis,0,sizeof(vis));
+    for(i=1;i<=n;i++) d[i]=INF;
+    d[s]=0;
+    q.push(make_pair(d[s],s));
+    while(!q.empty())
+    {
+        pii cur=q.top(); q.pop();
+        int u=cur.second;
+        if(vis[u]) continue;
+        vis[u]=1;
+        for(i=head[u];i!=-1;i=e[i].next)
+        {
+	        v=e[i].v;
+            if(d[v]>d[u]+e[i].w)
+            {
+            	d[v]=d[u]+e[i].w;
+            	q.push(make_pair(d[v],v));
+            }
+	   }
+    }
+}	
+
+int main()
+{
+    //freopen("yy.in","r",stdin);
+    //freopen("yy.out","w",stdout);
+    while(scanf("%d%d%d",&n,&m,&S)!=EOF)
+    {
+        memset(head,-1,sizeof(head)); num=0;
+        int u,v,w,i,j;
+        for(i=1;i<=m;i++)
+        {
+            scanf("%d%d%d",&U[i],&V[i],&W[i]);
+            add(U[i],V[i],W[i]);
+            add(V[i],U[i],W[i]);
+        }
+        dijkstra(e,S);
+        int L,ans=0;
+        scanf("%d",&L);
+        for(i=1;i<=n;i++)
+            if(d[i]==L) ans++;
+        for(i=1;i<=m;i++)
+        {
+            u=U[i],v=V[i],w=W[i];
+            //if(u==S&&d[v]>L||v==S&&d[u]>L) {ans++;continue;}
+            if(d[u]<L&&d[v]<L) 
+            {
+                if(d[u]+d[v]+w==2*L) ans++;
+                else if(d[u]+d[v]+w>2*L) ans+=2;
+            }
+            else if(d[u]<L&&d[v]>L||d[u]>L&&d[v]<L) ans++;
+            else if(d[u]<L&&d[v]==L&&d[u]+w>L||d[v]<L&&d[u]==L&&d[v]+w>L) ans++;
+        }
+        
+        printf("%d\n",ans);
+    }
+    return 0;
+}

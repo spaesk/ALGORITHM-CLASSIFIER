@@ -1,0 +1,77 @@
+#include <stdio.h>
+#include <algorithm>
+#include <vector>
+#include <map>
+#include <set>
+#include <math.h>
+#include <string>
+#include <string.h>
+#include <queue>
+using namespace std;
+#define fi "input.txt"
+#define fo "output.txt"
+#define fileopen freopen(fi,"r",stdin);freopen(fo,"w",stdout)
+#define FOR(i,l,r) for(int i=(int)(l);i<=(int)(r);i++)
+#define FORD(i,l,r) for(int i=(int)(l);i>=(int)(r);i--)
+#define xy pair<int64,int64>
+#define int64 long long
+#define X first
+#define Y second
+#define pb push_back
+#define init(a,v) memset(a,v,sizeof(a))
+#define Sz(s) (int)(s.size())
+#define EL printf("\n")
+#define digit(x) ('0'<=x&&x<='9')
+#define forever while (true)
+#define rd(l,r) ((int)rand()%(r-l+1)+l)
+#define y1 qwehuiwehrf
+
+const int OO = (int) 2e9;
+const int MOD = (int) 1e9+7;
+const double Pi = 3.141592653589793;
+const int N = (int) 1e5+5;
+
+vector <xy> g[N];
+int d[N],u[N],v[N],w[N],n,m,s,res=0,L,pu,pv;
+bool done[N];
+priority_queue<xy> h;
+
+void dijkstra(int s) {
+    int u,v,w;FOR(i,1,n) d[i]=OO;
+    d[s]=0;h.push(xy(-d[s],s));
+    while (!h.empty()) {
+        u=h.top().Y;h.pop();
+        if (done[u]) continue; else done[u]=true;
+        FOR(i,0,Sz(g[u])-1) {
+            v=g[u][i].X;w=g[u][i].Y;
+            if (d[u]+w<d[v]) {
+                d[v]=d[u]+w;
+                h.push(xy(-d[v],v));
+            }
+        }
+    }
+}
+
+int main() {
+    scanf("%i%i%i",&n,&m,&s);
+    FOR(i,1,m) {
+        scanf("%i%i%i",&u[i],&v[i],&w[i]);
+        g[u[i]].pb(xy(v[i],w[i]));
+        g[v[i]].pb(xy(u[i],w[i]));
+    }
+    scanf("%i",&L);
+    init(done,false);
+    dijkstra(s);
+    FOR(i,1,n) if (d[i]==L) res++;
+    FOR(i,1,m) {
+        if (d[u[i]]>d[v[i]]) swap(u[i],v[i]);
+        pu=L-d[u[i]];pv=L-d[v[i]];
+        if (pu>=w[i]||pv>=w[i]) continue;
+        if (pu>0&&min(d[u[i]]+pu,d[v[i]]+w[i]-pu)==L) res++;
+        if (pv>0&&pu!=w[i]-pv&&min(d[v[i]]+pv,d[u[i]]+w[i]-pv)==L) res++;
+//        if (d[u[i]]<L&&d[v[i]]+w[i]>L) res++; else continue;
+//        //printf("%i %i %i %i %i\n",u[i],v[i],(L-d[v[i]])*2,w[i],d[v[i]]==d[u[i]]&&(L-d[v[i]])*2<w[i]);
+//        if (d[v[i]]==d[u[i]]&&(L-d[v[i]])*2<w[i]) res++;
+    }
+    printf("%i",res);
+}

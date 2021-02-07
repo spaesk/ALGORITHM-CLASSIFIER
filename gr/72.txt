@@ -1,0 +1,121 @@
+#include <iostream>
+#include <iosfwd>
+#include <iomanip>
+#include <cstdio>
+#include <cstring>
+#include <cstdlib>
+#include <ctime>
+#include <cmath>
+#include <cassert>
+#include <cctype>
+#include <climits>
+#include <vector>
+#include <bitset>
+#include <set>
+#include <queue>
+#include <stack>
+#include <map>
+#include <deque>
+#include <string>
+#include <list>
+#include <iterator>
+#include <sstream>
+#include <complex>
+#include <fstream>
+#include <functional>
+#include <numeric>
+#include <utility>
+#include <algorithm>
+#include <assert.h>
+#define lli long long int
+#define lower(a) transform(a.begin(),a.end(),a.begin(),::tolower);
+
+
+using namespace std;
+
+const int N = 2e5 + 500;
+const long long mod = 1e9 + 7;
+const long long INF = 1LL << 57;
+const int M = 1e6 + 500;
+
+vector<pair<lli, lli > > graph[N];
+lli dist[N];
+bool vis[N];
+lli s;
+
+void fun()
+{
+    priority_queue<pair<lli, lli >, vector<pair<lli, lli> >, greater<pair<lli, lli > > >pq;
+    pq.push({0, s});
+    dist[s] = 0;
+    while(!pq.empty())
+    {
+        lli u = pq.top().second;
+        pq.pop();
+        for(auto it : graph[u])
+        {
+            lli v = it.first;
+            lli weight = it.second;
+            if(dist[v] > dist[u] + weight)
+            {
+                dist[v] = dist[u] + weight;
+                pq.push({dist[v], v});
+            }
+        }
+    }
+}
+
+
+void solve()
+{
+    lli n, m;
+    cin>>n>>m>>s;
+    vector<pair<pair<lli, lli > , lli > >chc;
+    for(int i = 0; i < m; i ++)
+    {
+        lli u, v, w;
+        cin>>u>>v>>w;
+        graph[u].push_back({v, w});
+        graph[v].push_back({u, w});
+        chc.push_back({{u, v}, w});
+    }
+    for(int i = 0; i <= n; i ++)
+    {
+        dist[i] = mod;
+        vis[i] = false ;
+    }
+    fun();
+    lli l;
+    cin>>l;
+    lli ans = 0;
+    for(int i = 1;i <= n; i ++)
+    {
+        if(dist[i] == l)
+            ans ++;
+    }
+    for(int i = 0; i < m; i ++)
+    {
+        lli d1 = dist[chc[i].first.first];
+        lli d2 = dist[chc[i].first.second];
+        lli d = chc[i].second;
+        if(l > d1 && l < d1 + d && l <= d2 + (d - (l - d1)))     ans ++;
+        if(l > d2 && l < d2 + d && l < d1 + (d - (l - d2)))    ans ++;
+    }cout<<ans;
+    return ;
+}
+
+int main()
+{
+    ios_base::sync_with_stdio(false);
+    cin.tie(0);
+    cout.tie(0);
+
+    lli t;
+//    cin>>t;
+    t = 1;
+    while(t--)
+    {
+        solve();
+    }
+    return 0;
+}

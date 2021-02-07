@@ -1,0 +1,66 @@
+#include "bits/stdc++.h"
+using namespace std;
+
+vector<pair<int,int>> init(int n) {
+    vector<pair<int,int>> uf(n);
+    for(int i = 0; i < n; ++i) {
+        uf[i] = make_pair(i, 1);
+    }
+    return uf;
+}
+
+int FIND(vector<pair<int,int>>& uf, int u) {
+    if(uf[uf[u].first].first != uf[u].first) {
+        return uf[u].first = FIND(uf, uf[u].first);
+    }
+    return uf[u].first;
+}
+
+bool join(vector<pair<int,int>>& uf, set<int>& components, int u, int v) {
+    u = FIND(uf, u), v = FIND(uf, v);
+    if(u != v) {
+        uf[u].first = v;
+        uf[v].second += uf[u].second;
+        components.erase(components.find(u));
+        return 1;
+    }
+    return 0;
+}
+
+void getAC() {
+    ios_base :: sync_with_stdio(false);
+    cin.tie(NULL);
+    int n , m; cin >> n >> m;
+    vector<pair<int,int>> uf = init(n);
+    vector<vector<int>> adj(n, vector<int>());
+    for(int i = 1; i <= m; ++i) {
+        int u, v; cin >> u >> v;
+        u--; v--;
+        if(u > v) swap(u, v);
+        adj[v].push_back(u);
+    }
+    set<int> components;
+    for(int i = 0; i < n; ++i) {
+        components.insert(i);
+        map<int, int> mp;
+        for(auto nxt : adj[i]) {
+            mp[FIND(uf, nxt)]++;
+        }
+        vector<int> to_merge;
+        for(auto component : components) {
+            if(mp[component] < uf[component].second) {
+                to_merge.push_back(component);
+            }
+        }
+        for(auto c : to_merge) {
+            join(uf, components, i, c);
+        }
+    }
+    cout << ((int) (components.size()) - 1) << endl;
+
+}
+
+int main() {
+    getAC();
+    return 0;
+}

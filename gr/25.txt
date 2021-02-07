@@ -1,0 +1,157 @@
+//░░░░░░░░░░▄
+//░░░░░░░░▄▐░▄▄█████▄▄
+//░░░░░░▄█████████████▄▀▄▄░▄▄▄
+//░░░░░█████████████████▄██████
+//░░░░████▐█████▌████████▌█████▌
+//░░░████▌█████▌█░████████▐▀██▀
+//░▄█████░█████▌░█░▀██████▌█▄▄▀▄
+//░▌███▌█░▐███▌▌░░▄▄░▌█▌███▐███░▀
+//▐░▐██░░▄▄▐▀█░░░▐▄█▀▌█▐███▐█
+//░░███░▌▄█▌░░▀░░▀██░░▀██████▌
+//░░░▀█▌▀██▀░▄░░░░░░░░░███▐███
+//░░░░██▌░░░░░░░░░░░░░▐███████▌
+//░░░░███░░░░░▀█▀░░░░░▐██▐███▀▌
+//░░░░▌█▌█▄░░░░░░░░░▄▄████▀░▀
+//░░░░░░█▀██▄▄▄░▄▄▀▀▒█▀█░▀
+//░░░░░░░░░▀░▀█▀▌▒▒▒░▐▄▄
+//░░░░░░░░▄▄▀▀▄░░░░░░▄▀░▀▀▄▄
+//░░░░░░▄▀░▄▀▄░▌░░░▄▀░░░░░░▄▀▀▄
+//░░░░░▐▒▄▀▄▀░▌▀▄▄▀░░░░░░▄▀▒▒▒▐
+//░░░░▐▒▒▌▀▄░░░░░▌░░░░▄▄▀▒▐▒▒▒▒▌
+//░░░▐▒▒▐░▌░▀▄░░▄▀▀▄▀▀▒▌▒▐▒▒▒▒▐▐
+//░░░▌▄▀░░░▄▀░█▀▒▒▒▒▀▄▒▌▐▒▒▒▒▒▌▌
+//░░▄▀▒▐░▄▀░░░▌▒▐▒▐▒▒▒▌▀▒▒▒▒▒▐▒▌
+//Anime in the beginning - I'm an absolute winner
+#pragma GCC optimize("Ofast")
+//#pragma comment(linker, "/stack:200000000")
+
+#include <bits/stdc++.h>
+//#include <cstdio>
+//#include <cassert>
+//#include <ext/pb_ds/assoc_container.hpp>
+
+using namespace std;
+//using namespace __gnu_pbds;
+
+#define ll long long
+#define pii pair<int,int>
+#define vpii vector<pii>
+#define pb push_back
+#define vi vector<int>
+#define vll vector<ll>
+#define vd vector<double>
+#define vvd vector<vd>
+#define pdd pair<double,double>
+#define vpdd vector<pdd>
+#define vvll vector<vll>
+#define pll pair<ll,ll>
+#define vpll vector<pll>
+#define search(set0, x) (set0.find(x)!=set0.end())
+#define vvi vector<vector<int>>
+#define vb vector<bool>
+#define vc vector<char>
+#define vs vector<string>
+#define vvc vector<vc>
+#define vvb vector<vb>
+#define mp make_pair
+#define F first
+#define S second
+#define pss pair<string, string>
+#define vpss vector<pss>
+#define double long double
+#define vvs vector<vs>
+#define all(a) (a).begin(), (a).end()
+#define mysort(a) sort(all(a))
+#define myreverse(a) reverse(all(a))
+#define printvi(vector) for (int x: vector) cout << x << " "; cout << endl;
+#define printvll(arr) for (ll x: arr) cout << x << " "; cout << endl;
+#define vvpii vector<vpii>
+#define vvpll vector<vpll>
+#define vp3i vector<pair<int, pii>>
+#define treap Node*
+#define printpair(p0) cout << p0.F << " " << p0.S << endl;
+#define printvp(arr) for (auto p0: arr) { printpair(p0) };
+#define for1(i0, l0, r0) for (int i0 = l0; i0 < r0; ++i0)
+#define for2(i0, l0, r0) for (int i0 = l0; i0 <= r0; ++i0)
+#define ull unsigned long long
+#define vpt vector<pt>
+#define vvvi vector<vvi>
+#define forn(i0, n0) for (int i0 = 0; i0 < n0; ++i0)
+#define forn1(i0, n0) for (int i0 = 1; i0 < n0; ++i0)
+#define vsi vector<set<int>>
+#define relaxMax(a, b) a = max(a, b)
+#define relaxMin(a, b) a = min(a, b)
+//#define endl '\n'
+//mt19937 rng(chrono::steady_clock::now().time_since_epoch().count());
+
+const int mod0 = 1e9 + 7;
+const ll mod1 = 998244353;
+const ll mod2 = 1e9 + 9;
+const ll mod3 = 2147483647;
+
+const ll inf = 2 * 1024 * 1024 * 1023 - 1;
+const ll INF = inf * inf;
+const double eps = 1e-7;
+
+void init() {
+    ios_base::sync_with_stdio(0);
+    cin.tie(0);
+    cout.tie(0);
+    cout.precision(16);
+}
+
+bool cycle = 0;
+
+void dfs(int v, vvi &g, vi &clr){
+    clr[v] = 1;
+    for (int u: g[v]){
+        if (clr[u] == 2) continue;
+        if (clr[u] == 1){
+            cycle = 1;
+            clr[v] = 2;
+            return;
+        }
+        if (cycle)
+            return;
+        dfs(u, g, clr);
+    }
+    clr[v] = 2;
+}
+
+void solve() {
+    int n, m;
+    cin >> n >> m;
+    vvi g(n);
+    vi clr(n);
+    vi ans(m);
+    forn(i, m){
+        int v, u;
+        cin >> v >> u;
+        v--, u--;
+        g[v].pb(u);
+        if (v > u) ans[i] = 2; else ans[i] = 1;
+    }
+    forn(i, n){
+        if (clr[i] == 0){
+            dfs(i, g, clr);
+        }
+    }
+    if (!cycle){
+        cout << "1\n";
+        forn(i, m) cout << "1 ";
+        cout << '\n';
+        return;
+    }
+    cout << "2\n";
+    printvi(ans);
+}
+
+bool multitest = false;
+
+int main() {
+    init();
+    int t = 1;
+    if (multitest) cin >> t;
+    forn(i, t) solve();
+    return 0;
+}

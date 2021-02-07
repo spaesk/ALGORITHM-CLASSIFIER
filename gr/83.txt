@@ -1,0 +1,65 @@
+#include <bits/stdc++.h>
+
+using namespace std;
+typedef pair<int, int> ii;
+typedef vector<ii> vii;
+#define mp(a,b) make_pair(a,b)
+#define pb(a) push_back(a)
+
+const int MAXN = 1e5 + 5;
+int n, m, s, l, ans, ans2;
+struct {
+	int FR, TO, W;
+} e[MAXN];
+vii adj[MAXN];
+int d[MAXN];
+
+int main() {
+	cin >> n >> m >> s;
+	for (int i = 0; i < m; ++i) {
+		cin >> e[i].FR >> e[i].TO >> e[i].W;
+		adj[e[i].FR].pb (mp (e[i].TO, e[i].W));
+		adj[e[i].TO].pb (mp (e[i].FR, e[i].W));
+	}
+	fill (d, d + n + 2, 1e9 + 7);
+	cin >> l;
+	priority_queue<ii, vii, greater<ii>> q;
+	q.push (mp (0, s));
+	d[s] = 0;
+	while (!q.empty()) {
+		int x = q.top().second;
+		int w = q.top().first;
+		q.pop();
+		if (d[x] != w)
+			continue;
+		for (int i = 0; i < adj[x].size(); ++i) {
+			int nx = adj[x][i].first;
+			int nv = adj[x][i].second;
+			if (d[nx] > d[x] + nv) {
+				d[nx] = d[x] + nv;
+				q.push (mp (d[nx], nx));
+			}
+		}
+	}
+	for (int v = 1; v <= n; ++v) {
+		if (d[v] == l) {
+//			cerr<<"node "<<v<<endl;
+			ans ++;
+		} else if (l > d[v]) {
+			for (int j = 0; j < adj[v].size(); ++j) {
+				int u = adj[v][j].first;
+				int w = adj[v][j].second;
+				if (l < d[v] + w && d[u] + (d[v] + w - l) > l) {
+//					cerr<<"edge "<<v<<","<<u<<endl;
+					ans++;
+				}
+				if (l < d[v] + w && d[u] + (d[v] + w - l) == l) {
+//					cerr<<"edge center "<<v<<","<<u<<endl;
+					ans2++;
+				}
+			}
+		}
+	}
+	cout << ans + ans2 / 2 << endl;
+	return 0;
+}
