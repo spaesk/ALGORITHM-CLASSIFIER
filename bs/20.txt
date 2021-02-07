@@ -1,0 +1,55 @@
+#include <bits/stdc++.h>
+using namespace std;
+#define ll long long int
+void fn(ll *arr,int n,ll val)
+{
+    int st = 0,en = n-1;
+    int ans;
+    while(st<=en)
+    {
+        int mid = (st+en)>>1;
+        if(arr[mid] == val)
+        {
+            ans = mid+1;
+            break;
+        }
+
+        else if(arr[mid]>val)
+        {
+            ans = mid+1;
+            en = mid-1;
+        }
+
+        else
+            st=mid+1;
+    }
+
+    cout<<ans<<endl;
+}
+
+int main() {
+    
+    ios_base::sync_with_stdio(false);
+    cin.tie(NULL);
+    cout.tie(NULL);
+
+    int n;
+    cin>>n;
+
+    ll arr[n];
+    cin>>arr[0];
+    for(int i=1;i<n;i++)
+    {
+        cin>>arr[i];
+        arr[i]+=arr[i-1];
+    }
+    int m;
+    cin>>m;
+    while(m--)
+    {
+        ll val;
+        cin>>val;
+        fn(arr,n,val);
+    }
+    return 0;
+}

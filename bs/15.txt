@@ -1,0 +1,65 @@
+/*_BELIEVE_*/
+
+//CF,CC,AtC,SPOJ: hp1999
+//HE: hemant269
+//HR: hemant2132
+
+#include<bits/stdc++.h>
+using namespace std;
+
+#define     int          long long int
+#define     fast()       ios::sync_with_stdio(0);cin.tie(0);cout.tie(0);
+#define     all(x)       x.begin(),x.end()
+#define     mem(a,b)     memset(a,b,sizeof(a))
+#define     gcd(a,b)     __gcd((a),(b))
+#define     lcm(a,b)     ((a)*(b))/gcd((a),(b))
+#define     pb           push_back
+#define     ins          insert
+#define     F            first
+#define     S            second
+
+const int inf=1e18,M=1e9+7;
+
+void solve()
+{
+ int n,d;
+ cin>>n>>d;
+
+ vector<pair<int,int>> v(n);
+
+ for(int i=0;i<n;++i)
+ cin>>v[i].F>>v[i].S;
+ v.pb({inf,inf});
+
+ sort(all(v));
+
+ vector<int> sum(n+1);
+ sum[0]=0;
+ for(int i=0;i<n;++i)
+ sum[i+1]=sum[i]+v[i].S;
+
+ int x,ans=0;
+ for(int i=0;i<n;++i)
+ {
+  x=lower_bound(all(v),make_pair(v[i].F+d,-inf))-v.begin();
+  //cout<<i<<" "<<x<<" "<<sum[x]-sum[i]<<"\n";
+  ans=max(ans,sum[x]-sum[i]);
+ }
+
+ cout<<ans;
+}
+
+int32_t main()
+{
+ fast();
+
+ int t=1;
+ //cin>>t;
+ while(t--)
+ {
+  solve();
+ }
+
+ return 0;
+}
+

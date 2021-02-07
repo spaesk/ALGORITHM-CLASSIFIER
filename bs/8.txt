@@ -1,0 +1,73 @@
+#define lli long long int
+#include <bits/stdc++.h>
+#define arr(a,n) lli a[n]; for(i=0;i<n;i++){ cin>>a[i]; }
+#define ma(a,n) *max_element(a,a+n);
+#define mi(a,n) *min_element(a,a+n);
+#define br cout<<"\n";
+#define pb push_back
+#define mp make_pair
+#define ff first
+#define ss second
+#define dbg(x) { cout<< #x << ": " << (x) << endl; }
+#define dbg2(x,y) { cout<< #x << ": " << (x) << " , " << #y << ": " << (y) << endl; }
+#define dbg3(x,y,z) { cout<< #x << ": " << (x) << " , " << #y << ": " << (y) <<" , "<< #z << ": " << (z)  << endl; }
+#define all(v) v.begin(),v.end()
+#define mset(a) memset(a,0,sizeof a);
+#define mod 1000000007
+using namespace std;
+int main()
+{
+    ios::sync_with_stdio(false);
+	lli i,j,k,q,l,r,m,n,x,y,t;
+    cin>>n>>q;
+    arr(a,n);
+    arr(b,q);
+    lli c[n+1];
+    c[0]=a[0];
+    for(i=1;i<n;i++)
+    {
+        c[i]=a[i]+c[i-1];
+    }
+    vector<lli> v(c,c+n);
+
+    y=0;
+    for(i=0;i<q;i++)
+    {
+    x=b[i]+y;
+    vector<lli>::iterator lower;
+	lower = lower_bound (v.begin(), v.end(),x);
+	m=(lower- v.begin());
+    //cout<<"m="<<m<<" x="<<x<<" y="<<y<<" c[m]="<<c[m]<<'\n';
+    if(m==n)
+    {
+        cout<<n<<"\n";
+        y=0;
+    }
+    else
+    {
+        if(c[m]==x)
+        {
+            if(m==n-1)
+            {
+
+            cout<<n<<'\n';
+            y=0;
+            }
+            else
+            {
+                     cout<<n-m-1<<'\n';
+                y=x;
+            }
+        }
+        else
+        {
+            cout<<n-m<<'\n';
+            y=(x);
+        }
+
+    }
+
+    }
+
+return 0;
+}

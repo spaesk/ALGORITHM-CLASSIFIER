@@ -1,0 +1,52 @@
+#include<iostream>
+#include<string>
+#include<iomanip>
+#include<algorithm>
+#include<set>
+#include<map>
+using namespace std; 
+int sea[100005];int total=0, n;
+void bi_search(int tar)
+{
+	int begin = 1, end = n;
+	if (tar <= sea[begin])
+	{
+		cout << 1<<endl; return;
+	}
+	for (; end - begin!=1;)
+	{
+		int mid = (begin + end) / 2;
+		if (sea[mid] == tar)
+		{
+			cout << mid << endl; return;
+		}
+		if (sea[mid] > tar)
+			end = mid;
+		else
+			begin = mid;
+		
+	}
+	cout << end<<endl;
+}
+int main()
+{
+	
+	cin >> n;
+	for (int i = 1; i <= n;i++)
+	{
+		int a;
+		cin >> a;
+		total += a;
+		sea[i] = total;
+	}
+	int m;
+	cin >> m;
+	for (int i = 1; i <= m;i++)
+	{
+		int a;
+		cin >> a;
+		bi_search(a);
+		
+	}
+	return 0;
+}

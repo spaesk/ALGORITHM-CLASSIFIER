@@ -1,0 +1,30 @@
+#include <iostream>
+#include <stdio.h>
+#include <vector>
+#include <string.h>
+#include <cmath>
+#include <map>
+#include <set>
+#include <string>
+#include <algorithm>
+#include <sstream>
+#include <queue>
+#define ll long long
+using namespace std;
+
+int main()
+{
+    int n,arr[100009];
+    cin>>n;
+    for(int f=0;f<n;f++)
+        cin>>arr[f];
+    for(int f=1;f<n;f++)
+        arr[f]+=arr[f-1];
+    int m;
+    cin>>m;
+    for(int f=0;f<m;f++)
+    {
+        int x;cin>>x;
+        cout<<lower_bound(arr,arr+n,x)-arr+1<<endl;
+    }
+}

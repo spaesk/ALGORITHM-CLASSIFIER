@@ -1,0 +1,28 @@
+#include <iostream>
+#include <stdio.h>
+#include <algorithm>
+
+using namespace std;
+
+const int maxn = 1e5 + 7;
+
+int ar[maxn];
+
+int main()
+{
+	#ifndef ONLINE_JUDGE
+		freopen("I.in","r",stdin);
+	#endif
+	int n;
+	cin>>n;
+	for(int i=0;i<n;i++) scanf("%d",&ar[i]);
+	for(int i=1;i<n;i++) ar[i]+=ar[i-1];
+	int m,foo;
+	cin>>m;
+	for(int i=0;i<m;i++)
+	{
+		scanf("%d",&foo);
+		printf("%d\n",1+lower_bound(ar,ar+n,foo)-ar);
+	}
+	return 0;
+}

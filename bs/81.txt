@@ -1,0 +1,68 @@
+#include <iostream>
+#include <cstdio>
+
+using namespace std;
+
+int N;
+int arr[100005];
+int Q;
+int queries[100005];
+
+
+int main()
+{
+    scanf("%d", &N);
+
+    for(int i=0;i<N;i++)
+    {
+        scanf("%d",&arr[i]);
+    }
+    scanf("%d", &Q);
+    for(int i=0;i<Q;i++)
+    {
+        scanf("%d", &queries[i]);
+    }
+
+
+    for(int i=1;i<N;i++)
+    {
+        arr[i]+=arr[i-1];
+    }
+
+    for(int i=0;i<Q;i++)
+    {
+        int l=0;
+        int h=N-1;
+        int corr=-1;
+        while (l+1<h)
+        {
+           // cout<<l<<" "<<h<<endl;
+
+            int mid=(l+h)/2;
+
+            if (arr[mid]>queries[i])
+            {
+                h=mid;
+            }
+            else if (arr[mid]<queries[i])
+            {
+                l=mid;
+            }
+            else
+            {
+               corr=mid+1;
+               break;
+            }
+
+        }
+
+        if (corr!=-1)
+            printf("%d\n",corr);
+        else {
+            if (queries[i]>arr[l])
+                printf("%d\n",h+1);
+            else
+                printf("%d\n",l+1);
+        }
+    }
+}

@@ -1,0 +1,82 @@
+#include <iostream>
+#include <stdio.h>
+#include <vector>
+#include <queue>
+#include <string>
+#include <string.h>
+#include <stdlib.h>
+#include <map>
+#include <functional>
+#include <stack>
+#include <math.h>
+#include <iterator>
+#include <time.h>
+#include <algorithm>
+
+using namespace std;
+
+long long N, q, arr[100100];
+
+int main()
+{
+    cin >> N;
+    long long sum = 0, temp;
+
+    arr[1] = 1;
+    for(long long i=2; i<=N; i++)
+    {
+        cin >> temp;
+        sum += temp;
+        arr[i] = sum+1;
+    }
+    cin >> temp;
+
+    cin >> q;
+
+    for(long long i=0; i<q; i++)
+    {
+        long long target;
+        cin >> target;
+
+        long long high=N, low=1, mid;
+        while(low <= high)
+        {
+            mid = (low+high)/2;
+
+            if(high == low)
+            {
+                break;
+            }
+            if(high == low+1)
+            {
+                if(arr[high] <= target)
+                {
+                    mid = high;
+                    break;
+                }
+                else
+                {
+                    mid = low;
+                    break;
+                }
+            }
+
+            if(arr[mid] == target)
+            {
+                break;
+            }
+            else if(arr[mid] > target)
+            {
+                high = mid-1;
+            }
+            else //if(arr[mid] < target
+            {
+                low = mid;
+            }
+        }
+
+        cout << (mid) << endl;
+    }
+
+    return 0;
+}

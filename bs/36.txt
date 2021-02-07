@@ -1,0 +1,41 @@
+#include <bits/stdc++.h>
+
+#define fs first
+#define sc second
+#define pb push_back
+#define mp make_pair
+#define sz(s) ((int) s.size ())
+#define all(s) s.begin (), s.end ()
+
+#define name ""
+
+using namespace std;
+
+typedef long long ll;
+typedef long double ld;
+typedef vector< int > vi;
+typedef pair< int, int > ii;
+typedef unsigned long long ull;
+
+const ld eps = 1e-16;
+const int N = 100009;
+const int inf = (int) 1e9;
+const int mod = (int) 1e9 + 7;
+
+int p[N];
+
+int main () {
+  #ifdef FSTREAM
+    freopen (name".in", "r", stdin);
+    freopen (name".out", "w", stdout);
+  #endif // FSTREAM
+  int n; cin >> n;
+  for (int i = 1; i <= n; i++) {
+    int x; cin >> x; p[i] = p[i - 1] + x;
+  }
+  int q; cin >> q;
+  for (int i = 1; i <= q; i++) {
+    int x; cin >> x; cout << int (lower_bound (p + 1, p + n + 1, x) - p) << endl;
+  }
+  return 0;
+}

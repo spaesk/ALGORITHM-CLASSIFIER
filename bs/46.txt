@@ -1,0 +1,46 @@
+#include <cstdio>
+#include <vector>
+#include <iostream>
+#include <string>
+#include <cmath>
+#include <algorithm>
+#include <cstdlib>
+#include<string.h>
+#include <set>
+#include <cassert>
+#include <map>
+#include <set>
+#include<limits.h>
+#include <queue>
+#include <stack>
+
+using namespace std;
+typedef long long ll;
+struct data
+{
+    int x,y,p;
+};
+int main(){
+    int n,m,x;
+    int a[100005];
+    scanf("%d",&n);
+    int start=1;
+    set< pair<int,int> > st;
+    struct data val;
+    for (int i = 0; i < n; ++i)
+    {
+        scanf("%d",&a[i]);
+        st.insert(make_pair(start+a[i]-1,i+1));
+        start=start+a[i];
+       
+    }
+    scanf("%d",&m);
+    set<pair<int,int> >::iterator it;
+    for (int i = 0; i < m; ++i)
+    {
+        scanf("%d",&x);
+        it=st.lower_bound(make_pair(x,0));
+        printf("%d\n",(*it).second);
+    }
+    return  0;
+}

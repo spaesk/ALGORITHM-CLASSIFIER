@@ -1,0 +1,53 @@
+// -------++++ in the name of allah +++++----------//
+//   usaty terrorist is gonna make a dzhihad!        //
+// ------+ dzhihad!! +----------+ dxhihad!!! +--- //
+
+#include<iostream>
+#include <fstream>
+#include<vector>
+
+using namespace std;
+
+int main()
+{
+    //ifstream f("input.txt");
+
+    int n;
+    cin >> n;
+    vector<int> v(n);
+
+    for (int i = 0; i < n; ++i)
+        cin >> v[i];
+
+    vector<int> sum(n + 1, 0);
+
+    for (int i = 1; i <= n; ++i)
+        sum[i] = sum[i - 1] + v[i - 1];
+
+    int m;
+    cin >> m;
+
+    for (int i = 0; i < m; ++i)
+    {
+        int k;
+        cin >> k;
+        int l = 1;
+        int r = n;
+        while (r - l > 1)
+        {
+            //cerr << l << " " << r << "\n";
+            int m = (l + r) / 2;
+            if (sum[m] <= k)
+                l = m;
+            else
+                r = m;
+        }
+        if (sum[l] >= k)
+            cout << l << "\n";
+        else
+            cout << r << "\n";
+    }
+
+    //system("pause");
+    return 0;
+}

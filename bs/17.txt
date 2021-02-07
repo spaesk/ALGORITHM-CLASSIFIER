@@ -1,0 +1,64 @@
+#include<bits/stdc++.h>
+#define lli long long int
+#define pb push_back
+using namespace std;
+
+const int mod = 1000000007;
+
+lli lsum[1000007];
+
+void solve()
+{
+
+    lli n, d;
+    cin>>n>>d;
+    vector<pair<lli, lli > > v;
+    for(int i = 0; i < n; i++)
+    {
+        lli m, f;
+        cin>>m>>f;
+        v.pb({m, f});
+    }
+    sort(v.begin(), v.end());
+    lsum[0] = v[0].second;
+    lli money[n];
+    money[0] = v[0].first;
+    for(int i = 1; i < n; i++)
+    {
+        money[i] = v[i].first;
+        lsum[i] = lsum[i - 1] + v[i].second;
+    }
+    lli ans = 0;
+    for(int i = 0; i < n; i ++)
+    {
+        lli x = lower_bound(money + i, money + n, money[i] + d) - money;
+        lli temp ;
+        x--;
+        if(i == 0)
+            temp = lsum[x];
+        else
+            temp = lsum[x] - lsum[i - 1];
+        if(temp > ans)
+            ans = temp;
+    }
+    cout<<ans;
+    return ;
+}
+
+
+
+int main()
+{
+    ios_base::sync_with_stdio(false);
+    cin.tie(0);
+    cout.tie(0);
+
+    lli t;
+//    cin>>t;
+    t=1;
+    while(t--)
+    {
+        solve();
+    }
+    return 0;
+}

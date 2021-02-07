@@ -1,0 +1,53 @@
+#include <bits/stdc++.h>
+using namespace std;
+#define ll long long int
+int main() {
+    
+    ll n,d;
+    cin>>n>>d;
+
+    pair<ll,ll>arr[n];
+
+    for(int i=0;i<n;i++)
+        cin>>arr[i].first>>arr[i].second;
+    
+    sort(arr,arr+n);
+
+    vector<ll>aux;
+
+    for(int i=0;i<n;i++)
+        aux.push_back(arr[i].first);
+
+    ll f[n]={};
+    f[0] = arr[0].second;
+    for(int i=1;i<n;i++)
+        f[i] = arr[i].second + f[i-1];
+
+    ll ans = 0;
+
+    for(int i=0;i<n;i++)
+    {
+        ll om = aux[i]+d-1;
+        auto it = upper_bound(aux.begin(),aux.end(),om);
+
+        if(it == aux.end())
+        {
+            ll cura = f[n-1];
+            if(i>0)
+                cura-=f[i-1];
+            ans = max(ans,cura);
+            break;
+        }
+        else
+        {
+            int req = it - aux.begin();
+            ll cura = f[req-1];
+            if(i>0)
+                cura-=f[i-1];
+            ans = max(ans,cura);
+        }
+    }
+
+    cout<<ans;
+
+}

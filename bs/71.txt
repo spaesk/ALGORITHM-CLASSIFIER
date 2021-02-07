@@ -1,0 +1,40 @@
+#include<bits/stdc++.h>
+#define PB push_back
+#define MP make_pair
+#define F first
+#define S second
+#define sc(x) scanf("%d",&x)
+#define scl(x) scanf("%I64d",&x)
+#define MAXN 100001
+#define M 1000000007
+#define LL long long
+#define get getchar
+#define pc(x) putchar(x)
+using namespace std;
+
+int a[MAXN + 1];
+
+int main()
+{
+    int t, i, j, n;
+    int x;
+    int ans;
+    cin>>n;
+    a[0] = 0;
+    for(i=1;i<=n;i++)
+    {
+        cin>>x;
+        a[i] = a[i - 1] + x;
+    }
+
+    int q;
+    cin>>q;
+    while(q--)
+    {
+        cin>>x;
+        ans = upper_bound(a + 1, a + n + 1, x) - a;
+        if(binary_search(a + 1, a + n + 1, x))
+        ans--;
+        cout<<ans<<endl;
+    }
+}

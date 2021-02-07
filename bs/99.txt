@@ -1,0 +1,52 @@
+#include <stdio.h>
+#include <vector>
+#include <algorithm>
+#include <math.h>
+#include <string>
+#include <map>
+
+int n,a[200000],a1[200000],m;
+
+void sol(){
+    int i,x,r,l,j;
+    bool found;
+    scanf("%d",&a[0]);
+    a1[0]=1;
+    for(i=1;i<n;i++){
+        scanf("%d",&x);
+        a[i]=a[i-1]+x;
+        a1[i]=a[i-1]+1;
+    }
+    x=0;
+    scanf("%d",&m);
+    for(i=0;i<m;i++){
+        scanf("%d",&x);
+        l=0;
+        r=n-1;
+        found=false;
+        while(r-l>1&&!found){
+            j=(r+l)/2;
+            if(x>a[j]){
+                l=j;
+            }else if(x<a1[j]){
+                r=j;
+            }else{
+                printf("%d\n",j+1);
+                found=true;
+            }
+        }
+        if(!found){
+            if(x<=a[l]&&x>=a1[l])printf("%d\n",l+1);
+            else printf("%d\n",r+1);
+        }
+    }
+}
+
+int main(){
+#pragma comment(linker, "/STACK:1073741824")
+#ifndef ONLINE_JUDGE
+    freopen("input.txt","rt",stdin);
+    freopen("output.txt","wt",stdout);
+#endif
+    while(scanf("%d",&n)!=EOF)sol();
+}

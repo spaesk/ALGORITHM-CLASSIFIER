@@ -1,0 +1,24 @@
+#include<iostream>
+#include<algorithm>
+#include<vector>
+
+using namespace std;
+
+int main() {
+    int n;
+    cin>>n;
+    vector<int> data(n);
+    for(int &x:data)
+        cin>>x;
+    vector<int> sums(n);
+    partial_sum(begin(data),end(data),begin(sums));
+    int m;
+    cin>>m;
+    for(int i=0; i<m; i++) {
+        int x;
+        cin>>x;
+        int pos = lower_bound(begin(sums),end(sums),x) - begin(sums);
+        cout<<pos+1<<'\n';
+    }
+    return 0;
+}

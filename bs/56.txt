@@ -1,0 +1,23 @@
+#include <algorithm>
+#include <cstdio>
+using namespace std;
+const int N = 100005;
+int a[N], n;
+
+int main(){
+    scanf("%d", &n);
+    for(int i = 1; i <= n; i++) {
+        scanf("%d", &a[i]);
+        a[i] += a[i-1];
+    }
+    a[0] = -100;
+    a[n+1] = 10000000;
+    int Q, x;
+    scanf("%d", &Q);
+    while(Q-- > 0){
+        scanf("%d", &x);
+        int v = lower_bound(a+1, a+2+n, x) - a;
+        printf("%d\n", v);
+    }
+    return 0;
+}

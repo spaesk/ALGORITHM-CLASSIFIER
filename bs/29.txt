@@ -1,0 +1,23 @@
+#include <cstdio>
+#include <algorithm>
+
+using namespace std;
+
+const int kMaxN = 100000;
+int n, s[kMaxN + 1];
+
+int main() {
+    scanf("%d", &n);
+    for (int i = 1; i <= n; ++ i) {
+        scanf("%d", &s[i]);
+        s[i] += s[i - 1];
+    }
+    int m;
+    scanf("%d", &m);
+    for (int x; m --; ) {
+        scanf("%d", &x);
+        int p = lower_bound(s + 1, s + n + 1, x) - s;
+        printf("%d\n", p);
+    }
+    return 0;
+}

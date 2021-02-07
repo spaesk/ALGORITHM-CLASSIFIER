@@ -1,0 +1,74 @@
+#include <bits/stdc++.h>
+/*#include <boost/multiprecision/cpp_int.hpp> */
+#define ll long long
+#define pb push_back
+#define mp make_pair
+#define mod 1000000007
+#define gc getchar_unlocked
+#define pp pair<ll,ll>
+#define bigint boost::multiprecision::cpp_int
+#define inf 1000000000000000000
+#define finp ios_base::sync_with_stdio(0);cin.tie(0);
+using namespace std;
+
+
+ll n,d;
+vector<pp> v;
+
+int bins(ll val)
+{
+  int low=1,high=n;
+
+  while(low<=high)
+  {
+    if(low==high)break;
+
+    if(low+1==high)
+    {
+      if(v[low].first<val)low=high;
+      break;
+    }
+
+    int mid=(low+high)/2;
+
+    if(v[mid].first<val)low=mid+1;
+    else high=mid;
+  }
+
+  if(v[low].first<val)low++;
+  return low;
+}
+
+int main()
+{
+  finp;
+  cin>>n>>d;
+
+  v.resize(n+1);
+   vector<ll> pref(n+1,0LL);
+  for(int i=1;i<=n;i++)
+  {
+    cin>>v[i].first>>v[i].second;
+  }
+
+  sort(v.begin()+1,v.end());
+
+  for(int i=1;i<=n;i++)
+  {
+    pref[i]=pref[i-1]+v[i].second;
+  }
+
+
+  ll mans=0;
+
+  for(int i=1;i<=n;i++)
+  {
+    int pos=bins(v[i].first+d);
+    mans=max(mans,pref[pos-1]-pref[i-1]);
+  }
+
+  cout<<mans;
+
+
+return 0;
+}

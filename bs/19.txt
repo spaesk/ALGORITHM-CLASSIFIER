@@ -1,0 +1,62 @@
+#include <bits/stdc++.h>
+using namespace std;
+#define ll long long int
+
+bool possible(string s,int req,int mid,int n)
+{
+    map<char,int>m;
+    for(int i=0;i<mid;i++)
+        m[s[i]]++;
+    if(m.size() >= req)
+        return true;
+    int j = 0;
+    for(int i=mid;i<n;i++,j++)
+    {
+        m[s[j]]--;
+        m[s[i]]++;
+        int cnt = 0;
+        map<char,int>::iterator it = m.begin();
+        while(it!=m.end())
+        {
+            if(it->second > 0)
+                cnt++;
+            it++;
+        }
+
+        if(cnt >= req)
+            return true;
+    }
+
+    return false;
+}
+
+int main() {
+
+    int n;
+    cin>>n;
+
+    string s;
+    cin>>s;
+
+    set<char>se;
+    for(int i=0;i<n;i++)
+        se.insert(s[i]);
+
+    int ans = n;
+    int st = se.size() , en = n;
+    int req = st;
+    while(st<=en)
+    {
+        int mid = (st + en)>>1;
+        if(possible(s,req,mid,n))
+        {
+            ans = mid;
+            en = mid-1;
+        }
+        else
+            st = mid+1;
+    }
+
+    cout<<ans;
+
+}

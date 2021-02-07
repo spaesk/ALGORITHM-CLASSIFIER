@@ -1,0 +1,49 @@
+#pragma  comment(linker, "/STACK:36777216")
+#include <map>
+#include <set>
+#include <cmath>
+#include <ctime>
+#include <queue>
+#include <stack>
+#include <cstdio>
+#include <string>
+#include <vector>
+#include <iomanip>
+#include <cassert>
+#include <cstdlib>
+#include <cstring>
+#include <iostream>
+#include <algorithm>
+#define  lc(x) (x << 1)
+#define  rc(x) (lc(x) + 1)
+#define  lowbit(x) (x & (-x))
+#define  PI    (acos(-1))
+#define  LL    long long
+#define  DB    double
+#define  ULL   unsigned long long
+#define  PII   pair<int, int>
+#define  PLL   pair<LL, LL>
+#define  PB    push_back
+#define  MP    make_pair
+
+using namespace std;
+
+const int N = 100005;
+const int INF = 0x3fffffff;
+const int MOD = 1e9 + 7;
+const DB  EPS = 1e-8;
+
+int n, m, x, s[N];
+
+int main(){
+    cin >> n;
+    for(int i = 1; i <= n; i ++){
+        scanf("%d", &x); s[i] = s[i - 1] + x;
+    }
+    cin >> m;
+    while(m --){
+        scanf("%d", &x);
+        int t = lower_bound(s + 1, s + 1 + n, x) - s;
+        printf("%d\n", t);
+    }
+}
